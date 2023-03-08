@@ -1,29 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Client : MonoBehaviour
+public class Client : AgentBase
 {
-    const string GO_TO_TRANSFORM = "GoToTransform";
-    [SerializeField] NavMeshAgent agent;
-    [SerializeField] Transform goToTransform;
-    Vector3 goToPosition;
 
-    private void Awake()
-    {
-        agent = GetComponent<NavMeshAgent>();
-    }
 
     void Start()
     {
-        goToPosition = goToTransform.position;
-        agent.destination = goToPosition;
+        GoToNextPosition();
+        ChooseGem();
     }
 
     void Update()
     {
-        
+        //Debug.Log(agent.destination);
     }
 
     void ChooseGem()
@@ -37,13 +28,18 @@ public class Client : MonoBehaviour
         //agent.destination = counterZone.BestCounter();
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*
+    protected override void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(GO_TO_TRANSFORM))
+        if (other.CompareTag(KEY_POSITION))
         {
-            Debug.Log("1");
-            WaitInQueue();
-            // Buscar counter más vacío, si no pues aleatorio (?)
+            Debug.Log("Trigger");
+            ZoneManager zone = other.GetComponent<ZoneManager>();
+            // Pedirle al ZoneManager la zona del parking, counter, o rest zone a la que ir
+            // Si está todo lleno esperar hasta que haya hueco
+            // Igual es mejor que la zona le proporcione la posición al jugador, podría tener una cola cada zona que representa cada cola
+            GoToNextPosition();
         }
     }
+    */
 }
