@@ -21,7 +21,7 @@ public class KeyTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player collides with key trigger");
+            zoneManager.MoveAgentToSpot(other.GetComponent<AgentBase>());
         }
     }
 }

@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class AgentBase : MonoBehaviour
 {
-    protected const string KEY_POSITION = "keyPos";
-
     [SerializeField] protected Transform[] positions;
     protected int index = 0;
 
@@ -15,6 +13,11 @@ public class AgentBase : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+    }
+
+   public void SetAgentDestination(Vector3 pos)
+    {
+        agent.destination = pos;
     }
 
     protected void GoToNextPosition()
@@ -27,18 +30,11 @@ public class AgentBase : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(KEY_POSITION))
+        /*if (other.CompareTag(COUNTER_QUEUE_TAG))
         {
-            Debug.Log("Trigger");
-            ZoneManager zone = other.GetComponentInParent<ZoneManager>();
-            Vector3 bestPosition = zone.BestPosition();
+            //other.GetComponent<CustomQueue>().Dequeue();
+            //other.GetComponentInParent<ZoneManager>().
 
-            agent.destination = bestPosition;
-
-            // Pedirle al ZoneManager la zona del parking, counter, o rest zone a la que ir
-            // Si está todo lleno esperar hasta que haya hueco
-            // Igual es mejor que la zona le proporcione la posición al jugador, podría tener una cola cada zona que representa cada cola
-            //GoToNextPosition();
-        }
+        }*/
     }
 }

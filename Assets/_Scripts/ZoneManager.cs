@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class ZoneManager : MonoBehaviour
 {
-    const int SLOTS = 0;
+    const int SLOTS_INDEX = 0;
 
+    // La cola de prioridad tiene acceso a todas las colas.
 
-    TransformPriorityQueue priorityQueue = new();
+    // Cuando el cliente llega a la posicion 0 de la cola --> Podra realizar su pedido
+
+    QueuePriorityQueue priorityQueue = new();
     
-    [SerializeField] int numberOfSlots;
+    [SerializeField] int activeSlots;
 
     int maxSlots;
 
@@ -20,26 +23,33 @@ public class ZoneManager : MonoBehaviour
         maxSlots = transform.childCount;
 
         // Fill the priorityQueue with the available slots
-        for (int i = 0; i < numberOfSlots; i++)
-            priorityQueue.Enqueue(transform.GetChild(SLOTS).GetChild(i), 0);
+        for (int i = 0; i < activeSlots; i++)
+            priorityQueue.Enqueue(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<CustomQueue>(), 0);
     }
 
     void Update()
     {
-        
+        //priorityQueue.
     }
 
-    public void AddSlot()
+    public void AddQueue()
     {
-        Transform newSlot = transform.GetChild(++numberOfSlots);
+        // To add a new queue use AddQueue()
+        CustomQueue newSlot = transform.GetChild(++activeSlots).GetComponent<CustomQueue>();
         newSlot.gameObject.SetActive(true);
         priorityQueue.Enqueue(newSlot, 0);
     }
 
-    public Vector3 BestPosition()
+    public void MoveAgentToSpot(AgentBase agent)
     {
-        Transform bestSlot = priorityQueue.Peek();
-        priorityQueue.DecreasePriority(bestSlot);
-        return bestSlot.position;
+        CustomQueue bestQueue = priorityQueue.Peek();
+        priorityQueue.IncreasePriority(bestQueue);
+        bestQueue.Enqueue(agent);
+        
+    }
+
+    public void DecreasePriorityOfQueue(CustomQueue queue)
+    {
+        priorityQueue.DecreasePriority(queue);
     }
 }

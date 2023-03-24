@@ -5,6 +5,7 @@ using UnityEngine;
 public class Client : AgentBase
 {
 
+    int chosenGem;
 
     void Start()
     {
@@ -19,7 +20,13 @@ public class Client : AgentBase
 
     void ChooseGem()
     {
+        chosenGem = Random.Range(0, 2);
+    }
 
+    public void AskForGem()
+    {
+        // Pedir gema a la zona de los trabajadores, una vez se ha creado la gema --> esperar a que se rellene el circulo del cliente.
+        Debug.Log("Asking for gem");
     }
 
     void WaitInQueue()
