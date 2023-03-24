@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KeyTrigger : MonoBehaviour
 {
-    [SerializeField] ZoneManager zoneManager;
+    [SerializeField] QueuesZoneManager zoneManager;
     // Start is called before the first frame update
     void Start()
     {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZoneManager : MonoBehaviour
+public class QueuesZoneManager : MonoBehaviour
 {
     const int SLOTS_INDEX = 0;
 
@@ -29,7 +29,7 @@ public class ZoneManager : MonoBehaviour
 
     void Update()
     {
-        //priorityQueue.
+
     }
 
     public void AddQueue()

@@ -20,7 +20,7 @@ public class AgentBase : MonoBehaviour
         agent.destination = pos;
     }
 
-    protected void GoToNextPosition()
+    public void GoToNextPosition()
     {
         if (index < positions.Length)
             agent.destination = positions[index++].position;
