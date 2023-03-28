@@ -11,21 +11,21 @@ public class CustomQueue : MonoBehaviour
     [SerializeField] float offset;
 
     private Queue<AgentBase> queueAgents; // the actual queue of game objects
-    private List<GameObject> queueSpots; // a list of all the queue spot objects
+    private List<Vector3> queueSpots; // a list of all the queue spot objects
 
     void Start()
     {
         // initialize the queue and queue spot list
         queueAgents = new Queue<AgentBase>();
-        queueSpots = new List<GameObject>();
+        queueSpots = new List<Vector3>();
 
         // create the queue spot objects and add them to the list
         float offsetIncrement = offset;
         for (int i = 0; i < queueSize; i++)
         {
-            GameObject queueSpot = Instantiate(queueSpotPrefab, transform.position + offset * queueDirection, Quaternion.identity, transform);
+            //GameObject queueSpot = Instantiate(queueSpotPrefab, transform.position + offset * queueDirection, Quaternion.identity, transform);
+            queueSpots.Add(transform.position + offset * queueDirection);
             offset += offsetIncrement;
-            queueSpots.Add(queueSpot);
         }
     }
 
@@ -44,7 +44,7 @@ public class CustomQueue : MonoBehaviour
     {
         // place the object at the first available spot in the queue
         int index = queueAgents.Count;
-        obj.SetAgentDestination(queueSpots[index].transform.position);
+        obj.SetAgentDestination(queueSpots[index]);
 
         // add the object to the queue
         queueAgents.Enqueue(obj);
@@ -64,7 +64,7 @@ public class CustomQueue : MonoBehaviour
             // move all other objects forward in the queue
             for (int i = 0; i < queueAgents.Count; i++)
             {
-                queueAgents.ElementAt(i).SetAgentDestination(queueSpots[i].transform.position);
+                queueAgents.ElementAt(i).SetAgentDestination(queueSpots[i]);
             }
 
             // return the removed object

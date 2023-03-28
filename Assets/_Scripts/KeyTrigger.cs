@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KeyTrigger : MonoBehaviour
 {
-    [SerializeField] QueuesZoneManager zoneManager;
+    [SerializeField] Zone zone;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +21,22 @@ public class KeyTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            zoneManager.MoveAgentToSpot(other.GetComponent<AgentBase>());
+
+            zone.MoveAgentToSpot(other.GetComponent<AgentBase>());
+
+            /*switch (this.name)
+            {
+                case "KeyCounter":
+                    zone.GetComponent<CounterZone>().MoveAgentToSpot(other.GetComponent<AgentBase>());
+                    break;
+
+                case "KeyParking":
+                    break;
+
+                default:
+                    break;
+            }*/
+            
         }
     }
 }

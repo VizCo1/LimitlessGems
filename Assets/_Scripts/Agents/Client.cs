@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Client : AgentBase
 {
+    public Car car;
 
+    [HideInInspector] public bool isParked = false;
     int chosenGem;
-
+    
     void Start()
     {
         GoToNextPosition();

@@ -15,7 +15,7 @@ public class QueuePriorityQueue
         }
     }
 
-    private readonly List<PriorityQueueItem> items = new List<PriorityQueueItem>();
+    private readonly List<PriorityQueueItem> items = new();
 
     public void Enqueue(CustomQueue item, int priority)
     {

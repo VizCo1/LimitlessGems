@@ -5,7 +5,7 @@ using UnityEngine;
 public class CustomQueueFlow : MonoBehaviour
 {
 
-    [SerializeField] QueuesZoneManager zoneManager;
+    [SerializeField] CounterZone zoneManager;
     CustomQueue customQueue;
 
     bool counterOccupied = false;
