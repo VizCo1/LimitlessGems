@@ -9,14 +9,15 @@ public class CircleCanvas : MonoBehaviour
 
     [SerializeField] Slider circularSlider;
 
-    public Tween AppearAndFill()
+    public Tween AppearAndFill(float duration)
     {
         circularSlider.gameObject.SetActive(true);
-        return circularSlider.DOValue(1f, 5f, false).SetEase(Ease.Linear).OnComplete(() =>
+        Tween t = circularSlider.DOValue(1f, duration, false).SetEase(Ease.Linear).OnComplete(() =>
         {
-
             Debug.Log("Tween finished");
             circularSlider.gameObject.SetActive(false);
-        }).Pause();
+        });
+
+        return t;
     }
 }

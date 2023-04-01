@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class Worker : MonoBehaviour
 {
@@ -13,4 +15,11 @@ public class Worker : MonoBehaviour
     {
         
     }
+
+    public void MakeGem(int gem)
+    {
+        
+    }
+
+     
 }

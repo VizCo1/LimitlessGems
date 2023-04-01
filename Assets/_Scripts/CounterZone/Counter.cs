@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class CustomQueueFlow : MonoBehaviour
+public class Counter : MonoBehaviour
 {
-    [Header("TEMPORARY, ONLY FOR TESTING")]
-    [SerializeField] Worker worker;
-
     [SerializeField] CounterZone zoneManager;
     [SerializeField] CircleCanvas circleCanvas;
     CustomQueue customQueue;
 
+    float orderTime = 5f;
     bool counterOccupied = false;
 
     private void Awake()
@@ -37,23 +35,13 @@ public class CustomQueueFlow : MonoBehaviour
             Client client = other.GetComponent<Client>();
             zoneManager.DecreasePriorityOfQueue(customQueue);
 
-            Tween t1 = circleCanvas.AppearAndFill();
+            Sequence mySequence = DOTween.Sequence().Pause();
 
-
-
-            int gem;
-            t1.OnComplete(() => gem = client.AskForGem()).Play();
-
-            // -- Then
-            //client.AskForGem();
-            // -- Then
-            //// circleCanvas del trabajador
-            // -- Then
-            //// Trabajador da la gema
-            // -- Then
-            //// Cliente empieza a recoger la gema (circleCanvas) y ese trabajador se dirige a la zona de descanso.
-
-            // Cuando recibe la gema se va a su coche.
+            mySequence.Append(circleCanvas.AppearAndFill(orderTime))
+                .AppendCallback( () => zoneManager.CommunicateWithWorkZone(client.WantedGem() ))
+                .Append(circleCanvas.AppearAndFill(1f))
+                .AppendCallback( () => client.ReceiveGem() )
+            .Play();
         }
     }
 

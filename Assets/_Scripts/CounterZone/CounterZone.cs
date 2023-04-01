@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CounterZone : Zone
 {
+    [SerializeField] WorkZone workZone;
+
     readonly QueuePriorityQueue priorityQueue = new();
 
     int maxSlots;
@@ -37,5 +39,10 @@ public class CounterZone : Zone
     public void DecreasePriorityOfQueue(CustomQueue queue)
     {
         priorityQueue.DecreasePriority(queue);
+    }
+
+    public void CommunicateWithWorkZone(int gem)
+    {
+        workZone.ProvideGem(gem);
     }
 }
