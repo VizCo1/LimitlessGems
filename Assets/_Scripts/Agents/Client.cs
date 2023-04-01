@@ -39,6 +39,6 @@ public class Client : AgentBase
 
     public void ReceiveGem()
     {
-        
+        Debug.Log("Client receives gem");
     }
 }

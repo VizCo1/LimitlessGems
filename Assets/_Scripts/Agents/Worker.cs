@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class Worker : MonoBehaviour
+public class Worker : AgentBase
 {
+    public bool isWorkerFree { get; private set; } = true;
+
     void Start()
     {
         
@@ -21,5 +23,12 @@ public class Worker : MonoBehaviour
         
     }
 
-     
+
+    public override void GoToNextPosition()
+    {
+        base.GoToNextPosition();
+        //isWorkerFree = false;
+    }
+
+
 }

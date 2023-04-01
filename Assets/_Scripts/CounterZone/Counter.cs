@@ -35,13 +35,18 @@ public class Counter : MonoBehaviour
             Client client = other.GetComponent<Client>();
             zoneManager.DecreasePriorityOfQueue(customQueue);
 
-            Sequence mySequence = DOTween.Sequence().Pause();
+            Sequence mySequence1 = DOTween.Sequence().Pause();
+            Sequence mySequence2 = DOTween.Sequence().Pause();
 
-            mySequence.Append(circleCanvas.AppearAndFill(orderTime))
-                .AppendCallback( () => zoneManager.CommunicateWithWorkZone(client.WantedGem() ))
-                .Append(circleCanvas.AppearAndFill(1f))
-                .AppendCallback( () => client.ReceiveGem() )
-            .Play();
+            mySequence1.Append(circleCanvas.AppearAndFill(orderTime))
+                .AppendCallback(() => zoneManager.CommunicateWithWorkZone(client.WantedGem(), ref mySequence2))
+                .AppendCallback(() => 
+                {
+                    mySequence2.Append(circleCanvas.AppearAndFill(1f))
+                        .AppendCallback(() => client.ReceiveGem())
+                    .Play(); 
+                })
+                .Play();
         }
     }
 

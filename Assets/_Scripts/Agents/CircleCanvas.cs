@@ -11,13 +11,13 @@ public class CircleCanvas : MonoBehaviour
 
     public Tween AppearAndFill(float duration)
     {
-        circularSlider.gameObject.SetActive(true);
-        Tween t = circularSlider.DOValue(1f, duration, false).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            Debug.Log("Tween finished");
-            circularSlider.gameObject.SetActive(false);
-        });
-
-        return t;
+        return circularSlider.DOValue(1f, duration, false).SetEase(Ease.Linear)
+            .OnStart(() => circularSlider.gameObject.SetActive(true))
+            .OnComplete(() =>
+            {
+                Debug.Log("Circle disappears");
+                circularSlider.gameObject.SetActive(false);
+                circularSlider.value = 0;
+            });
     }
 }

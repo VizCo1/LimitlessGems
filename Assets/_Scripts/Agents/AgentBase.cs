@@ -20,12 +20,12 @@ public class AgentBase : MonoBehaviour
         agent.destination = pos;
     }
 
-    public void GoToNextPosition()
+    public virtual void GoToNextPosition()
     {
         if (index < positions.Length)
             agent.destination = positions[index++].position;
         else
-            Debug.Log("Index out of range");
+            index = 0;
     }
 
     protected virtual void OnTriggerEnter(Collider other)

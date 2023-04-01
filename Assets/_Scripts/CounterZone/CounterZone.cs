@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,8 +42,8 @@ public class CounterZone : Zone
         priorityQueue.DecreasePriority(queue);
     }
 
-    public void CommunicateWithWorkZone(int gem)
+    public void CommunicateWithWorkZone(int gem, ref Sequence sequence)
     {
-        workZone.ProvideGem(gem);
+        workZone.ProvideGem(gem, ref sequence);
     }
 }
