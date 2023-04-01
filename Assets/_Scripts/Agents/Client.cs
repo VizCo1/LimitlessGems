@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Client : AgentBase
 {
-    public Car car;
+    [SerializeField] Car car;
 
-    [HideInInspector] public bool isParked = false;
+    //[HideInInspector] public bool isParked = false;
     int chosenGem;
     
     void Start()
@@ -25,10 +26,15 @@ public class Client : AgentBase
         chosenGem = Random.Range(0, 2);
     }
 
-    public void AskForGem()
+    public int AskForGem()
     {
-        // Pedir gema a la zona de los trabajadores, una vez se ha creado la gema --> esperar a que se rellene el circulo del cliente.
         Debug.Log("Asking for gem");
+        return chosenGem;
+    }
+
+    public void ParkCar()
+    {
+        car.Park();
     }
 
     void WaitInQueue()

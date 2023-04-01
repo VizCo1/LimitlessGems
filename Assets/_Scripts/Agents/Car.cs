@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Car : MonoBehaviour
 {
     [SerializeField] Transform client;
@@ -19,6 +20,6 @@ public class Car : MonoBehaviour
     public void Park()
     {
         imitateClient = false;
-
+        //transform.DO
     }
 }

@@ -12,7 +12,7 @@ public class ParkingSpot : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Client client = other.GetComponent<Client>();
-            client.car.Park();
+            client.ParkCar();
             // Dejar el coche aparcado
             
             client.GoToNextPosition();    // Mover el cliente hasta la siguiente zona
