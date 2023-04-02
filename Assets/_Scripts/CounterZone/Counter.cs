@@ -3,30 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Counter : MonoBehaviour
+public class Counter : QueueFlow
 {
     [SerializeField] CounterZone zoneManager;
-    [SerializeField] CircleCanvas circleCanvas;
-    CustomQueue customQueue;
-
     float orderTime = 5f;
-    bool counterOccupied = false;
-
-    private void Awake()
-    {
-        customQueue = GetComponent<CustomQueue>();
-        //customQueue.Dequeue();
-    }
-
-
-    private void Update()
-    {
-        if (customQueue.Count() != 0 && !counterOccupied)
-        {
-            counterOccupied = true;
-            customQueue.Dequeue();
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -35,7 +15,7 @@ public class Counter : MonoBehaviour
             Client client = other.GetComponent<Client>();
             zoneManager.DecreasePriorityOfQueue(customQueue);
 
-            Sequence mySequence1 = DOTween.Sequence().Pause();
+            Sequence mySequence1 = DOTween.Sequence().SetDelay(0.2f).Pause();
             Sequence mySequence2 = DOTween.Sequence().Pause();
 
             mySequence1.Append(circleCanvas.AppearAndFill(orderTime))
@@ -50,11 +30,11 @@ public class Counter : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            counterOccupied = false;
+            placeOccupied = false;
         }
     }
 }

@@ -22,7 +22,6 @@ public class WorkTable : MonoBehaviour
         sequence.AppendCallback(() => worker.GoToNextPosition());
 
         return worker;
-        Debug.Log("A");
     }
 
 
