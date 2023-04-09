@@ -6,7 +6,6 @@ public class ParkingZone : Zone
 {
     [SerializeField] RoadZone roadZone;
     readonly Queue<ParkingSpot> freeSpots = new();
-    Vector3 parkingLocation;
 
     void Start()
     {
@@ -16,21 +15,25 @@ public class ParkingZone : Zone
 
     public override void MoveAgentToSpot(AgentBase agent)
     {
-        agent.SetDestination(parkingLocation);
         if (freeSpots.Count != 0)
         {
-            ParkingSpot spot = freeSpots.Dequeue();
+            ParkingSpot spot = freeSpots.Peek();
+            if (++spot.Count == spot.Capacity())
+                freeSpots.Dequeue();
             agent.SetDestination(spot.transform.position);
         }
     }
 
     public void AddFreeSpot(ParkingSpot spot)
     {
-        freeSpots.Enqueue(spot);
-        // Communicate with RoadZone // Esta mal ??
+        if (spot.Count-- == spot.Capacity())
+        {
+            freeSpots.Enqueue(spot);
+        }
+
+        // Communicate with RoadZone
         if (roadZone.IsCarQueueOccupied())
         {
-            parkingLocation = freeSpots.Dequeue().transform.position;
             roadZone.GetActualClient().GoToNextPosition();
         }
     }
@@ -39,7 +42,6 @@ public class ParkingZone : Zone
     {
         if (freeSpots.Count != 0)
         {
-            parkingLocation = freeSpots.Dequeue().transform.position;
             return true;
         }
 

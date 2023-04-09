@@ -35,13 +35,11 @@ public class WorkTable : MonoBehaviour
             
             if (zoneManager.CheckPendingRequests()) // There are pending requests
             {
-                Debug.Log("A");
                 CounterRequest request = zoneManager.pendingRequests.Dequeue();
                 CreateGemSequence(request.gem).Append(request.counter.ReceivingGemSequence()).Play();
             }
             else // No pending requests
             {
-                Debug.Log("B");
                 CreateGem();
             }
         }

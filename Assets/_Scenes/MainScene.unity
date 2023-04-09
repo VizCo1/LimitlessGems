@@ -2600,7 +2600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneManager: {fileID: 1508958858}
-  capacity: 0
+  capacity: 1
   Count: 0
 --- !u!65 &1466274852
 BoxCollider:
@@ -2860,7 +2860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030c5c07e314efe478c635a0e75fcace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeSpots: 1
+  activeSpots: 2
   roadZone: {fileID: 343629937}
 --- !u!1 &1511504325
 GameObject:

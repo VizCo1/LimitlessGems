@@ -8,5 +8,6 @@ public class CounterRequest
     {
         counter = c;
         gem = g;
+        
     }
 }
