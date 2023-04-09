@@ -8,8 +8,13 @@ public class CounterZone : QueueZone
 {
     [SerializeField] WorkZone workZone;   
 
-    public void CommunicateWithWorkZone(int gem, ref Sequence sequence)
+    public bool CommunicateWithWorkZone(int gem, Counter counter)
     {
-        workZone.ProvideGem(gem, ref sequence);
+        return workZone.TryProvideGem(gem, counter);
+    }
+
+    public WorkZone GetWorkZone()
+    {
+        return workZone;
     }
 }

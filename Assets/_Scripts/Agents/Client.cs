@@ -18,7 +18,22 @@ public class Client : AgentBase
     void ChooseGem()
     {
         // TODO -> Change probabilities, GameManager will do it
-        chosenGem = Random.Range(0, 2);
+        //chosenGem = Random.Range(0, 3);
+        chosenGem = 0;
+    }
+
+    public void ParkCar()
+    {
+        car.Park();
+        ChangeTag("Client");
+        GoToNextPosition();
+    }
+
+    public void UnParkCar()
+    {
+        car.UnPark();
+        ChangeTag("Car");
+        GoToNextPosition();
     }
 
     public int WantedGem()
@@ -26,7 +41,7 @@ public class Client : AgentBase
         return chosenGem;
     }
 
-    public void ChangeTag(string t)
+    void ChangeTag(string t)
     {
         tag = t;
     }
@@ -38,8 +53,8 @@ public class Client : AgentBase
 
     public void GemReceived()
     {
+        Debug.Log("Client recives the gem");
         GoToNextPosition();
         ChangeTag("ClientExit");
-        Debug.Log("Client receives gem");
     }
 }

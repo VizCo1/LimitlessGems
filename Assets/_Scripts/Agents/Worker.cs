@@ -6,9 +6,6 @@ using DG.Tweening;
 
 public class Worker : AgentBase
 {
-    
-    public bool isWorkerFree { get; private set; } = true;
-
     void Start()
     {
         

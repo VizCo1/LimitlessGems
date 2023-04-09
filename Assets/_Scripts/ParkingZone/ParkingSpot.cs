@@ -5,32 +5,29 @@ using UnityEngine;
 
 public class ParkingSpot : MonoBehaviour
 {
+    [SerializeField] ParkingZone zoneManager;
     [SerializeField] int capacity;
     [HideInInspector] public int Count = 0;
-    //Client client;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Car"))
         {           
             Client client = other.GetComponent<Client>();
-            /*client.GetCar().Park();
-            client.GoToNextPosition();
-            */
-            client.GetCar().Park();
-            DOVirtual.DelayedCall(1, () => client.ChangeTag("Client"));
-            client.GoToNextPosition();
+            client.ParkCar();
         }
         else if (other.CompareTag("ClientExit"))
         {
             Client client = other.GetComponent<Client>();
-            client.GetCar().UnPark();
-            client.GoToNextPosition();
-            /*
-            client.GetCar().UnPark();
-            client.GoToNextPosition();
-            Debug.Log("Cliente en parkingSlot");
-            */
+            client.UnParkCar();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Car"))
+        {
+            zoneManager.AddFreeSpot(this);
         }
     }
 

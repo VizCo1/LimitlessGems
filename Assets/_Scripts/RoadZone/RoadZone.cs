@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoadZone : MonoBehaviour
+public class RoadZone : Zone
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void MoveAgentToSpot(AgentBase agent)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        agent.GoToNextPosition();
     }
 }

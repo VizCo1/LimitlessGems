@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QueueFlow : MonoBehaviour
+public class CarQueue : MonoBehaviour
 {
-    [SerializeField] protected CircleCanvas circleCanvas;
-    protected CustomQueue customQueue;
+    CustomQueue customQueue;
+    bool placeOccupied = false;
 
-    protected bool placeOccupied = false;
-
-    private void Awake()
+    void Awake()
     {
         customQueue = GetComponent<CustomQueue>();
     }
@@ -21,5 +19,5 @@ public class QueueFlow : MonoBehaviour
             placeOccupied = true;
             customQueue.Dequeue();
         }
-    }   
+    }
 }

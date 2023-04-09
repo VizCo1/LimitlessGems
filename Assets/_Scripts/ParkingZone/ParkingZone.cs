@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class ParkingZone : Zone
 {
-    readonly List<ParkingSpot> spots = new();
-    int occupiedSpots = 0;
+    Queue<ParkingSpot> freeSpots = new();
 
     void Start()
     {
         for (int i = 0; i < activeSpots; i++)
-            spots.Add(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<ParkingSpot>());
+            freeSpots.Enqueue(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<ParkingSpot>());
     }
 
     public override void MoveAgentToSpot(AgentBase agent)
     {
-        ParkingSpot selectedSpot = spots[occupiedSpots];
+        if (freeSpots.Count != 0)
+        {
+            ParkingSpot spot = freeSpots.Dequeue();
+            agent.SetDestination(spot.transform.position);
+        }
+    }
 
-        agent.SetDestination(selectedSpot.transform.position);
-
-        if (++selectedSpot.Count == selectedSpot.Capacity())
-            occupiedSpots++;
-
+    public void AddFreeSpot(ParkingSpot spot)
+    {
+        freeSpots.Enqueue(spot);
     }
 }
