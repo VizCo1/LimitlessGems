@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
+using System;
 
 public class Car : MonoBehaviour
 {
-    [SerializeField] Transform client;
+    [SerializeField] Client client;
 
     bool imitateClient = true;
 
@@ -13,13 +14,17 @@ public class Car : MonoBehaviour
     {
         if (imitateClient)
         {
-            transform.SetPositionAndRotation(client.position, client.rotation);
+            transform.SetPositionAndRotation(client.transform.position, client.transform.rotation);
         }
     }
 
     public void Park()
     {
         imitateClient = false;
-        //transform.DO
+    }
+
+    public void UnPark()
+    {
+        imitateClient = true;
     }
 }

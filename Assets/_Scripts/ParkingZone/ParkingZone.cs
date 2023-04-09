@@ -17,7 +17,7 @@ public class ParkingZone : Zone
     {
         ParkingSpot selectedSpot = spots[occupiedSpots];
 
-        agent.SetAgentDestination(selectedSpot.transform.position);
+        agent.SetDestination(selectedSpot.transform.position);
 
         if (++selectedSpot.Count == selectedSpot.Capacity())
             occupiedSpots++;

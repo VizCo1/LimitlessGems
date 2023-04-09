@@ -7,18 +7,12 @@ public class Client : AgentBase
 {
     [SerializeField] Car car;
 
-    //[HideInInspector] public bool isParked = false;
     int chosenGem;
-    
+
     void Start()
     {
         GoToNextPosition();
         ChooseGem();
-    }
-
-    void Update()
-    {
-        //Debug.Log(agent.destination);
     }
 
     void ChooseGem()
@@ -32,13 +26,20 @@ public class Client : AgentBase
         return chosenGem;
     }
 
-    public void ParkCar()
+    public void ChangeTag(string t)
     {
-        car.Park();
+        tag = t;
     }
 
-    public void ReceiveGem()
+    public Car GetCar()
     {
+        return car;
+    }
+
+    public void GemReceived()
+    {
+        GoToNextPosition();
+        ChangeTag("ClientExit");
         Debug.Log("Client receives gem");
     }
 }

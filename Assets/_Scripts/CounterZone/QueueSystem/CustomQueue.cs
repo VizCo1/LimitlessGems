@@ -44,7 +44,7 @@ public class CustomQueue : MonoBehaviour
     {
         // place the object at the first available spot in the queue
         int index = queueAgents.Count;
-        obj.SetAgentDestination(queueSpots[index]);
+        obj.SetDestination(queueSpots[index]);
 
         // add the object to the queue
         queueAgents.Enqueue(obj);
@@ -59,12 +59,12 @@ public class CustomQueue : MonoBehaviour
             // remove the first object from the queue
             AgentBase obj = queueAgents.Dequeue();
 
-            obj.SetAgentDestination(transform.position);
+            obj.SetDestination(transform.position);
 
             // move all other objects forward in the queue
             for (int i = 0; i < queueAgents.Count; i++)
             {
-                queueAgents.ElementAt(i).SetAgentDestination(queueSpots[i]);
+                queueAgents.ElementAt(i).SetDestination(queueSpots[i]);
             }
 
             // return the removed object

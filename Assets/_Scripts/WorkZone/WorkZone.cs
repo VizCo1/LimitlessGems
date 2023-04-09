@@ -7,6 +7,7 @@ public class WorkZone : Zone
 {
     int[] gemsQuantity = new int[3] { 0, 0, 0 };
     readonly List<WorkTable> tables = new();
+    
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class WorkZone : Zone
             if (table.IsWorkerFree())
             {
                 Worker worker = table.CreateGem(ref sequence);
+                break;
                 //MoveAgentToSpot(worker);
             }
         }
@@ -42,8 +44,6 @@ public class WorkZone : Zone
 
     public override void MoveAgentToSpot(AgentBase agent)
     {
-        /*CustomQueue bestQueue = priorityQueue.Peek();
-        priorityQueue.IncreasePriority(bestQueue);
-        bestQueue.Enqueue(agent);*/
+        agent.GoToNextPosition();
     }
 }

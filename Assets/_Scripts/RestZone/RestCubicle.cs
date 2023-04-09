@@ -15,7 +15,9 @@ public class RestCubicle : QueueFlow
             Worker worker = other.GetComponent<Worker>();
             zoneManager.DecreasePriorityOfQueue(customQueue);
 
-            circleCanvas.AppearAndFill(restTime).SetDelay(0.2f).Play();
+            Sequence sq = DOTween.Sequence().SetDelay(0.2f)
+                .Append(circleCanvas.AppearAndFill(restTime))
+                .AppendCallback(() => worker.GoToNextPosition());                
         }
     }
 

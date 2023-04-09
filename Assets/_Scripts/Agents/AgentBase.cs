@@ -10,12 +10,12 @@ public class AgentBase : MonoBehaviour
 
     protected NavMeshAgent agent;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
     }
 
-   public void SetAgentDestination(Vector3 pos)
+   public void SetDestination(Vector3 pos)
     {
         agent.destination = pos;
     }

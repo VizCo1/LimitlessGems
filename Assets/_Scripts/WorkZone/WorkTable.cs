@@ -23,6 +23,4 @@ public class WorkTable : MonoBehaviour
 
         return worker;
     }
-
-
 }

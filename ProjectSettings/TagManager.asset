@@ -6,6 +6,9 @@ TagManager:
   tags:
   - keyPos
   - Worker
+  - Car
+  - Client
+  - ClientExit
   layers:
   - Default
   - TransparentFX

@@ -8,9 +8,14 @@ public class KeyTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Worker"))
+        if (other.CompareTag("Client") || other.CompareTag("Worker") || other.CompareTag("Car"))
         {
             zone.MoveAgentToSpot(other.GetComponent<AgentBase>());
+        }
+        else if (other.CompareTag("ClientExit"))
+        {
+            Client client = other.GetComponent<Client>();
+            client.SetDestination(client.GetCar().transform.position);
         }
     }
 }

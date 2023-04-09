@@ -6,11 +6,11 @@ public class QueueZone : Zone
 {
     readonly QueuePriorityQueue priorityQueue = new();
 
-    int maxSlots;
+    int maxActiveQueues;
 
     void Start()
     {
-        maxSlots = transform.childCount;
+        maxActiveQueues = transform.childCount;
 
         // Fill the priorityQueue with the available slots
         for (int i = 0; i < activeSpots; i++)

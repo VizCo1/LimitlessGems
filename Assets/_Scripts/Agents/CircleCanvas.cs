@@ -15,7 +15,6 @@ public class CircleCanvas : MonoBehaviour
             .OnStart(() => circularSlider.gameObject.SetActive(true))
             .OnComplete(() =>
             {
-                Debug.Log("Circle disappears");
                 circularSlider.gameObject.SetActive(false);
                 circularSlider.value = 0;
             });

@@ -6,11 +6,12 @@ using DG.Tweening;
 public class Counter : QueueFlow
 {
     [SerializeField] CounterZone zoneManager;
+    [SerializeField] Transform exitSpot;
     float orderTime = 5f;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Client"))
         {
             Client client = other.GetComponent<Client>();
             zoneManager.DecreasePriorityOfQueue(customQueue);
@@ -20,11 +21,13 @@ public class Counter : QueueFlow
 
             mySequence1.Append(circleCanvas.AppearAndFill(orderTime))
                 .AppendCallback(() => zoneManager.CommunicateWithWorkZone(client.WantedGem(), ref mySequence2))
-                .AppendCallback(() => 
+                .AppendCallback(() =>
                 {
-                    mySequence2.Append(circleCanvas.AppearAndFill(1f))
-                        .AppendCallback(() => client.ReceiveGem())
-                    .Play(); 
+                    mySequence2
+                        .Append(circleCanvas.AppearAndFill(1f))
+                        .AppendCallback(() => client.SetDestination(exitSpot.position))                        
+                        .Append(DOVirtual.DelayedCall(1f, () => client.GemReceived()))
+                        .Play();
                 })
                 .Play();
         }
@@ -32,7 +35,7 @@ public class Counter : QueueFlow
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Client"))
         {
             placeOccupied = false;
         }
