@@ -15,6 +15,8 @@ public class ParkingZone : Zone
 
     public override void MoveAgentToSpot(AgentBase agent)
     {
+        // Si hace falta hacer Dequeue hay que hacerlo justo cuando el coche sale de CarQueue!!!!! TODO
+        // O MOVER EL KEY SPOT MAS CERCA BOBO
         if (freeSpots.Count != 0)
         {
             ParkingSpot spot = freeSpots.Peek();

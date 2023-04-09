@@ -10,7 +10,7 @@ public class WorkTable : MonoBehaviour
     [SerializeField] CircleCanvas circleCanvas;
     [SerializeField] Worker worker;
 
-    float makeTime = 5f;
+    [SerializeField] float makeTime = 5f;
 
     Sequence CreateGemSequence(int gem)
     {

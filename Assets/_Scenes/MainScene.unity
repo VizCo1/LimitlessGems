@@ -421,6 +421,7 @@ MonoBehaviour:
   zoneManager: {fileID: 1141039736}
   circleCanvas: {fileID: 457610656}
   worker: {fileID: 1286015812}
+  makeTime: 2
 --- !u!1 &257616627
 GameObject:
   m_ObjectHideFlags: 0
@@ -2600,7 +2601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneManager: {fileID: 1508958858}
-  capacity: 1
+  capacity: 2
   Count: 0
 --- !u!65 &1466274852
 BoxCollider:
@@ -3312,7 +3313,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835166211}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.07, y: 0, z: -2.57}
+  m_LocalPosition: {x: -5.4, y: 0, z: -2.73}
   m_LocalScale: {x: 0.36737305, y: 1, z: 0.46821395}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3520,7 +3521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToPool: {fileID: 1916228091}
-  poolSize: 4
+  poolSize: 8
 --- !u!1 &2085045765
 GameObject:
   m_ObjectHideFlags: 0
@@ -3922,6 +3923,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1286015812}
     - target: {fileID: 8873770902825008617, guid: e7e06f3cca3aa6c429b9eec38def34f0, type: 3}
+      propertyPath: orderTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8873770902825008617, guid: e7e06f3cca3aa6c429b9eec38def34f0, type: 3}
       propertyPath: zoneManager
       value: 
       objectReference: {fileID: 2085045770}
@@ -3956,6 +3961,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 343629936}
     m_Modifications:
     - target: {fileID: 722255900445446643, guid: 8dc9ba9c225fbd04fbab661739589345, type: 3}
+      propertyPath: offset
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 722255900445446643, guid: 8dc9ba9c225fbd04fbab661739589345, type: 3}
+      propertyPath: queueSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 722255900445446643, guid: 8dc9ba9c225fbd04fbab661739589345, type: 3}
       propertyPath: queueDirection.x
       value: 0
       objectReference: {fileID: 0}
@@ -3969,7 +3982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 722255900445446644, guid: 8dc9ba9c225fbd04fbab661739589345, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.13
+      value: 2.9
       objectReference: {fileID: 0}
     - target: {fileID: 722255900445446644, guid: 8dc9ba9c225fbd04fbab661739589345, type: 3}
       propertyPath: m_LocalPosition.y

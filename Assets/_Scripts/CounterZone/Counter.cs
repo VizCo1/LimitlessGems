@@ -7,7 +7,7 @@ public class Counter : QueueFlow
 {
     [SerializeField] CounterZone zoneManager;
     [SerializeField] Transform exitSpot;
-    float orderTime = 5f;
+    [SerializeField] float orderTime = 5f;
 
     Client actualClient;
 
