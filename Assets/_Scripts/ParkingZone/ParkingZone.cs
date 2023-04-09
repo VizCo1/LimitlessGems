@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ParkingZone : Zone
 {
-    Queue<ParkingSpot> freeSpots = new();
+    [SerializeField] RoadZone roadZone;
+    readonly Queue<ParkingSpot> freeSpots = new();
+    Vector3 parkingLocation;
 
     void Start()
     {
@@ -14,6 +16,7 @@ public class ParkingZone : Zone
 
     public override void MoveAgentToSpot(AgentBase agent)
     {
+        agent.SetDestination(parkingLocation);
         if (freeSpots.Count != 0)
         {
             ParkingSpot spot = freeSpots.Dequeue();
@@ -24,5 +27,22 @@ public class ParkingZone : Zone
     public void AddFreeSpot(ParkingSpot spot)
     {
         freeSpots.Enqueue(spot);
+        // Communicate with RoadZone // Esta mal ??
+        if (roadZone.IsCarQueueOccupied())
+        {
+            parkingLocation = freeSpots.Dequeue().transform.position;
+            roadZone.GetActualClient().GoToNextPosition();
+        }
+    }
+
+    public bool IsParkingAvailable()
+    {
+        if (freeSpots.Count != 0)
+        {
+            parkingLocation = freeSpots.Dequeue().transform.position;
+            return true;
+        }
+
+        return false;
     }
 }

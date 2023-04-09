@@ -32,6 +32,7 @@ public class WorkTable : MonoBehaviour
         if (other.CompareTag("Worker"))
         {
             other.transform.DOLookAt(transform.position, 1f, AxisConstraint.Y);
+            
             if (zoneManager.CheckPendingRequests()) // There are pending requests
             {
                 Debug.Log("A");

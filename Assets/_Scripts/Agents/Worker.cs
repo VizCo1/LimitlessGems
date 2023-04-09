@@ -20,13 +20,4 @@ public class Worker : AgentBase
     {
         
     }
-
-
-    public override void GoToNextPosition()
-    {
-        base.GoToNextPosition();
-        //isWorkerFree = false;
-    }
-
-
 }

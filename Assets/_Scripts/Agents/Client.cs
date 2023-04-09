@@ -32,7 +32,7 @@ public class Client : AgentBase
     public void UnParkCar()
     {
         car.UnPark();
-        ChangeTag("Car");
+        ChangeTag("CarExit");
         GoToNextPosition();
     }
 

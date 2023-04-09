@@ -21,5 +21,5 @@ public class QueueFlow : MonoBehaviour
             placeOccupied = true;
             customQueue.Dequeue();
         }
-    }   
+    }
 }

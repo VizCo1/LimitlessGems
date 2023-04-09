@@ -29,16 +29,6 @@ public class CustomQueue : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log("A key");
-            
-            
-        }
-    }
-
     // add a game object to the queue
     public void Enqueue(AgentBase obj)
     {

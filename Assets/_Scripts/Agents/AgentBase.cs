@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,10 +23,13 @@ public class AgentBase : MonoBehaviour
 
     public virtual void GoToNextPosition()
     {
-        if (index < positions.Length)
+        if (index < positions.Length - 1)
             agent.destination = positions[index++].position;
         else
+        {
+            agent.destination = positions[index].position;
             index = 0;
+        }
     }
 
     protected virtual void OnTriggerEnter(Collider other)

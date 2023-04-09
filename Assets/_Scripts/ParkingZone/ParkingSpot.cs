@@ -25,7 +25,7 @@ public class ParkingSpot : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Car"))
+        if (other.CompareTag("CarExit"))
         {
             zoneManager.AddFreeSpot(this);
         }
