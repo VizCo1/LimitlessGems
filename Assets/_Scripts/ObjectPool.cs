@@ -8,17 +8,21 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] int poolSize;
     int activeObjects = 0;
 
+    Vector3 spawnPosition;
+
     private List<GameObject> pooledObjects;
 
     void Start()
     {
+        spawnPosition = objectToPool.transform.position;
+
         pooledObjects = new List<GameObject>();
         pooledObjects.Add(objectToPool);
 
         // i = 1 --> The game starts with 1 client not with 0 clients
         for (int i = 1; i < poolSize; i++)
         {
-            GameObject obj = Instantiate(objectToPool);
+            GameObject obj = Instantiate(objectToPool, spawnPosition, Quaternion.identity, transform);
             obj.SetActive(false);
             pooledObjects.Add(obj);
         }

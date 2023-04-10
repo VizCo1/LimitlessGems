@@ -24,7 +24,7 @@ public class WorkTable : MonoBehaviour
     void CreateGem()
     {
         int gem = Random.Range(0, 3);
-        CreateGemSequence(gem).OnComplete(() => zoneManager.AddGemToInventory(0)).Play();
+        CreateGemSequence(gem).OnComplete(() => zoneManager.AddGemToInventory(0)).SetDelay(0.2f).Play();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,7 +36,7 @@ public class WorkTable : MonoBehaviour
             if (zoneManager.CheckPendingRequests()) // There are pending requests
             {
                 CounterRequest request = zoneManager.pendingRequests.Dequeue();
-                CreateGemSequence(request.gem).Append(request.counter.ReceivingGemSequence()).Play();
+                CreateGemSequence(request.gem).Append(request.counter.ReceivingGemSequence()).SetDelay(0.2f).Play();
             }
             else // No pending requests
             {
