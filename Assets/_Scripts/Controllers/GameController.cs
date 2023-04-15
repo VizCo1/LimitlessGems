@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Manager : MonoBehaviour
+public class GameController : MonoBehaviour
 {
-
     ObjectPool objectPool;
 
     void Start()
@@ -22,5 +21,10 @@ public class Manager : MonoBehaviour
             if (objectPool.GetPooledObject() == null)
                 Debug.Log("Max of clients reached, can't spawn more");
         }
+    }
+
+    public void ClientOut(GameObject client)
+    {
+        objectPool.ReturnPooledObject(client);
     }
 }

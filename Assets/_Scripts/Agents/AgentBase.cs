@@ -31,14 +31,4 @@ public class AgentBase : MonoBehaviour
             index = 0;
         }
     }
-
-    protected virtual void OnTriggerEnter(Collider other)
-    {
-        /*if (other.CompareTag(COUNTER_QUEUE_TAG))
-        {
-            //other.GetComponent<CustomQueue>().Dequeue();
-            //other.GetComponentInParent<ZoneManager>().
-
-        }*/
-    }
 }

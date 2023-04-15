@@ -7,7 +7,6 @@ public class CounterRequest
     public CounterRequest(Counter c, int g)
     {
         counter = c;
-        gem = g;
-        
+        gem = g;   
     }
 }

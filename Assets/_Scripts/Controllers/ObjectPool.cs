@@ -10,13 +10,12 @@ public class ObjectPool : MonoBehaviour
 
     Vector3 spawnPosition;
 
-    private List<GameObject> pooledObjects;
+    private List<GameObject> pooledObjects = new();
 
     void Start()
     {
         spawnPosition = objectToPool.transform.position;
 
-        pooledObjects = new List<GameObject>();
         pooledObjects.Add(objectToPool);
 
         // i = 1 --> The game starts with 1 client not with 0 clients
@@ -54,6 +53,6 @@ public class ObjectPool : MonoBehaviour
     public void ReturnPooledObject(GameObject obj)
     {
         obj.SetActive(false);
-        obj.transform.position = new Vector3(0, -100, 0); // move object off-screen
+        obj.transform.position = spawnPosition; // move object off-screen
     }
 }
