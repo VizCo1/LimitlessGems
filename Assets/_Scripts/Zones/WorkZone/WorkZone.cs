@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using System;
 
 public class WorkZone : Zone
 {
     int[] gemsQuantity = new int[3] { 0, 0, 0 };
     List<WorkTable> tables = new();
 
-    [HideInInspector] public Queue<CounterRequest> pendingRequests = new();
+    [HideInInspector] public Queue<CounterRequest> pendingRequestsGem0 = new();
+    [HideInInspector] public Queue<CounterRequest> pendingRequestsGem1 = new();
+    [HideInInspector] public Queue<CounterRequest> pendingRequestsGem2 = new();
+
+    Queue<CounterRequest>[] queues;
 
     void Start()
     {
+        queues = new Queue<CounterRequest>[] { pendingRequestsGem0, pendingRequestsGem1, pendingRequestsGem2 };
+
         for (int i = 0; i < activeSpots; i++)
             tables.Add(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<WorkTable>());
     }
@@ -27,18 +31,22 @@ public class WorkZone : Zone
         }
         else // We don't have that gem
         {
-            Debug.Log("New gem request created");
-            pendingRequests.Enqueue(new(counter, gem));
+            Debug.Log("New gem request created --> GEM: " + gem + "\n");
+            switch (gem)
+            {
+                case 0:
+                    pendingRequestsGem0.Enqueue(new(counter, gem));
+                    break;
+                case 1:
+                    pendingRequestsGem1.Enqueue(new(counter, gem));
+                    break;
+                case 2:
+                    pendingRequestsGem2.Enqueue(new(counter, gem));
+                    break;
+            }
+            
             return false;
         }
-    }
-
-    public bool CheckPendingRequests()
-    {
-        if (pendingRequests.Count == 0)
-            return false;
-
-        return true;
     }
 
     public override void MoveAgentToSpot(AgentBase agent)
@@ -50,5 +58,42 @@ public class WorkZone : Zone
     {
         Debug.Log("Gem " + gem + " added to inventory");
         gemsQuantity[gem]++;
+    }
+
+    public bool CheckForPendingRequests()
+    {
+        return pendingRequestsGem0.Count + pendingRequestsGem1.Count + pendingRequestsGem2.Count > 0;
+    }
+
+    public CounterRequest GetRandomPendingRequestsQueue()
+    {
+        List<int> indicesWithRequests = new();
+
+        if (pendingRequestsGem0.Count > 0)
+        {
+            indicesWithRequests.Add(0);
+        }
+
+        if (pendingRequestsGem1.Count > 0)
+        {
+            indicesWithRequests.Add(1);
+        }
+
+        if (pendingRequestsGem2.Count > 0)
+        {
+            indicesWithRequests.Add(2);
+        }
+
+        return queues[ indicesWithRequests[Random.Range(0, indicesWithRequests.Count)] ].Dequeue();
+    }
+
+    public Queue<CounterRequest> GetPendingRequestsOf(int gem)
+    {
+        return queues[gem];
+    }
+
+    public bool AnyRequestForThisGem(int gem)
+    {
+        return queues[gem].Count != 0;
     }
 }

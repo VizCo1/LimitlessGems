@@ -11,7 +11,7 @@ public class Counter : QueueFlow
 
     Client actualClient;
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Client"))
         {
@@ -22,29 +22,21 @@ public class Counter : QueueFlow
 
             sequence.Append(circleCanvas.AppearAndFill(orderTime)); // Client orders the gem
 
-            if (zoneManager.CommunicateWithWorkZone(actualClient.WantedGem(), this)) // If gem is available, then give gem. Else gem request saved 
+            if (zoneManager.CommunicateWithWorkZone(((int)actualClient.WantedGem()), this)) // If gem is available, then give gem. Else gem request saved 
             {
                 // Give gem sequence
-                sequence.Append(ReceivingGemSequence());
+                sequence.Append(CreateReceivingGemSequence());
             }
 
             sequence.Play();
         }
     }
 
-    public Sequence ReceivingGemSequence()
+    public Sequence CreateReceivingGemSequence()
     {
-        return DOTween.Sequence()
+         return DOTween.Sequence()
             .Append(circleCanvas.AppearAndFill(1f))
             .AppendCallback(() => actualClient.SetDestination(exitSpot.position))
             .Append(DOVirtual.DelayedCall(0.5f, () => actualClient.GemReceived()));
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Client"))
-        {
-            placeOccupied = false;
-        }
     }
 }

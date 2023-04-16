@@ -22,4 +22,9 @@ public class QueueFlow : MonoBehaviour
             customQueue.Dequeue();
         }
     }
+
+    void OnTriggerExit(Collider other)
+    {
+        placeOccupied = false;
+    }
 }

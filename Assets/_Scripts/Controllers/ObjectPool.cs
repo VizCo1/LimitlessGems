@@ -11,9 +11,8 @@ public class ObjectPool : MonoBehaviour
 
     private Queue<GameObject> inactivePooledObjects = new();
 
-    void Start()
+    void Awake()
     {
-
         inactivePooledObjects.Enqueue(objectToPool);
 
         // i = 1 --> The game starts with 1 client not with 0 clients
@@ -37,7 +36,5 @@ public class ObjectPool : MonoBehaviour
     {
         inactivePooledObjects.Enqueue(parent);
         parent.SetActive(false);
-        for (int i = 0; i < parent.transform.childCount; i++)
-            parent.transform.GetChild(i).localPosition = Vector3.zero;
     }
 }

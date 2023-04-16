@@ -12,19 +12,35 @@ public class WorkTable : MonoBehaviour
 
     [SerializeField] float makeTime = 5f;
 
-    Sequence CreateGemSequence(int gem)
+    private void Start()
     {
-        Sequence s = DOTween.Sequence().Pause();
-        s.Append(circleCanvas.AppearAndFill(makeTime));
-        s.AppendCallback(() => worker.GoToNextPosition());
+        CreateGemSequence();
+    }
 
-        return s;
+    Sequence CreateGemSequence()
+    {
+        return DOTween.Sequence()
+            .Append(circleCanvas.AppearAndFill(makeTime))
+            .AppendCallback(() => worker.GoToNextPosition())
+            .SetDelay(0.2f);
     }
 
     void CreateGem()
     {
         int gem = Random.Range(0, 3);
-        CreateGemSequence(gem).OnComplete(() => zoneManager.AddGemToInventory(0)).SetDelay(0.2f).Play();
+        CreateGemSequence()
+            .OnComplete(() =>
+            {
+                if (zoneManager.AnyRequestForThisGem(gem))
+                {
+                    zoneManager.GetPendingRequestsOf(gem).Dequeue().counter.CreateReceivingGemSequence();
+                }
+                else
+                {
+                    zoneManager.AddGemToInventory(gem);
+                }
+            })
+            .Play();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,11 +48,10 @@ public class WorkTable : MonoBehaviour
         if (other.CompareTag("Worker"))
         {
             other.transform.DOLookAt(transform.position, 1f, AxisConstraint.Y);
-            
-            if (zoneManager.CheckPendingRequests()) // There are pending requests
+
+            if (zoneManager.CheckForPendingRequests()) // There are pending requests
             {
-                CounterRequest request = zoneManager.pendingRequests.Dequeue();
-                CreateGemSequence(request.gem).Append(request.counter.ReceivingGemSequence()).SetDelay(0.2f).Play();
+                CreateGemSequence().Append(zoneManager.GetRandomPendingRequestsQueue().counter.CreateReceivingGemSequence());
             }
             else // No pending requests
             {
@@ -45,5 +60,5 @@ public class WorkTable : MonoBehaviour
         }
     }
 
-
+    
 }

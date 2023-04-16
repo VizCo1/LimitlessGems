@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
     ObjectPool objectPool;
     Tween spawnTween;
 
-    void Start()
+    void Awake()
     {
         objectPool = GetComponent<ObjectPool>();
         //DOVirtual.DelayedCall(1, objectPool.SpawnPooledObject).SetLoops(5);

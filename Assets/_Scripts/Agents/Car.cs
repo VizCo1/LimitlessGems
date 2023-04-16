@@ -10,6 +10,11 @@ public class Car : MonoBehaviour
 
     bool imitateClient = true;
 
+    private void OnEnable()
+    {
+        transform.localPosition = Vector3.zero;
+    }
+
     void Update()
     {
         if (imitateClient)

@@ -2,16 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GemType
+{
+    Ruby,
+    Sapphire,
+    Diamond
+}
 
 public class Client : AgentBase
 {
     [SerializeField] Car car;
 
-    int chosenGem;
+    GemType chosenGem;
 
     private void OnEnable()
     {
         index = 0;
+        transform.localPosition = Vector3.zero;
         GoToNextPosition();
         ChooseGem();
         ChangeTag("Car");
@@ -20,8 +27,7 @@ public class Client : AgentBase
     void ChooseGem()
     {
         // TODO -> Change probabilities, GameManager will do it
-        //chosenGem = Random.Range(0, 3);
-        chosenGem = 0;
+        chosenGem = (GemType)Random.Range(0, 3);
     }
 
     public void ParkCar()
@@ -38,7 +44,7 @@ public class Client : AgentBase
         GoToNextPosition();
     }
 
-    public int WantedGem()
+    public GemType WantedGem()
     {
         return chosenGem;
     }

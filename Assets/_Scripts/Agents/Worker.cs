@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class Worker : AgentBase
 {
+    /*
     void Start()
     {
         
@@ -20,4 +21,5 @@ public class Worker : AgentBase
     {
         
     }
+    */
 }
