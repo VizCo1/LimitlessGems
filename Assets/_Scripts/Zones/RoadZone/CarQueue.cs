@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,16 +42,18 @@ public class CarQueue : MonoBehaviour
         {
             if (zoneManager.CommunicateWithParkingZone()) // Parking is available
             {
-                Debug.Log("P");
                 other.GetComponent<Client>().GoToNextPosition();
             }
             else
             {
-                Debug.Log("not P");
-                // Esta mal ??
                 actualClient = other.GetComponent<Client>();
             }
         }
+    }
+
+    public bool IsFull()
+    {
+        return customQueue.Count() >= customQueue.Capacity();
     }
 
     void OnTriggerExit(Collider other)

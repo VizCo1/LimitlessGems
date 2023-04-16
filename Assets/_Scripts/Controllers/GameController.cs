@@ -1,30 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class GameController : MonoBehaviour
 {
     ObjectPool objectPool;
+    Tween spawnTween;
 
     void Start()
     {
         objectPool = GetComponent<ObjectPool>();
-    }
-
-    float time = 2f;
-    void Update()
-    {
-        time -= Time.deltaTime;
-        if (time <= 0)
-        {
-            time = 2;
-            if (objectPool.GetPooledObject() == null)
-                Debug.Log("Max of clients reached, can't spawn more");
-        }
+        //DOVirtual.DelayedCall(1, objectPool.SpawnPooledObject).SetLoops(5);
+        CreateSpawnTween(2, -1);
     }
 
     public void ClientOut(GameObject client)
     {
         objectPool.ReturnPooledObject(client);
+    }
+
+    void CreateSpawnTween(float delay, int loops)
+    {
+        spawnTween.Kill();
+        spawnTween = DOVirtual.DelayedCall(delay, objectPool.SpawnPooledObject).SetLoops(loops);
     }
 }

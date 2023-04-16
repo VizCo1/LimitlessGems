@@ -9,10 +9,12 @@ public class Client : AgentBase
 
     int chosenGem;
 
-    void Start()
+    private void OnEnable()
     {
+        index = 0;
         GoToNextPosition();
         ChooseGem();
+        ChangeTag("Car");
     }
 
     void ChooseGem()

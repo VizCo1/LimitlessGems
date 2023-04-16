@@ -9,7 +9,6 @@ public class OutController : MonoBehaviour
     {
         if (other.CompareTag("CarExit"))
         {
-            Debug.Log("It works");
             gameController.ClientOut(other.transform.parent.gameObject);
         }
     }

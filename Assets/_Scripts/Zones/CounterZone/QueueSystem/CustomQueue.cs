@@ -71,4 +71,9 @@ public class CustomQueue : MonoBehaviour
     {
         return queueAgents.Count;
     }
+
+    public int Capacity()
+    {
+        return queueSpots.Count;
+    }
 }
