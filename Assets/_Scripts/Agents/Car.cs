@@ -19,7 +19,8 @@ public class Car : MonoBehaviour
     {
         if (imitateClient)
         {
-            transform.SetPositionAndRotation(client.transform.position, client.transform.rotation);
+            Vector3 pos = new Vector3(client.transform.localPosition.x, transform.localPosition.y, client.transform.localPosition.z);
+            transform.SetLocalPositionAndRotation(pos, client.transform.localRotation);
         }
     }
 

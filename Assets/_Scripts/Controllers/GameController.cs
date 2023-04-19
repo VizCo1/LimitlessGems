@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     {
         objectPool = GetComponent<ObjectPool>();
         //DOVirtual.DelayedCall(1, objectPool.SpawnPooledObject).SetLoops(5);
-        CreateSpawnTween(2, -1);
+        CreateSpawnTween(4, -1);
     }
 
     public void ClientOut(GameObject client)
