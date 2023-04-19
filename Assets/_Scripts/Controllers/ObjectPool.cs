@@ -19,7 +19,7 @@ public class ObjectPool : MonoBehaviour
         for (int i = 1; i < poolSize; i++)
         {
             GameObject obj = Instantiate(objectToPool, objectToPool.transform.position, Quaternion.identity, transform);
-            obj.SetActive(false);
+            //obj.SetActive(false);
             inactivePooledObjects.Enqueue(obj);
         }
     }
@@ -28,7 +28,11 @@ public class ObjectPool : MonoBehaviour
     { 
         if (!carQueue.IsFull())
         {
-            inactivePooledObjects.Dequeue().SetActive(true);
+            Debug.Log("Car queue not full!!! \n");
+            if (inactivePooledObjects.TryDequeue(out GameObject client))
+            {
+                client.SetActive(true);
+            }
         }
     }
 

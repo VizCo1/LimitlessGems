@@ -12,6 +12,8 @@ public enum GemType
 public class Client : AgentBase
 {
     [SerializeField] Car car;
+    [SerializeField] Material[] materials;
+    [SerializeField] MeshRenderer meshRenderer;
 
     GemType chosenGem;
 
@@ -22,6 +24,7 @@ public class Client : AgentBase
         GoToNextPosition();
         ChooseGem();
         ChangeTag("Car");
+        meshRenderer.material = materials[Random.Range(0, materials.Length)];
     }
 
     void ChooseGem()
@@ -47,11 +50,6 @@ public class Client : AgentBase
     public GemType WantedGem()
     {
         return chosenGem;
-    }
-
-    void ChangeTag(string t)
-    {
-        tag = t;
     }
 
     public Car GetCar()

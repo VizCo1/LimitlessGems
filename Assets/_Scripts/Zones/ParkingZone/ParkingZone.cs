@@ -22,6 +22,7 @@ public class ParkingZone : Zone
             ParkingSpot spot = freeSpots.Peek();
             if (++spot.Count == spot.Capacity())
                 freeSpots.Dequeue();
+            spot.actualClient = agent.gameObject;
             agent.SetDestination(spot.transform.position);
         }
     }
@@ -33,20 +34,17 @@ public class ParkingZone : Zone
             freeSpots.Enqueue(spot);
         }
 
+        Debug.Log(spot.Count);
+
         // Communicate with RoadZone
-        if (roadZone.IsCarQueueOccupied())
-        {
-            roadZone.GetActualClient().GoToNextPosition();
-        }
+        Client client = roadZone.GetActualClient();
+        if (client != null)
+            client.GoToNextPosition();
+        
     }
 
     public bool IsParkingAvailable()
     {
-        if (freeSpots.Count != 0)
-        {
-            return true;
-        }
-
-        return false;
+        return freeSpots.Count != 0;
     }
 }

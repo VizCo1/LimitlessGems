@@ -25,13 +25,13 @@ public class WorkZone : Zone
     {
         if (gemsQuantity[gem] != 0) // We have that gem
         {
-            Debug.Log("Gem is available, no need to create it");
+            //Debug.Log("Gem is available, no need to create it");
             gemsQuantity[gem]--;
             return true;
         }
         else // We don't have that gem
         {
-            Debug.Log("New gem request created --> GEM: " + gem + "\n");
+            //Debug.Log("New gem request created --> GEM: " + gem + "\n");
             switch (gem)
             {
                 case 0:
@@ -56,7 +56,7 @@ public class WorkZone : Zone
 
     public void AddGemToInventory(int gem)
     {
-        Debug.Log("Gem " + gem + " added to inventory");
+        //Debug.Log("Gem " + gem + " added to inventory");
         gemsQuantity[gem]++;
     }
 
@@ -65,7 +65,7 @@ public class WorkZone : Zone
         return pendingRequestsGem0.Count + pendingRequestsGem1.Count + pendingRequestsGem2.Count > 0;
     }
 
-    public CounterRequest GetRandomPendingRequestsQueue()
+    public CounterRequest GetRandomPendingRequest()
     {
         List<int> indicesWithRequests = new();
 

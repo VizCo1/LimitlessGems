@@ -31,4 +31,9 @@ public class AgentBase : MonoBehaviour
             index = 0;
         }
     }
+
+    public void ChangeTag(string t)
+    {
+        tag = t;
+    }
 }

@@ -25,6 +25,7 @@ public class Counter : QueueFlow
             if (zoneManager.CommunicateWithWorkZone(((int)actualClient.WantedGem()), this)) // If gem is available, then give gem. Else gem request saved 
             {
                 // Give gem sequence
+                Debug.Log("AAAAAA");
                 sequence.Append(CreateReceivingGemSequence());
             }
 

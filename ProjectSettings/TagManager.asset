@@ -10,6 +10,7 @@ TagManager:
   - Client
   - ClientExit
   - CarExit
+  - CarExit2
   layers:
   - Default
   - TransparentFX

@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     {
         objectPool = GetComponent<ObjectPool>();
         //DOVirtual.DelayedCall(1, objectPool.SpawnPooledObject).SetLoops(5);
-        CreateSpawnTween(4, -1);
+        CreateSpawnTween(2, -1); // QUE PASA CON ESTO: Pues que cuando el coche va a entrar al parking justo antes de hacer Dequeue se llama a esto mmm
     }
 
     public void ClientOut(GameObject client)

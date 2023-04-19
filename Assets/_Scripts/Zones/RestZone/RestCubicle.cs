@@ -6,7 +6,7 @@ using UnityEngine;
 public class RestCubicle : QueueFlow
 {
     [SerializeField] RestZone zoneManager;
-    float restTime = 5f;
+    [SerializeField] float restTime = 5f;
 
     void OnTriggerEnter(Collider other)
     {

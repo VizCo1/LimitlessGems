@@ -6,20 +6,5 @@ using DG.Tweening;
 
 public class Worker : AgentBase
 {
-    /*
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
-    public void MakeGem(int gem)
-    {
-        
-    }
-    */
+    
 }

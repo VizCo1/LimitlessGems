@@ -12,14 +12,17 @@ public class KeyTrigger : MonoBehaviour
         {
             zone.MoveAgentToSpot(other.GetComponent<AgentBase>());
         }
-        else if (other.CompareTag("ClientExit"))
+        else if (zone == null)
         {
-            Client client = other.GetComponent<Client>();
-            client.SetDestination(client.GetCar().transform.position);
-        }
-        else if (other.CompareTag("CarExit"))
-        {
-            other.GetComponent<AgentBase>().GoToNextPosition();
-        }
+            if (other.CompareTag("ClientExit"))
+            {
+                Client client = other.GetComponent<Client>();
+                client.SetDestination(client.GetCar().transform.position);
+            }
+            else if (other.CompareTag("CarExit2"))
+            {
+                other.GetComponent<AgentBase>().GoToNextPosition();
+            }
+        } 
     }
 }

@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using System;
 
 public class Car : MonoBehaviour
 {
     [SerializeField] Client client;
 
     bool imitateClient = true;
+    [SerializeField] Material[] materials;
+    [SerializeField] MeshRenderer meshRenderer;
+
 
     private void OnEnable()
     {
         transform.localPosition = Vector3.zero;
+        meshRenderer.material = materials[Random.Range(0, materials.Length)];
     }
 
     void Update()
@@ -33,4 +36,6 @@ public class Car : MonoBehaviour
     {
         imitateClient = true;
     }
+
+
 }

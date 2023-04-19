@@ -12,10 +12,10 @@ public class WorkTable : MonoBehaviour
 
     [SerializeField] float makeTime = 5f;
 
-    private void Start()
+    /*private void Start()
     {
         CreateGemSequence();
-    }
+    }*/
 
     Sequence CreateGemSequence()
     {
@@ -45,13 +45,13 @@ public class WorkTable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Worker"))
+        if (other.gameObject == worker.gameObject)
         {
             other.transform.DOLookAt(transform.position, 1f, AxisConstraint.Y);
 
             if (zoneManager.CheckForPendingRequests()) // There are pending requests
             {
-                CreateGemSequence().Append(zoneManager.GetRandomPendingRequestsQueue().counter.CreateReceivingGemSequence());
+                CreateGemSequence().Append(zoneManager.GetRandomPendingRequest().counter.CreateReceivingGemSequence());
             }
             else // No pending requests
             {
@@ -59,6 +59,4 @@ public class WorkTable : MonoBehaviour
             }
         }
     }
-
-    
 }
