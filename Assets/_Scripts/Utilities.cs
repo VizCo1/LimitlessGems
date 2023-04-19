@@ -1,8 +1,8 @@
 
 public class CounterRequest
 {
-    public Counter counter;
-    public int gem;
+    public Counter counter { get; private set; }
+    public int gem { get; private set; }
 
     public CounterRequest(Counter c, int g)
     {
