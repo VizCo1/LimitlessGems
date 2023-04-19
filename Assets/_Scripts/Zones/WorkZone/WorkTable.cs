@@ -33,7 +33,8 @@ public class WorkTable : MonoBehaviour
             {
                 if (zoneManager.AnyRequestForThisGem(gem))
                 {
-                    zoneManager.GetPendingRequestsOf(gem).Dequeue().counter.CreateReceivingGemSequence();
+                    if (zoneManager.GetPendingRequestsOf(gem).Peek().counter.CreateReceivingGemSequence() != null)
+                        zoneManager.GetPendingRequestsOf(gem).Dequeue();
                 }
                 else
                 {

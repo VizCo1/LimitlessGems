@@ -18,7 +18,7 @@ public class AgentBase : MonoBehaviour
 
    public void SetDestination(Vector3 pos)
     {
-        agent.destination = pos;
+        agent.destination = new Vector3(pos.x, transform.localPosition.y, pos.z);
     }
 
     public virtual void GoToNextPosition()
