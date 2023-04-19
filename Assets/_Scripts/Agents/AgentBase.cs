@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ public class AgentBase : MonoBehaviour
 
     protected NavMeshAgent agent;
 
+    [SerializeField] protected bool b;
+
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -23,6 +26,16 @@ public class AgentBase : MonoBehaviour
 
     public virtual void GoToNextPosition()
     {
+        /*if (!canGoToNextPosition)
+            return;
+        else
+            canGoToNextPosition = false;*/
+
+        if (b)
+            Debug.Log("GO TO NEXT POSITION");
+
+        //DOVirtual.DelayedCall(0.5f, () => canGoToNextPosition = true);
+        
         if (index < positions.Length - 1)
             agent.destination = positions[index++].position;
         else

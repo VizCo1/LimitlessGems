@@ -9,16 +9,16 @@ public class ParkingSpot : MonoBehaviour
     [SerializeField] int capacity;
     [HideInInspector] public int Count = 0;
 
-    public GameObject actualClient;
+    [HideInInspector] public List<GameObject> actualClients;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Car") && other.gameObject == actualClient)
+        if (other.CompareTag("Car") && other.gameObject == actualClients.Contains(other.gameObject))
         {           
             Client client = other.GetComponent<Client>();
             client.ParkCar();
         }
-        else if (other.CompareTag("ClientExit") && other.gameObject == actualClient)
+        else if (other.CompareTag("ClientExit") && actualClients.Contains(other.gameObject))
         {
             Client client = other.GetComponent<Client>();
             client.UnParkCar();
@@ -29,9 +29,10 @@ public class ParkingSpot : MonoBehaviour
     {
         if (other.CompareTag("CarExit"))
         {
-            actualClient = null;
+            actualClients.Remove(other.gameObject);
             other.GetComponent<Client>().ChangeTag("CarExit2");
             zoneManager.AddFreeSpot(this);
+            //DOVirtual.DelayedCall(3f, () => zoneManager.AddFreeSpot(this));
         }
     }
 

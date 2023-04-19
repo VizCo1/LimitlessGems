@@ -6,13 +6,15 @@ using DG.Tweening;
 public class GameController : MonoBehaviour
 {
     ObjectPool objectPool;
-    Tween spawnTween;
+    Sequence spawnSequence;
+
+    [SerializeField] float delay;
 
     void Awake()
     {
         objectPool = GetComponent<ObjectPool>();
         //DOVirtual.DelayedCall(1, objectPool.SpawnPooledObject).SetLoops(5);
-        CreateSpawnTween(2, -1); // QUE PASA CON ESTO: Pues que cuando el coche va a entrar al parking justo antes de hacer Dequeue se llama a esto mmm
+        CreateSpawnSequence(delay, -1); // QUE PASA CON ESTO: Pues que cuando el coche va a entrar al parking justo antes de hacer Dequeue se llama a esto mmm
     }
 
     public void ClientOut(GameObject client)
@@ -20,9 +22,11 @@ public class GameController : MonoBehaviour
         objectPool.ReturnPooledObject(client);
     }
 
-    void CreateSpawnTween(float delay, int loops)
+    void CreateSpawnSequence(float delay, int loops)
     {
-        spawnTween.Kill();
-        spawnTween = DOVirtual.DelayedCall(delay, objectPool.SpawnPooledObject).SetLoops(loops);
+        spawnSequence.Kill();
+        spawnSequence = DOTween.Sequence().SetDelay(delay)
+            .AppendCallback(objectPool.SpawnPooledObject)
+            .SetLoops(loops);
     }
 }

@@ -15,14 +15,12 @@ public class ParkingZone : Zone
 
     public override void MoveAgentToSpot(AgentBase agent)
     {
-        // Si hace falta hacer Dequeue hay que hacerlo justo cuando el coche sale de CarQueue!!!!! TODO
-        // O MOVER EL KEY SPOT MAS CERCA BOBO
         if (freeSpots.Count != 0)
         {
             ParkingSpot spot = freeSpots.Peek();
             if (++spot.Count == spot.Capacity())
                 freeSpots.Dequeue();
-            spot.actualClient = agent.gameObject;
+            spot.actualClients.Add(agent.gameObject);
             agent.SetDestination(spot.transform.position);
         }
     }
@@ -34,13 +32,12 @@ public class ParkingZone : Zone
             freeSpots.Enqueue(spot);
         }
 
-        Debug.Log(spot.Count);
-
         // Communicate with RoadZone
         Client client = roadZone.GetActualClient();
         if (client != null)
+        {
             client.GoToNextPosition();
-        
+        }    
     }
 
     public bool IsParkingAvailable()

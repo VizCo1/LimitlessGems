@@ -10,7 +10,7 @@ public class CarQueue : MonoBehaviour
     [SerializeField] Transform exitSpot;
     public bool placeOccupied { get; private set; } = false;
 
-    public Client actualClient { get; private set; }
+    [HideInInspector] public Client actualClient;
 
     private void Awake()
     {

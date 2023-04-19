@@ -17,6 +17,8 @@ public class Client : AgentBase
 
     GemType chosenGem;
 
+    
+
     private void OnEnable()
     {
         index = 0;
@@ -25,6 +27,14 @@ public class Client : AgentBase
         ChooseGem();
         ChangeTag("Car");
         meshRenderer.material = materials[Random.Range(0, materials.Length)];
+    }
+
+    private void Update()
+    {
+        if (b)
+        {
+            Debug.Log("INDEX: " + index);
+        }
     }
 
     void ChooseGem()

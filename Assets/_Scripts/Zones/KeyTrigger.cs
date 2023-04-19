@@ -8,11 +8,7 @@ public class KeyTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Client") || other.CompareTag("Worker") || other.CompareTag("Car"))
-        {
-            zone.MoveAgentToSpot(other.GetComponent<AgentBase>());
-        }
-        else if (zone == null)
+        if (zone == null)
         {
             if (other.CompareTag("ClientExit"))
             {
@@ -24,5 +20,9 @@ public class KeyTrigger : MonoBehaviour
                 other.GetComponent<AgentBase>().GoToNextPosition();
             }
         } 
+        else if (other.CompareTag("Client") || other.CompareTag("Worker") || other.CompareTag("Car"))
+        {
+            zone.MoveAgentToSpot(other.GetComponent<AgentBase>());
+        }
     }
 }

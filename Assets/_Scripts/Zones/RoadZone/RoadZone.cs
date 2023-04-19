@@ -24,6 +24,8 @@ public class RoadZone : Zone
 
     public Client GetActualClient()
     {
-        return carQueue.actualClient;
+        Client client = carQueue.actualClient;
+        carQueue.actualClient = null;
+        return client;
     }
 }

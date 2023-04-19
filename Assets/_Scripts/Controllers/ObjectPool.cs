@@ -28,7 +28,7 @@ public class ObjectPool : MonoBehaviour
     { 
         if (!carQueue.IsFull())
         {
-            Debug.Log("Car queue not full!!! \n");
+            //Debug.Log("Car queue not full!!! \n");
             if (inactivePooledObjects.TryDequeue(out GameObject client))
             {
                 client.SetActive(true);

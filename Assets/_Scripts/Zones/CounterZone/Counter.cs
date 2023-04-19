@@ -23,7 +23,6 @@ public class Counter : QueueFlow
             sequence.Append(circleCanvas.AppearAndFill(orderTime)) // Client orders the gem
                     .AppendCallback(() =>
                     {
-                        Debug.Log("Despues del circle canvas!!!");
                         if (zoneManager.TryToProvideGemWithWorkZone(((int)actualClient.WantedGem()), this)) // If gem is available, then give gem. Else gem request saved 
                         {
                             // Give gem sequence
@@ -37,9 +36,16 @@ public class Counter : QueueFlow
 
     public Sequence CreateReceivingGemSequence()
     {
-         return DOTween.Sequence()
+        if (actualClient == null)
+            return null;
+
+        Client auxClient = actualClient;
+        actualClient = null;
+
+        return DOTween.Sequence()
+            .SetDelay(0.25f)
             .Append(circleCanvas.AppearAndFill(1f))
-            .AppendCallback(() => actualClient.SetDestination(exitSpot.position))
-            .Append(DOVirtual.DelayedCall(0.5f, () => actualClient.GemReceived()));       
+            .AppendCallback(() => auxClient.SetDestination(exitSpot.position))
+            .Append(DOVirtual.DelayedCall(0.5f, () => auxClient.GemReceived()));
     }
 }
