@@ -7,27 +7,41 @@ using UnityEngine;
 public class CameraSystem : MonoBehaviour
 {
 
-    [SerializeField] CinemachineVirtualCamera virtualCamera;
     bool dragPanMoveActive = false;
+
+    [SerializeField] CinemachineVirtualCamera virtualCamera;
+
+    [Space]
+
+    [Header("Drag configuration")]
 
     [SerializeField] float movementDragSpeed = 10;
 
-    [SerializeField] float fieldOfViewMax = 50;
-    [SerializeField] float fieldOfViewMin = 10;
+    [Space]
+
+    [Header("Zoom configuration")]
+
+    [SerializeField] float orthoSizeMax = 50;
+    [SerializeField] float orthoSizeMin = 10;
+    [SerializeField] float zoomSpeed = 10;
 
     Vector2 lastMousePosition;
-    float targetFieldOfView = 50;
+    float targetOrthoSize = 50;
 
     void Update()
     {
         HandleCameraMovementDragPan();
-        //HandleCameraZoom();
+        HandleCameraZoom();
+
+        Debug.Log(lastMousePosition);
     }
 
     private void HandleCameraZoom()
     {
         if (Input.touchCount == 2)
         {
+            dragPanMoveActive = false;
+
             Touch touchOne = Input.GetTouch(0);
             Touch touchTwo = Input.GetTouch(1);
 
@@ -37,59 +51,56 @@ public class CameraSystem : MonoBehaviour
             float prevMagnitude = (touchOnePrevPos - touchTwoPrevPos).magnitude;
             float currentMagnitude = (touchOne.position - touchTwo.position).magnitude;
 
-            if (prevMagnitude > currentMagnitude)
+            if (prevMagnitude > currentMagnitude * 1.1f)
             {
-                targetFieldOfView -= prevMagnitude - currentMagnitude;
+                targetOrthoSize += 1;
             }
-            else
+            else if (currentMagnitude > prevMagnitude * 1.1f)
             {
-                targetFieldOfView += currentMagnitude - prevMagnitude;
+                targetOrthoSize -= 1;
             }
 
-            targetFieldOfView = Mathf.Clamp(targetFieldOfView, fieldOfViewMin, fieldOfViewMax);
+            targetOrthoSize = Mathf.Clamp(targetOrthoSize, orthoSizeMin, orthoSizeMax);
 
-            float zoomSpeed = 10f;
-
-            virtualCamera.m_Lens.FieldOfView =
-                Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, targetFieldOfView, Time.deltaTime * zoomSpeed);
+            virtualCamera.m_Lens.OrthographicSize = 
+                Mathf.Lerp(virtualCamera.m_Lens.OrthographicSize, targetOrthoSize, Time.deltaTime * zoomSpeed);
         }
-    }
-
-    void Zoom(float increment)
-    {
-
     }
 
     void HandleCameraMovementDragPan()
     {
-        Vector3 inputDir = Vector3.zero;
-
-
-        if (Input.GetMouseButtonDown(0))
+        if (Input.touchCount == 1)
         {
-            dragPanMoveActive = true;
-            lastMousePosition = Input.mousePosition;
+            Vector3 inputDir = Vector3.zero;
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                dragPanMoveActive = true;
+                lastMousePosition = Input.mousePosition;
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                dragPanMoveActive = false;
+            }
+
+            if (dragPanMoveActive)
+            {
+                Vector2 mouseMovementDelta = (Vector2)Input.mousePosition - lastMousePosition;
+
+                float dragPanSpeed = 2f;
+
+                inputDir.x = mouseMovementDelta.x * dragPanSpeed;
+                inputDir.y = mouseMovementDelta.y * dragPanSpeed;
+
+                lastMousePosition = Input.mousePosition;
+            }
+
+            Vector3 moveDir = transform.forward * inputDir.z + inputDir.x * transform.right;
+
+            moveDir *= -1;
+
+            transform.position += moveDir * movementDragSpeed * Time.deltaTime;
         }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            dragPanMoveActive = false;
-        }
-
-        if (dragPanMoveActive)
-        {
-            Vector2 mouseMovementDelta = (Vector2)Input.mousePosition - lastMousePosition;
-
-            float dragPanSpeed = 2f;
-
-            inputDir.x = mouseMovementDelta.x * dragPanSpeed;
-            inputDir.y = mouseMovementDelta.y * dragPanSpeed;
-
-            lastMousePosition = Input.mousePosition;
-        }
-
-        Vector3 moveDir = transform.forward * inputDir.z + transform.right * inputDir.x * -1; 
-
-        transform.position += moveDir * movementDragSpeed * Time.deltaTime;
     }
 }
