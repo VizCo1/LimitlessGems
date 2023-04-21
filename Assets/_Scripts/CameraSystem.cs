@@ -24,8 +24,9 @@ public class CameraSystem : MonoBehaviour
 
     [Header("Drag configuration")]
 
-    [SerializeField] float movementDragSpeed = 10;
-    [SerializeField] float releaseDragSpeed = 1;
+    [SerializeField] float maxMovementDragSpeed = 10;
+    [SerializeField] float minMovementDragSpeed = 5;
+    float currentMovementDragSpeed;
 
     Matrix4x4 isoMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0)); // Change movement directions;
 
@@ -36,21 +37,30 @@ public class CameraSystem : MonoBehaviour
 
     [Header("Zoom configuration")]
 
-    [SerializeField] float orthoSizeMax = 50;
-    [SerializeField] float orthoSizeMin = 10;
+    [SerializeField] float MaxOrthoSize = 50;
+    [SerializeField] float MinOrthoSize = 10;
     [SerializeField] float zoomSpeed = 10;
 
     float targetOrthoSize = 50;
-    
+
+    private void Start()
+    {
+        currentMovementDragSpeed = maxMovementDragSpeed;
+    }
+
     void Update()
+    {
+        ClampTarget();
+        HandleCameraMovementDragPan();
+        HandleCameraZoom();
+    }
+
+    private void ClampTarget()
     {
         float x = Mathf.Clamp(transform.position.x, minX, maxX);
         float z = Mathf.Clamp(transform.position.z, minZ, maxZ);
 
         transform.position = new Vector3(x, transform.position.y, z);
-
-        HandleCameraMovementDragPan();
-        HandleCameraZoom();
     }
 
     private void HandleCameraZoom()
@@ -77,40 +87,52 @@ public class CameraSystem : MonoBehaviour
                 targetOrthoSize -= 1;
             }
 
-            targetOrthoSize = Mathf.Clamp(targetOrthoSize, orthoSizeMin, orthoSizeMax);
+            targetOrthoSize = Mathf.Clamp(targetOrthoSize, MinOrthoSize, MaxOrthoSize);
 
             virtualCamera.m_Lens.OrthographicSize = 
                 Mathf.Lerp(virtualCamera.m_Lens.OrthographicSize, targetOrthoSize, Time.deltaTime * zoomSpeed);
+
+            AdjustDraggingSpeedByZoom();
         }
+    }
+
+    void AdjustDraggingSpeedByZoom()
+    {
+        // Change the dragging speed as the zoom changes.
+        float t = (virtualCamera.m_Lens.OrthographicSize - MinOrthoSize) / (MaxOrthoSize - MinOrthoSize);
+
+        currentMovementDragSpeed = Mathf.Lerp(minMovementDragSpeed, maxMovementDragSpeed, t);
+        Debug.Log("T: " + t + "\nCurrent speed: " + currentMovementDragSpeed);
     }
 
     void HandleCameraMovementDragPan()
     {
-        if (Input.touchCount < 2)
+        if (Input.touchCount == 1)
         {
             Vector3 inputDir = Vector3.zero;
-            
-            if (Input.GetMouseButtonDown(0))
+
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
+                inputDir = Vector3.zero;
                 dragPanMoveActive = true;
-                lastMousePosition = Input.mousePosition;
+                lastMousePosition = Input.GetTouch(0).position;
             }
 
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
                 dragPanMoveActive = false;
             }
 
             if (dragPanMoveActive)
             {
-                Vector2 mouseMovementDelta = (Vector2)Input.mousePosition - lastMousePosition;
+                Vector2 mouseMovementDelta = (Vector2)Input.GetTouch(0).position - lastMousePosition;
 
                 float dragPanSpeed = 2f;
 
                 inputDir.x = mouseMovementDelta.x * dragPanSpeed;
                 inputDir.y = mouseMovementDelta.y * dragPanSpeed;
 
-                lastMousePosition = Input.mousePosition;
+                lastMousePosition = Input.GetTouch(0).position;
             }
 
             moveDir = transform.forward * inputDir.y + inputDir.x * transform.right;
@@ -119,7 +141,7 @@ public class CameraSystem : MonoBehaviour
 
             moveDir = isoMatrix.MultiplyPoint3x4(moveDir);
 
-            transform.position += moveDir * movementDragSpeed * Time.deltaTime;
+            transform.position += moveDir * currentMovementDragSpeed * Time.deltaTime;
         }
     }
 }
