@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class CameraSystem : MonoBehaviour
 {
+    // This camera system only works on mobile devices, but it can be adapted for other platforms
 
     bool dragPanMoveActive = false;
 
@@ -13,9 +14,23 @@ public class CameraSystem : MonoBehaviour
 
     [Space]
 
+    [Header("Target configuration")]
+    [SerializeField] float minX;
+    [SerializeField] float maxX;
+    [SerializeField] float minZ;
+    [SerializeField] float maxZ;
+
+    [Space]
+
     [Header("Drag configuration")]
 
     [SerializeField] float movementDragSpeed = 10;
+    [SerializeField] float releaseDragSpeed = 1;
+
+    Matrix4x4 isoMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0)); // Change movement directions;
+
+    Vector2 lastMousePosition;
+    Vector3 moveDir = Vector3.zero;
 
     [Space]
 
@@ -25,15 +40,17 @@ public class CameraSystem : MonoBehaviour
     [SerializeField] float orthoSizeMin = 10;
     [SerializeField] float zoomSpeed = 10;
 
-    Vector2 lastMousePosition;
     float targetOrthoSize = 50;
-
+    
     void Update()
     {
+        float x = Mathf.Clamp(transform.position.x, minX, maxX);
+        float z = Mathf.Clamp(transform.position.z, minZ, maxZ);
+
+        transform.position = new Vector3(x, transform.position.y, z);
+
         HandleCameraMovementDragPan();
         HandleCameraZoom();
-
-        Debug.Log(lastMousePosition);
     }
 
     private void HandleCameraZoom()
@@ -69,10 +86,10 @@ public class CameraSystem : MonoBehaviour
 
     void HandleCameraMovementDragPan()
     {
-        if (Input.touchCount == 1)
+        if (Input.touchCount < 2)
         {
             Vector3 inputDir = Vector3.zero;
-
+            
             if (Input.GetMouseButtonDown(0))
             {
                 dragPanMoveActive = true;
@@ -96,9 +113,11 @@ public class CameraSystem : MonoBehaviour
                 lastMousePosition = Input.mousePosition;
             }
 
-            Vector3 moveDir = transform.forward * inputDir.z + inputDir.x * transform.right;
+            moveDir = transform.forward * inputDir.y + inputDir.x * transform.right;
 
             moveDir *= -1;
+
+            moveDir = isoMatrix.MultiplyPoint3x4(moveDir);
 
             transform.position += moveDir * movementDragSpeed * Time.deltaTime;
         }
