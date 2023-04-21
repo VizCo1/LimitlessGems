@@ -16518,7 +16518,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5735899020706870555, guid: 9755bebe07a6f3142ab54e330edc3eb8, type: 3}
       propertyPath: m_Name
-      value: CircleCanvas
+      value: CircleCanvas (TESTING)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5735899020706870555, guid: 9755bebe07a6f3142ab54e330edc3eb8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9755bebe07a6f3142ab54e330edc3eb8, type: 3}
@@ -16832,7 +16836,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1916228092}
   m_Layer: 0
-  m_Name: ClientAgent (DESACTIVAR)
+  m_Name: Car and Client (DEACTIVATE)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
