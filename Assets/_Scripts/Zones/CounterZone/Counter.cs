@@ -26,7 +26,7 @@ public class Counter : QueueFlow
                         if (zoneManager.TryToProvideGemWithWorkZone(((int)actualClient.WantedGem()), this)) // If gem is available, then give gem. Else gem request saved 
                         {
                             // Give gem sequence
-                            CreateReceivingGemSequence();
+                            ReceiveGem((int)actualClient.WantedGem());
                         }
                     });
             
@@ -34,10 +34,12 @@ public class Counter : QueueFlow
         }
     }
 
-    public Sequence CreateReceivingGemSequence()
+    public Sequence ReceiveGem(int gem)
     {
         if (actualClient == null)
             return null;
+
+        GameController.EarnMoney(gem);
 
         Client auxClient = actualClient;
         actualClient = null;

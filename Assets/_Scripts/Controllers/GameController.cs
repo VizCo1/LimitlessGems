@@ -5,16 +5,19 @@ using DG.Tweening;
 
 public class GameController : MonoBehaviour
 {
-    ObjectPool objectPool;
     Sequence spawnSequence;
 
-    [SerializeField] float delay;
+    static int money;
+
+    [Header("Pool configuration")]
+
+    [SerializeField] ObjectPool objectPool;
+    [SerializeField] float spawnDelay;
 
     void Awake()
     {
-        objectPool = GetComponent<ObjectPool>();
         //DOVirtual.DelayedCall(1, objectPool.SpawnPooledObject).SetLoops(5);
-        CreateSpawnSequence(delay, -1); // QUE PASA CON ESTO: Pues que cuando el coche va a entrar al parking justo antes de hacer Dequeue se llama a esto mmm
+        CreateSpawnSequence(spawnDelay, -1);
     }
 
     public void ClientOut(GameObject client)
@@ -28,5 +31,23 @@ public class GameController : MonoBehaviour
         spawnSequence = DOTween.Sequence().SetDelay(delay)
             .AppendCallback(objectPool.SpawnPooledObject)
             .SetLoops(loops);
+    }
+
+    public static void EarnMoney(int gem)
+    {
+        switch (gem)
+        {
+            case 0:
+                money += 1;
+                break;
+            case 1:
+                money += 2;
+                break;
+            case 2:
+                money += 3;
+                break;
+        }
+
+        Canvas.UpdateMoneyText(money);
     }
 }

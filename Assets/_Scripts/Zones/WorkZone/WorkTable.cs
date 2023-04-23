@@ -34,7 +34,7 @@ public class WorkTable : MonoBehaviour
                 if (zoneManager.AnyRequestForThisGem(gem))
                 {
                     
-                    zoneManager.GetPendingRequestsOf(gem).Dequeue().counter.CreateReceivingGemSequence();
+                    zoneManager.GetPendingRequestsOf(gem).Dequeue().counter.ReceiveGem(gem);
                 }
                 else
                 {
@@ -53,7 +53,8 @@ public class WorkTable : MonoBehaviour
 
             if (zoneManager.CheckForPendingRequests()) // There are pending requests
             {
-                CreateGemSequence().Append(zoneManager.GetRandomPendingRequest().counter.CreateReceivingGemSequence());
+                CounterRequest counterRequest = zoneManager.GetRandomPendingRequest();
+                CreateGemSequence().Append(counterRequest.counter.ReceiveGem(counterRequest.gem));
             }
             else // No pending requests
             {

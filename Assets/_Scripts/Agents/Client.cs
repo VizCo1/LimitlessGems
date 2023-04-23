@@ -17,8 +17,6 @@ public class Client : AgentBase
 
     GemType chosenGem;
 
-    
-
     private void OnEnable()
     {
         agent.Warp(transform.parent.position);
