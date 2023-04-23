@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using BreakInfinity;
+using System;
 
 public class GameController : MonoBehaviour
 {
     Sequence spawnSequence;
 
-    static int money;
+    public static BigDouble money = 900000;
 
     [Header("Pool configuration")]
 
@@ -16,6 +18,8 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
+
+        //money.
         //DOVirtual.DelayedCall(1, objectPool.SpawnPooledObject).SetLoops(5);
         CreateSpawnSequence(spawnDelay, -1);
     }
@@ -38,16 +42,16 @@ public class GameController : MonoBehaviour
         switch (gem)
         {
             case 0:
-                money += 1;
+                money += 10000;
                 break;
             case 1:
-                money += 2;
+                money += 10000;
                 break;
             case 2:
-                money += 3;
+                money += 10000;
                 break;
         }
 
-        Canvas.UpdateMoneyText(money);
+        CanvasManager.UpdateMoney(money);
     }
 }

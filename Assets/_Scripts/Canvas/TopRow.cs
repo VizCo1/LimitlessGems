@@ -1,18 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using BreakInfinity;
+using System;
 
 public class TopRow : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] TMP_Text money;
+    [SerializeField] TMP_Text moneyPerMinute;
+
+    [SerializeField] string[] formats;
+
+    private void Awake()
     {
-        
+        money.text = GameController.money.ToString();      
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateMoneyText(BigDouble m)
     {
-        
+        int index;
+
+        if (m >= 1000000)
+        {
+            index = 1;
+        }
+        else
+        {
+            index = 0;
+        }
+
+        money.text = m.ToString(formats[index]);
+    }
+
+    public void UpdateMoneyPerMinuteText(BigDouble m)
+    {
+        moneyPerMinute.text = m.ToString();
     }
 }
