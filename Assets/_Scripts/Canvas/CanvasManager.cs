@@ -15,7 +15,7 @@ public class CanvasManager : MonoBehaviour
 
     [Header("Canvas layers")]
     [SerializeField] Layer[] layers;
-    [SerializeField] int currentLayer = 0;
+    //[SerializeField] int currentLayer = 0;
 
     private void Awake()
     {       
@@ -25,16 +25,16 @@ public class CanvasManager : MonoBehaviour
     private void Start()
     {
         // Probablemente no se utilice esto
-        //foreach (Layer l in layers) l.End();
+        foreach (Layer l in layers) l.End();
 
         //layers[currentLayer].Init();
     }
 
-    public void ChangeLayer(int layer)
+    public void OpenLayer(int layer)
     {
-        layers[currentLayer].End();
-        currentLayer = layer;
-        layers[currentLayer].Init();
+        //layers[currentLayer].End();
+        //currentLayer = layer;
+        layers[layer].Init();
     }
 
     public static void UpdateMoney(BigDouble money)

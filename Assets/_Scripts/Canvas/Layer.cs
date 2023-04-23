@@ -8,7 +8,6 @@ using DG.Tweening;
 public class Layer : MonoBehaviour
 {
     protected CanvasManager canvas;
-    [SerializeField] protected Button backButton;
 
     protected virtual void Awake()
     {
@@ -27,6 +26,7 @@ public class Layer : MonoBehaviour
 
     public void BackButtonPressed()
     {
-        canvas.ChangeLayer(0);
+        //canvas.ChangeLayer(0);
+        End();
     }
 }
