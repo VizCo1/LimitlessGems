@@ -75,7 +75,7 @@ public class Client : AgentBase
 
     public void GemReceived()
     {
-        Debug.Log("Client recives the gem");
+        //Debug.Log("Client recives the gem");
         GoToNextPosition();
         ChangeTag("ClientExit");
     }
