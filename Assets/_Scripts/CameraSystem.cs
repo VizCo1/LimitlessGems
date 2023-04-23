@@ -107,32 +107,35 @@ public class CameraSystem : MonoBehaviour
 
     void HandleCameraMovementDragPan()
     {
-        if (Input.touchCount == 1)
+        if (Input.touchCount < 2) // Cambiar a: == 1
         {
             Vector3 inputDir = Vector3.zero;
 
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            if (Input.GetMouseButtonDown(0)) //(Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 inputDir = Vector3.zero;
                 dragPanMoveActive = true;
-                lastMousePosition = Input.GetTouch(0).position;
+                //lastMousePosition = Input.GetTouch(0).position;
+                lastMousePosition = Input.mousePosition;
             }
 
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            if (Input.GetMouseButtonUp(0)) //(Input.GetTouch(0).phase == TouchPhase.Ended)
             {
                 dragPanMoveActive = false;
             }
 
             if (dragPanMoveActive)
             {
-                Vector2 mouseMovementDelta = (Vector2)Input.GetTouch(0).position - lastMousePosition;
+                //Vector2 mouseMovementDelta = (Vector2)Input.GetTouch(0).position - lastMousePosition;
+                Vector2 mouseMovementDelta = (Vector2)Input.mousePosition - lastMousePosition;
 
                 float dragPanSpeed = 2f;
 
                 inputDir.x = mouseMovementDelta.x * dragPanSpeed;
                 inputDir.y = mouseMovementDelta.y * dragPanSpeed;
 
-                lastMousePosition = Input.GetTouch(0).position;
+                //lastMousePosition = Input.GetTouch(0).position;
+                lastMousePosition = Input.mousePosition;
             }
 
             moveDir = transform.forward * inputDir.y + inputDir.x * transform.right;

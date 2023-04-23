@@ -23,7 +23,7 @@ public class ObjectPool : MonoBehaviour
             inactivePooledObjects.Enqueue(obj);
         }
     }
-    
+
     public void SpawnPooledObject()
     { 
         if (!carQueue.IsFull())

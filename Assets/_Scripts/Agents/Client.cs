@@ -21,18 +21,24 @@ public class Client : AgentBase
 
     private void OnEnable()
     {
+        agent.Warp(transform.parent.position);
         index = 0;
-        transform.localPosition = Vector3.zero;
+        ChangeTag("Car");
         GoToNextPosition();
         ChooseGem();
-        ChangeTag("Car");
         meshRenderer.material = materials[Random.Range(0, materials.Length)];
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            transform.localPosition = Vector3.zero;
+        }
+
         if (b)
         {
+            Debug.Log(transform.parent.position);
             Debug.Log("INDEX: " + index);
         }
     }

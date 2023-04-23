@@ -49,6 +49,7 @@ public class WorkTable : MonoBehaviour
         if (other.gameObject == worker.gameObject)
         {
             other.transform.DOLookAt(transform.position, 1f, AxisConstraint.Y);
+            worker.ChangeTag("Worker");
 
             if (zoneManager.CheckForPendingRequests()) // There are pending requests
             {

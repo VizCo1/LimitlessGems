@@ -14,7 +14,7 @@ public class Car : MonoBehaviour
 
     private void OnEnable()
     {
-        transform.localPosition = Vector3.zero;
+        //transform.position = client.transform.position;
         meshRenderer.material = materials[Random.Range(0, materials.Length)];
     }
 

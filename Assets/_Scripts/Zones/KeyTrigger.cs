@@ -15,7 +15,7 @@ public class KeyTrigger : MonoBehaviour
                 Client client = other.GetComponent<Client>();
                 client.SetDestination(client.GetCar().transform.position);
             }
-            else if (other.CompareTag("CarExit2"))
+            else
             {
                 other.GetComponent<AgentBase>().GoToNextPosition();
             }

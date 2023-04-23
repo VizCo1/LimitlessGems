@@ -25,22 +25,12 @@ public class AgentBase : MonoBehaviour
     }
 
     public virtual void GoToNextPosition()
-    {
-        /*if (!canGoToNextPosition)
-            return;
-        else
-            canGoToNextPosition = false;*/
-
-        if (b)
-            Debug.Log("GO TO NEXT POSITION");
-
-        //DOVirtual.DelayedCall(0.5f, () => canGoToNextPosition = true);
-        
+    {     
         if (index < positions.Length - 1)
-            agent.destination = positions[index++].position;
+            SetDestination(positions[index++].position);
         else
         {
-            agent.destination = positions[index].position;
+            SetDestination(positions[index].position);
             index = 0;
         }
     }

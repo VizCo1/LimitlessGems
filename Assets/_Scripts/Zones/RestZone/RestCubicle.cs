@@ -20,4 +20,10 @@ public class RestCubicle : QueueFlow
                 .AppendCallback(() => worker.GoToNextPosition());                
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        placeOccupied = false;
+        other.GetComponent<Worker>().ChangeTag("WorkerExit");    
+    }
 }
