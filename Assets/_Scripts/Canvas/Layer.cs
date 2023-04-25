@@ -11,6 +11,7 @@ public class Layer : MonoBehaviour
 
     protected virtual void Awake()
     {
+        //Screen.safeArea;
         canvas = GetComponentInParent<CanvasManager>();
     }
 
