@@ -132,6 +132,7 @@ MonoBehaviour:
   circleCanvas: {fileID: 3967772322504032131}
   zoneManager: {fileID: 0}
   exitSpot: {fileID: 7429604373587011214}
+  orderTime: 5
 --- !u!1 &5440821731794613235
 GameObject:
   m_ObjectHideFlags: 0
