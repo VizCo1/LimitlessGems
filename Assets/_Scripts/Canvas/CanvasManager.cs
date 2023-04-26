@@ -48,4 +48,9 @@ public class CanvasManager : MonoBehaviour
         topRow.UpdateMoneyText(money);
     }
 
+    public void CheckAllButtons()
+    {
+        //TODO --> IMPORTANTE: Cuando gastas dinero hay que revisar todos los botones para ver si tienes suficiente dinero 
+    }
+
 }

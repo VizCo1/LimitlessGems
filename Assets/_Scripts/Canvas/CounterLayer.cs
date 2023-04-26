@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class CounterLayer : Layer
 {
-    [SerializeField] CounterZone counterZone;
+    [SerializeField] CounterZone cZone;
     [SerializeField] RectTransform scrollObject;
+
+    static CounterZone counterZone;
 
     float initialY;
 
     private void Start()
     {
         initialY = scrollObject.rect.position.y;
+        counterZone = cZone;
 
         InitializeObjectsInLine();
     }
@@ -21,13 +24,13 @@ public class CounterLayer : Layer
         // Para saber a que counter hace referencia el objectInLine, solo hace falta saber el índice de ese objectInLine ya que coincide con el counter al que hace referencia
         for (int i = 0; i < counterZone.counters.Count; i++)
         {
-            objectInLines[i].gameObject.SetActive(false);
+            objectInLines[i].transform.parent.gameObject.SetActive(false);
             objectInLines[i].index = i;
         }
 
         for (int i = 0; i < counterZone.ActiveSpots(); i++)
         {
-            objectInLines[i].gameObject.SetActive(true);
+            objectInLines[i].transform.parent.gameObject.SetActive(true);
         }
     }
 
@@ -41,5 +44,10 @@ public class CounterLayer : Layer
     {
 
         base.End();
+    }
+
+    static public void UpdateCounterAttributes(int index)
+    {
+        counterZone.counters[index].UpdateAttributes();
     }
 }

@@ -7,7 +7,13 @@ public class Counter : QueueFlow
 {
     [SerializeField] CounterZone zoneManager;
     [SerializeField] Transform exitSpot;
-    [SerializeField] float orderTime = 5f;
+    float orderTime = 10f;
+    float timeImproved;
+
+    private void Start()
+    {
+        timeImproved = orderTime * 0.05f;
+    }
 
     Client actualClient;
 
@@ -49,5 +55,10 @@ public class Counter : QueueFlow
             .Append(circleCanvas.AppearAndFill(1f))
             .AppendCallback(() => auxClient.SetDestination(exitSpot.position))
             .Append(DOVirtual.DelayedCall(0.5f, () => auxClient.GemReceived()));
+    }
+
+    public void UpdateAttributes()
+    {
+        orderTime -= timeImproved;
     }
 }
