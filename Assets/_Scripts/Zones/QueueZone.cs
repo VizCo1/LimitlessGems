@@ -6,12 +6,8 @@ public class QueueZone : Zone
 {
     readonly QueuePriorityQueue priorityQueue = new();
 
-    int maxActiveQueues;
-
-    void Start()
+    protected virtual void Awake()
     {
-        maxActiveQueues = transform.childCount;
-
         // Fill the priorityQueue with the available slots
         for (int i = 0; i < activeSpots; i++)
             priorityQueue.Enqueue(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<CustomQueue>(), 0);

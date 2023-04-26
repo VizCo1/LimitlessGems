@@ -53,18 +53,23 @@ public class CameraSystem : MonoBehaviour
 
     float targetOrthoSize = 50;
 
+    public static bool inGame;
+
     private void Start()
     {
         currentMovementDragSpeed = maxMovementDragSpeed;
         maxOrthoSize += 0.1f;
-        minOrthoSize -= minOrthoSize;
+        minOrthoSize -= 0.1f;
     }
 
     void Update()
     {
-        ClampTarget();
-        HandleCameraMovementDragPan();
-        HandleCameraZoom();
+        if (inGame)
+        {
+            ClampTarget();
+            HandleCameraMovementDragPan();
+            HandleCameraZoom();
+        }
     }
 
     private void ClampTarget()

@@ -9,20 +9,23 @@ public class Layer : MonoBehaviour
 {
     protected CanvasManager canvas;
 
+    [SerializeField] protected ObjectInLine[] objectInLines;
+
     protected virtual void Awake()
     {
-        //Screen.safeArea;
         canvas = GetComponentInParent<CanvasManager>();
     }
 
     public virtual void Init()
     {
         gameObject.SetActive(true);
+        CameraSystem.inGame = false;
     }
 
     public virtual void End()
     {
         gameObject.SetActive(false);
+        CameraSystem.inGame = true;
     }
 
     public void BackButtonPressed()

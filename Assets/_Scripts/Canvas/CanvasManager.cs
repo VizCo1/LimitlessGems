@@ -34,7 +34,13 @@ public class CanvasManager : MonoBehaviour
     {
         //layers[currentLayer].End();
         //currentLayer = layer;
+
         layers[layer].Init();
+    }
+
+    public void CloseLayer(int layer)
+    {
+        layers[layer].End();
     }
 
     public static void UpdateMoney(BigDouble money)

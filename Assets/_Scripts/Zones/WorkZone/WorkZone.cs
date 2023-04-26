@@ -21,6 +21,14 @@ public class WorkZone : Zone
             tables.Add(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<WorkTable>());
     }
 
+    public void AddTable()
+    {
+        // To add a new queue use AddQueue()
+        WorkTable newSlot = transform.GetChild(++activeSpots).GetComponent<WorkTable>();
+        newSlot.gameObject.SetActive(true);
+        //priorityQueue.Enqueue(newSlot, 0);
+    }
+
     public bool TryProvideGem(int gem, Counter counter)
     {
         if (gemsQuantity[gem] != 0) // We have that gem

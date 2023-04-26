@@ -11,4 +11,9 @@ public class Zone : MonoBehaviour
     {
 
     }
+
+    public int ActiveSpots()
+    {
+        return activeSpots;
+    }
 }

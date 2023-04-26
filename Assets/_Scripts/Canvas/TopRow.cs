@@ -10,7 +10,7 @@ public class TopRow : MonoBehaviour
     [SerializeField] TMP_Text money;
     [SerializeField] TMP_Text moneyPerMinute;
 
-    [SerializeField] string[] formats;
+    [SerializeField] string[] moneyFormats;
 
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class TopRow : MonoBehaviour
             index = 0;
         }
 
-        money.text = m.ToString(formats[index]);
+        money.text = m.ToString(moneyFormats[index]);
     }
 
     public void UpdateMoneyPerMinuteText(BigDouble m)
