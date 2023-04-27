@@ -743,7 +743,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4345511336438352716}
         m_TargetAssemblyTypeName: ObjectInLine, Assembly-CSharp
-        m_MethodName: UpgradeButton
+        m_MethodName: UpgradeButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

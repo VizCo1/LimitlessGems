@@ -43,6 +43,11 @@ public class CanvasManager : MonoBehaviour
         layers[layer].End();
     }
 
+    public static void UpdateMoney()
+    {
+        topRow.UpdateMoneyText(GameController.money);
+    }
+
     public static void UpdateMoney(BigDouble money)
     {
         topRow.UpdateMoneyText(money);
@@ -50,7 +55,18 @@ public class CanvasManager : MonoBehaviour
 
     public void CheckAllButtons()
     {
-        //TODO --> IMPORTANTE: Cuando gastas dinero hay que revisar todos los botones para ver si tienes suficiente dinero 
+        foreach (Layer l in layers)
+        {
+            ObjectInLine[] objs = l.GetObjectInLines();
+
+            foreach (ObjectInLine obj in objs)
+            {
+                if (!obj.EnoughCost())
+                    obj.UpgradeButton().interactable = false;
+                else if (!obj.IsLevelMax)
+                    obj.UpgradeButton().interactable = true;
+            }
+        }
     }
 
 }

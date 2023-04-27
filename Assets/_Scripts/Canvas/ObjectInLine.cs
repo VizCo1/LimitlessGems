@@ -4,7 +4,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using BreakInfinity;
-using DG.Tweening;
 
 public class ObjectInLine : MonoBehaviour
 {
@@ -13,12 +12,12 @@ public class ObjectInLine : MonoBehaviour
     [SerializeField] TMP_Text costNumber;
     [SerializeField] int maxLevel = 100;
     [SerializeField] string levelCost = "100";
+    [SerializeField] GameObject spacer;
     int level = 1;
 
-    Tween checkEnoughMoneyTween;
-
     [HideInInspector] public int index;
-    
+    public bool IsLevelMax { get; private set; } = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,15 +25,9 @@ public class ObjectInLine : MonoBehaviour
         levelNumber.text = level.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void UpgradeButtonPressed()
     {
-        if (GameController.money < BigDouble.Parse(costNumber.text))
+        if (!EnoughCost())
         {
             Debug.Log(BigDouble.Parse(costNumber.text));
             return;
@@ -45,23 +38,42 @@ public class ObjectInLine : MonoBehaviour
         costNumber.text = (BigDouble.Parse(costNumber.text) * 2).ToString();
 
         if (++level == maxLevel)
-            upgradeButton.interactable = false;
-        else if (BigDouble.Parse(costNumber.text) > GameController.money)
         {
             upgradeButton.interactable = false;
-            checkEnoughMoneyTween = DOVirtual.DelayedCall(0.75f, () => 
-            { 
-                if (GameController.money > BigDouble.Parse(costNumber.text))
-                {
-                    upgradeButton.interactable = true;
-
-                }
-            }).SetLoops(-1);
+            IsLevelMax = true;
         }
-
+        else if (EnoughCost())
+        {
+            upgradeButton.interactable = false;
+        }
 
         levelNumber.text = level.ToString();
 
-        CounterLayer.UpdateCounterAttributes(index);
+        UpdateAttributesAndCheckCosts();
+    }
+
+    protected virtual void UpdateAttributesAndCheckCosts()
+    {
+
+    }
+
+    public bool EnoughCost()
+    {
+        return BigDouble.Parse(costNumber.text) <= GameController.money; 
+    }
+
+    public Button UpgradeButton()
+    {
+        return upgradeButton;
+    }
+
+    private void OnEnable()
+    {
+        spacer.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        spacer.SetActive(false);
     }
 }

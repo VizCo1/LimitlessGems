@@ -7,13 +7,13 @@ using DG.Tweening;
 
 public class Layer : MonoBehaviour
 {
-    protected CanvasManager canvas;
+    CanvasManager canvasManager;
 
     [SerializeField] protected ObjectInLine[] objectInLines;
 
     protected virtual void Awake()
     {
-        canvas = GetComponentInParent<CanvasManager>();
+        canvasManager = GetComponentInParent<CanvasManager>();
     }
 
     public virtual void Init()
@@ -28,9 +28,23 @@ public class Layer : MonoBehaviour
         CameraSystem.inGame = true;
     }
 
+    protected virtual void InitializeObjectsInLine()
+    {
+
+    }
+
+    protected void CheckButtons()
+    {
+        canvasManager.CheckAllButtons();
+    }
+
     public void BackButtonPressed()
     {
-        //canvas.ChangeLayer(0);
         End();
+    }
+
+    public ObjectInLine[] GetObjectInLines()
+    {
+        return objectInLines;
     }
 }
