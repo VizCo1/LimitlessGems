@@ -27,9 +27,9 @@ public class ObjectInLine : MonoBehaviour
 
     public void UpgradeButtonPressed()
     {
-        if (!EnoughCost())
+        if (!CanvasManager.EnoughCost(levelCost))
         {
-            Debug.Log(BigDouble.Parse(costNumber.text));
+            Debug.Log("CUIDADO");
             return;
         }
 
@@ -39,12 +39,7 @@ public class ObjectInLine : MonoBehaviour
 
         if (++level == maxLevel)
         {
-            upgradeButton.interactable = false;
             IsLevelMax = true;
-        }
-        else if (EnoughCost())
-        {
-            upgradeButton.interactable = false;
         }
 
         levelNumber.text = level.ToString();
@@ -57,14 +52,16 @@ public class ObjectInLine : MonoBehaviour
 
     }
 
-    public bool EnoughCost()
-    {
-        return BigDouble.Parse(costNumber.text) <= GameController.money; 
-    }
-
     public Button UpgradeButton()
     {
         return upgradeButton;
+    }
+
+    public string CostNumberText()
+    {
+        if (costNumber.text == "Cost")
+            Debug.Log(name);
+        return costNumber.text;
     }
 
     private void OnEnable()

@@ -28,6 +28,7 @@ public class CanvasManager : MonoBehaviour
         foreach (Layer l in layers) l.End();
 
         //layers[currentLayer].Init();
+        CheckAllButtons();
     }
 
     public void OpenLayer(int layer)
@@ -61,12 +62,20 @@ public class CanvasManager : MonoBehaviour
 
             foreach (ObjectInLine obj in objs)
             {
-                if (!obj.EnoughCost())
+                if (!EnoughCost(obj.CostNumberText()))
                     obj.UpgradeButton().interactable = false;
                 else if (!obj.IsLevelMax)
                     obj.UpgradeButton().interactable = true;
             }
+
+            l.CheckUnlockButton();
+            l.CheckMajorUpgradeButton();
         }
     }
 
+
+    static public bool EnoughCost(string cost)
+    {
+        return BigDouble.Parse(cost) <= GameController.money;
+    }
 }

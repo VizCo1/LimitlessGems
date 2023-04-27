@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
 {
     Sequence spawnSequence;
 
-    public static BigDouble money = 100;
+    public static BigDouble money = 1000;
 
     [Header("Pool configuration")]
 
