@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
 {
     Sequence spawnSequence;
 
-    public static BigDouble money = 1000;
+    public static BigDouble money = 100;
 
     [Header("Pool configuration")]
 
@@ -18,8 +18,6 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-
-        //money.
         //DOVirtual.DelayedCall(1, objectPool.SpawnPooledObject).SetLoops(5);
         CreateSpawnSequence(spawnDelay, -1);
     }
@@ -42,13 +40,13 @@ public class GameController : MonoBehaviour
         switch (gem)
         {
             case 0:
-                money += 0;
+                money += 5000;
                 break;
             case 1:
-                money += 0;
+                money += 10000;
                 break;
             case 2:
-                money += 0;
+                money += 30000;
                 break;
         }
 

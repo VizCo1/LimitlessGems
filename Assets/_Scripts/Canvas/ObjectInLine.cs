@@ -10,8 +10,8 @@ public class ObjectInLine : MonoBehaviour
     [SerializeField] Button upgradeButton;
     [SerializeField] TMP_Text levelNumber;
     [SerializeField] TMP_Text costNumber;
-    [SerializeField] int maxLevel = 100;
-    [SerializeField] string levelCost = "100";
+    [SerializeField] int maxLevel = 10;
+    [SerializeField] string levelCost = "109";
     [SerializeField] GameObject spacer;
     int level = 1;
 
@@ -33,16 +33,21 @@ public class ObjectInLine : MonoBehaviour
             return;
         }
 
-        GameController.money -= BigDouble.Parse(costNumber.text);
+        GameController.money -= BigDouble.Parse(levelCost);
 
-        costNumber.text = (BigDouble.Parse(costNumber.text) * 2).ToString();
+        levelCost = (BigDouble.Parse(costNumber.text) * 2).ToString();
+        costNumber.text = levelCost;
 
         if (++level == maxLevel)
         {
             IsLevelMax = true;
+            levelNumber.text = "COMPLETED";
+        }
+        else
+        {
+            levelNumber.text = level.ToString();
         }
 
-        levelNumber.text = level.ToString();
 
         UpdateAttributesAndCheckCosts();
     }
@@ -57,11 +62,9 @@ public class ObjectInLine : MonoBehaviour
         return upgradeButton;
     }
 
-    public string CostNumberText()
+    public string LevelCost()
     {
-        if (costNumber.text == "Cost")
-            Debug.Log(name);
-        return costNumber.text;
+        return levelCost;
     }
 
     private void OnEnable()

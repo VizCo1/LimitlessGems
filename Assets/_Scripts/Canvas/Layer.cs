@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using BreakInfinity;
 
 public class Layer : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class Layer : MonoBehaviour
 
     [Space]
 
-    [SerializeField] RectTransform scrollObject;
     [SerializeField] protected ObjectInLine[] objectInLines;
 
     [Space]
@@ -26,8 +26,6 @@ public class Layer : MonoBehaviour
     [SerializeField] protected string majorUpgradeCost;
     [SerializeField] protected TMP_Text majorUpgradeCostText;
     
-
-    float initialY;
     public int activeSpots { get; protected set; }
     public int maxActiveSpots { get; protected set; }
 
@@ -43,15 +41,15 @@ public class Layer : MonoBehaviour
 
         if (majorUpgradeButton != null)
             majorUpgradeCostText.text = majorUpgradeCost;
-        initialY = scrollObject.rect.position.y;
-        InitializeObjectsInLine();
+
+        InitSpotsVariables();
+        InitObjectsInLine();
     }
 
     public virtual void Init()
     {
         gameObject.SetActive(true);
         CameraSystem.inGame = false;
-        scrollObject.position = new Vector2(scrollObject.position.x, initialY);
     }
 
     public virtual void End()
@@ -60,7 +58,21 @@ public class Layer : MonoBehaviour
         CameraSystem.inGame = true;
     }
 
-    protected virtual void InitializeObjectsInLine()
+    protected virtual void InitObjectsInLine()
+    {
+        for (int i = 0; i < maxActiveSpots; i++)
+        {
+            objectInLines[i].transform.parent.gameObject.SetActive(false);
+            objectInLines[i].index = i;
+        }
+
+        for (int i = 0; i < activeSpots; i++)
+        {
+            objectInLines[i].transform.parent.gameObject.SetActive(true);
+        }
+    }
+
+    protected virtual void InitSpotsVariables()
     {
 
     }
@@ -82,16 +94,40 @@ public class Layer : MonoBehaviour
 
     public void CheckUnlockButton()
     {
-        Debug.Log(!CanvasManager.EnoughCost(unlockCostText.text));
-        if (activeSpots >= maxActiveSpots || !CanvasManager.EnoughCost(unlockCostText.text))
+        if (!CanvasManager.EnoughCost(unlockCost))
+        {
             unlockButton.interactable = false;
+        }
+        else if (activeSpots >= maxActiveSpots)
+        {
+            unlockButton.interactable = false;
+            unlockCostText.text = "COMPLETED";
+        }
         else
+        {
             unlockButton.interactable = true;
+        }
+    }
+
+    protected void UpdateAndCheck()
+    {
+        CanvasManager.UpdateMoney();
+        CheckButtons();
     }
 
     public void CheckMajorUpgradeButton()
     {
         if (/* Some condition I do not know yet  ||*/ !CanvasManager.EnoughCost(majorUpgradeCost))
             majorUpgradeButton.interactable = false;
+    }
+
+    protected void UnlockSpotLogic()
+    {
+        objectInLines[activeSpots].transform.parent.gameObject.SetActive(true);
+        activeSpots++;
+        unlockCost = (BigDouble.Parse(unlockCost) * 2).ToString();
+        unlockCostText.text = unlockCost;
+        GameController.money -= BigDouble.Parse(unlockCost);
+        UpdateAndCheck();
     }
 }

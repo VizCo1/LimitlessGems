@@ -6,7 +6,14 @@ using UnityEngine;
 public class RestCubicle : QueueFlow
 {
     [SerializeField] RestZone zoneManager;
-    [SerializeField] float restTime = 5f;
+    float restTime = 12f;
+    float timeImprovement;
+    float percentage = 0.05f;
+
+    private void Start()
+    {
+        timeImprovement = restTime * percentage;
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -25,5 +32,10 @@ public class RestCubicle : QueueFlow
     {
         placeOccupied = false;
         other.GetComponent<Worker>().ChangeTag("WorkerExit");    
+    }
+
+    public void UpdateAttributes()
+    {
+        restTime -= timeImprovement;
     }
 }

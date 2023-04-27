@@ -8,11 +8,12 @@ public class Counter : QueueFlow
     [SerializeField] CounterZone zoneManager;
     [SerializeField] Transform exitSpot;
     float orderTime = 10f;
-    float timeImproved;
+    float timeImprovement;
+    float percentage = 0.05f;
 
     private void Start()
     {
-        timeImproved = orderTime * 0.05f;
+        timeImprovement = orderTime * percentage;
     }
 
     Client actualClient;
@@ -59,6 +60,6 @@ public class Counter : QueueFlow
 
     public void UpdateAttributes()
     {
-        orderTime -= timeImproved;
+        orderTime -= timeImprovement;
     }
 }

@@ -62,9 +62,11 @@ public class CanvasManager : MonoBehaviour
 
             foreach (ObjectInLine obj in objs)
             {
-                if (!EnoughCost(obj.CostNumberText()))
+                if (!EnoughCost(obj.LevelCost()))
                     obj.UpgradeButton().interactable = false;
-                else if (!obj.IsLevelMax)
+                else if (obj.IsLevelMax)
+                    obj.UpgradeButton().interactable = false;
+                else
                     obj.UpgradeButton().interactable = true;
             }
 
