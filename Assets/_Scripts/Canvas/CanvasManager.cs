@@ -55,7 +55,7 @@ public class CanvasManager : MonoBehaviour
         topRow.UpdateMoneyText(GameController.money);
     }
 
-    public static void UpdateMoney(BigDouble money)
+    public static void UpdateDisplayedMoney(BigDouble money)
     {
         topRow.UpdateMoneyText(money);
     }

@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
 {
     Sequence spawnSequence;
 
-    public static BigDouble money = 10000000;
+    public static BigDouble money = 100;
 
     [Header("Pool configuration")]
 
@@ -52,6 +52,6 @@ public class GameController : MonoBehaviour
 
 
         CanvasManager.currentLayer.CheckButtons();
-        CanvasManager.UpdateMoney(money);
+        CanvasManager.UpdateDisplayedMoney(money);
     }
 }
