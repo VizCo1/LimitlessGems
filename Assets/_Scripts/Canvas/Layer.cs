@@ -123,7 +123,7 @@ public class Layer : MonoBehaviour
 
     protected void UpdateAndCheck()
     {
-        CanvasManager.UpdateMoney();
+        CanvasManager.UpdateDisplayedMoney();
         CheckButtons();
     }
 
