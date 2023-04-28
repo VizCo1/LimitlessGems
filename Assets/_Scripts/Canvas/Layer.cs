@@ -49,6 +49,7 @@ public class Layer : MonoBehaviour
     public virtual void Init()
     {
         gameObject.SetActive(true);
+        CheckButtons();
         CameraSystem.inGame = false;
     }
 
@@ -87,7 +88,23 @@ public class Layer : MonoBehaviour
         return objectInLines;
     }
 
-    public void CheckUnlockButton()
+    public void CheckButtons()
+    {
+        foreach (ObjectInLine obj in objectInLines)
+        {
+            if (!CanvasManager.EnoughCost(obj.LevelCost()))
+                obj.UpgradeButton().interactable = false;
+            else if (obj.IsLevelMax)
+                obj.UpgradeButton().interactable = false;
+            else
+                obj.UpgradeButton().interactable = true;
+        }
+
+        CheckUnlockButton();
+        CheckMajorUpgradeButton();
+    }
+
+    void CheckUnlockButton()
     {
         if (!CanvasManager.EnoughCost(unlockCost))
         {
@@ -107,10 +124,10 @@ public class Layer : MonoBehaviour
     protected void UpdateAndCheck()
     {
         CanvasManager.UpdateMoney();
-        CanvasManager.CheckAllButtons();
+        CheckButtons();
     }
 
-    public void CheckMajorUpgradeButton()
+    void CheckMajorUpgradeButton()
     {
         if (/* Some condition I do not know yet  ||*/ !CanvasManager.EnoughCost(majorUpgradeCost))
             majorUpgradeButton.interactable = false;

@@ -134,7 +134,7 @@ public class CameraSystem : MonoBehaviour
         float t = (virtualCamera.m_Lens.OrthographicSize - minOrthoSize) / (maxOrthoSize - minOrthoSize);
 
         currentMovementDragSpeed = Mathf.Lerp(minMovDragSpeed, maxMovDragSpeed, t);
-        Debug.Log("T: " + t + "\nCurrent speed: " + currentMovementDragSpeed);
+        //Debug.Log("T: " + t + "\nCurrent speed: " + currentMovementDragSpeed);
     }
 
     void HandleCameraMovementDragPan()
@@ -157,7 +157,7 @@ public class CameraSystem : MonoBehaviour
             {
                 dragPanMoveActive = false;
 
-                Debug.Log(inputDir);
+                //Debug.Log(inputDir);
                 reduceInputTween = DOVirtual.Vector3(inputDir, Vector3.zero, reduceInputDuration, (Vector3 v) => inputDir = v);
             }
 

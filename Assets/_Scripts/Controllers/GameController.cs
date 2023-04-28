@@ -51,7 +51,7 @@ public class GameController : MonoBehaviour
         }
 
 
-        CanvasManager.CheckAllButtons();
+        CanvasManager.currentLayer.CheckButtons();
         CanvasManager.UpdateMoney(money);
     }
 }
