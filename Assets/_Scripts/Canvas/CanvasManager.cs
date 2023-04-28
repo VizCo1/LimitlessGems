@@ -50,14 +50,9 @@ public class CanvasManager : MonoBehaviour
         layers[layer].End();
     }
 
-    public static void UpdateMoney()
+    public static void UpdateDisplayedMoney()
     {
         topRow.UpdateMoneyText(GameController.money);
-    }
-
-    public static void UpdateDisplayedMoney(BigDouble money)
-    {
-        topRow.UpdateMoneyText(money);
     }
 
     /*static public void CheckAllButtons()
