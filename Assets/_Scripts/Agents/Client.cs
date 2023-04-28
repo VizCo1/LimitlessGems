@@ -71,9 +71,8 @@ public class Client : AgentBase
         return car;
     }
 
-    public void GemReceived()
+    public void GemDelivered()
     {
-        //Debug.Log("Client recives the gem");
         GoToNextPosition();
         ChangeTag("ClientExit");
     }

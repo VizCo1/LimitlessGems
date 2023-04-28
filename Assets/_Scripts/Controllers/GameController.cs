@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
 {
     Sequence spawnSequence;
 
-    public static BigDouble money = 100;
+    public static BigDouble money = 10000000;
 
     [Header("Pool configuration")]
 
@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour
             .SetLoops(loops);
     }
 
-    public static void EarnMoney(int gem)
+    public static void SellGem(int gem)
     {
         switch (gem)
         {
@@ -50,6 +50,8 @@ public class GameController : MonoBehaviour
                 break;
         }
 
+
+        CanvasManager.CheckAllButtons();
         CanvasManager.UpdateMoney(money);
     }
 }

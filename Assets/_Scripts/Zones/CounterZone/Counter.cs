@@ -46,16 +46,14 @@ public class Counter : QueueFlow
         if (actualClient == null)
             return null;
 
-        GameController.EarnMoney(gem);
-
         Client auxClient = actualClient;
         actualClient = null;
 
         return DOTween.Sequence()
             .SetDelay(0.25f)
             .Append(circleCanvas.AppearAndFill(1f))
-            .AppendCallback(() => auxClient.SetDestination(exitSpot.position))
-            .Append(DOVirtual.DelayedCall(0.5f, () => auxClient.GemReceived()));
+            .AppendCallback(() => { GameController.SellGem(gem); auxClient.SetDestination(exitSpot.position); })
+            .Append(DOVirtual.DelayedCall(0.5f, () => auxClient.GemDelivered()));
     }
 
     public void UpdateAttributes()

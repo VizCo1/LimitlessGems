@@ -14,7 +14,8 @@ public class CanvasManager : MonoBehaviour
     [Space]
 
     [Header("Canvas layers")]
-    [SerializeField] Layer[] layers;
+    [SerializeField] int numberOfLayers;
+    static List<Layer> layers = new();
     //[SerializeField] int currentLayer = 0;
 
     private void Awake()
@@ -24,10 +25,11 @@ public class CanvasManager : MonoBehaviour
 
     private void Start()
     {
-        // Probablemente no se utilice esto
+        for (int i = 1; i <= numberOfLayers; i++)
+            layers.Add(transform.GetChild(i).GetComponent<Layer>());
+
         foreach (Layer l in layers) l.End();
 
-        //layers[currentLayer].Init();
         CheckAllButtons();
     }
 
@@ -54,7 +56,7 @@ public class CanvasManager : MonoBehaviour
         topRow.UpdateMoneyText(money);
     }
 
-    public void CheckAllButtons()
+    static public void CheckAllButtons()
     {
         foreach (Layer l in layers)
         {
@@ -78,6 +80,9 @@ public class CanvasManager : MonoBehaviour
 
     static public bool EnoughCost(string cost)
     {
+        if (cost == "FULL")
+            return false;
+
         return BigDouble.Parse(cost) <= GameController.money;
     }
 }

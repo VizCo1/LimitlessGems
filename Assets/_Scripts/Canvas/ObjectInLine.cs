@@ -11,7 +11,7 @@ public class ObjectInLine : MonoBehaviour
     [SerializeField] TMP_Text levelNumber;
     [SerializeField] TMP_Text costNumber;
     [SerializeField] int maxLevel = 10;
-    [SerializeField] string levelCost = "109";
+    [SerializeField] string levelCost = "100";
     [SerializeField] GameObject spacer;
     int level = 1;
 
@@ -41,14 +41,12 @@ public class ObjectInLine : MonoBehaviour
         if (++level == maxLevel)
         {
             IsLevelMax = true;
-            levelNumber.text = "COMPLETED";
-        }
-        else
-        {
-            levelNumber.text = level.ToString();
+            levelCost = "FULL";
+            costNumber.text = levelCost;
         }
 
-
+        levelNumber.text = level.ToString();
+        
         UpdateAttributesAndCheckCosts();
     }
 

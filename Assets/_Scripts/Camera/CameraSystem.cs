@@ -7,9 +7,10 @@ using DG.Tweening;
 
 public class CameraSystem : MonoBehaviour
 {
-    // This camera system only works on mobile devices, but it can be adapted for other platforms
-
-    bool dragPanMoveActive = false;
+    [Header("Mouse controls")]
+    [SerializeField] bool mouseEnabled;
+    
+    [Space]
 
     [SerializeField] CinemachineVirtualCamera virtualCamera;
 
@@ -25,10 +26,15 @@ public class CameraSystem : MonoBehaviour
 
     [Header("Drag configuration")]
 
-    [SerializeField] float maxMovementDragSpeed = 1;
-    [SerializeField] float minMovementDragSpeed = 0.5f;
+    [SerializeField] float maxMovDragSpeed = 1;
+    [SerializeField] float minMovDragSpeed = 0.5f;
+
+    [SerializeField] float reduceInputDuration;
+
     float currentMovementDragSpeed;
 
+    bool dragPanMoveActive = false;
+    
     Matrix4x4 isoMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0)); // Change movement directions;
 
     Vector2 lastMousePosition;
@@ -55,9 +61,11 @@ public class CameraSystem : MonoBehaviour
 
     public static bool inGame;
 
+    Tween reduceInputTween;
+
     private void Start()
     {
-        currentMovementDragSpeed = maxMovementDragSpeed;
+        currentMovementDragSpeed = maxMovDragSpeed;
         maxOrthoSize += 0.1f;
         minOrthoSize -= 0.1f;
     }
@@ -67,8 +75,15 @@ public class CameraSystem : MonoBehaviour
         if (inGame)
         {
             ClampTarget();
-            HandleCameraMovementDragPan();
-            HandleCameraZoom();
+            if (mouseEnabled)
+            {
+                MouseHandleCameraMovementDragPan();
+            }
+            else
+            {
+                HandleCameraMovementDragPan();
+                HandleCameraZoom();
+            }
         }
     }
 
@@ -118,30 +133,37 @@ public class CameraSystem : MonoBehaviour
         // Change the dragging speed as the zoom changes.
         float t = (virtualCamera.m_Lens.OrthographicSize - minOrthoSize) / (maxOrthoSize - minOrthoSize);
 
-        currentMovementDragSpeed = Mathf.Lerp(minMovementDragSpeed, maxMovementDragSpeed, t);
+        currentMovementDragSpeed = Mathf.Lerp(minMovDragSpeed, maxMovDragSpeed, t);
         Debug.Log("T: " + t + "\nCurrent speed: " + currentMovementDragSpeed);
     }
 
     void HandleCameraMovementDragPan()
     {
-        //if (Input.touchCount < 2)
         if (Input.touchCount == 1)
         {
-            //if (Input.GetMouseButtonDown(0))
             if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                /*if (momentumTween.IsActive())
-                    momentumTween.Kill();*/
-
                 dragPanMoveActive = true;
-                //lastMousePosition = Input.mousePosition;
                 lastMousePosition = Input.GetTouch(0).position;
+
+                if (reduceInputTween.IsActive())
+                {
+                    reduceInputTween.Kill();
+                    inputDir = Vector2.zero;
+                }
+            }
+
+            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                dragPanMoveActive = false;
+
+                Debug.Log(inputDir);
+                reduceInputTween = DOVirtual.Vector3(inputDir, Vector3.zero, reduceInputDuration, (Vector3 v) => inputDir = v);
             }
 
             if (dragPanMoveActive)
             {
                 Vector2 mouseMovementDelta = (Vector2)Input.GetTouch(0).position - lastMousePosition;
-                //Vector2 mouseMovementDelta = (Vector2)Input.mousePosition - lastMousePosition;
 
                 float dragPanSpeed = 2f;
 
@@ -149,38 +171,54 @@ public class CameraSystem : MonoBehaviour
                 inputDir.y = mouseMovementDelta.y * dragPanSpeed;
 
                 lastMousePosition = Input.GetTouch(0).position;
-                //lastMousePosition = Input.mousePosition;
-            }
-
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
-            {
-                //Debug.Log(inputDir.magnitude);
-                dragPanMoveActive = false;
-
-                /*if (inputDir.magnitude > requiredInputStrenght)
-                {
-                    momentumTween = DOVirtual.Vector3(inputDir, Vector3.zero, momentumDuration, (Vector3 v) =>
-                    {
-                        inputDir = v;
-                        moveDir = transform.forward * inputDir.y + inputDir.x * transform.right;
-                        moveDir *= -1;
-                        moveDir = isoMatrix.MultiplyPoint3x4(moveDir);
-                        transform.position += currentMovementDragSpeed * Time.deltaTime * moveDir;
-                    }).SetSpeedBased();
-                }*/
-            }     
-            else
-            {
-                moveDir = transform.forward * inputDir.y + inputDir.x * transform.right;
-
-                moveDir *= -1;
-
-                moveDir = isoMatrix.MultiplyPoint3x4(moveDir);
-
-                transform.position += currentMovementDragSpeed * Time.deltaTime * moveDir;
-
-            }
-
+            }                  
         }
+
+        moveDir = transform.forward * inputDir.y + inputDir.x * transform.right;
+
+        moveDir *= -1;
+
+        moveDir = isoMatrix.MultiplyPoint3x4(moveDir);
+
+        transform.position += currentMovementDragSpeed * Time.deltaTime * moveDir;
+    }
+
+    void MouseHandleCameraMovementDragPan()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            dragPanMoveActive = true;
+            lastMousePosition = Input.mousePosition;
+
+            if (reduceInputTween.IsActive())
+                reduceInputTween.Kill();
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            dragPanMoveActive = false;
+
+            reduceInputTween = DOVirtual.Vector3(inputDir, Vector3.zero, reduceInputDuration, (Vector3 v) => inputDir = v);
+        }
+
+        if (dragPanMoveActive)
+        {
+            Vector2 mouseMovementDelta = (Vector2)Input.mousePosition - lastMousePosition;
+
+            float dragPanSpeed = 2f;
+
+            inputDir.x = mouseMovementDelta.x * dragPanSpeed;
+            inputDir.y = mouseMovementDelta.y * dragPanSpeed;
+
+            lastMousePosition = Input.mousePosition;
+        }
+
+        moveDir = transform.forward * inputDir.y + inputDir.x * transform.right;
+
+        moveDir *= -1;
+
+        moveDir = isoMatrix.MultiplyPoint3x4(moveDir);
+
+        transform.position += currentMovementDragSpeed * Time.deltaTime * moveDir;      
     }
 }

@@ -77,11 +77,6 @@ public class Layer : MonoBehaviour
 
     }
 
-    protected void CheckButtons()
-    {
-        canvasManager.CheckAllButtons();
-    }
-
     public void BackButtonPressed()
     {
         End();
@@ -112,13 +107,15 @@ public class Layer : MonoBehaviour
     protected void UpdateAndCheck()
     {
         CanvasManager.UpdateMoney();
-        CheckButtons();
+        CanvasManager.CheckAllButtons();
     }
 
     public void CheckMajorUpgradeButton()
     {
         if (/* Some condition I do not know yet  ||*/ !CanvasManager.EnoughCost(majorUpgradeCost))
             majorUpgradeButton.interactable = false;
+        else
+            majorUpgradeButton.interactable = true;
     }
 
     protected void UnlockSpotLogic()
