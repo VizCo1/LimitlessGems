@@ -8,11 +8,15 @@ public class RestCubicle : QueueFlow
     [SerializeField] RestZone zoneManager;
     float restTime = 12f;
     float timeImprovement;
-    float percentage = 0.05f;
+    float timePercentage = 0.05f;
+
+    float probSpeedBonus = 0.05f;
+    float initialProbSpeedBonus;
 
     private void Start()
     {
-        timeImprovement = restTime * percentage;
+        initialProbSpeedBonus = probSpeedBonus;
+        timeImprovement = restTime * timePercentage;
     }
 
     void OnTriggerEnter(Collider other)
@@ -23,9 +27,20 @@ public class RestCubicle : QueueFlow
             zoneManager.DecreasePriorityOfQueue(customQueue);
 
             Sequence sq = DOTween.Sequence().SetDelay(0.2f)
-                .Append(circleCanvas.AppearAndFill(restTime))
+                .Append(circleCanvas.AppearAndFill(RealRestTime()))
                 .AppendCallback(() => worker.GoToNextPosition());                
         }
+    }
+
+    float RealRestTime()
+    {
+        float realRestTime;
+        if (probSpeedBonus < Random.Range(0f, 1))
+            realRestTime = restTime * 0.5f;
+        else
+            realRestTime = restTime;
+
+        return realRestTime;
     }
 
     private void OnTriggerExit(Collider other)
@@ -34,8 +49,15 @@ public class RestCubicle : QueueFlow
         other.GetComponent<Worker>().ChangeTag("WorkerExit");    
     }
 
-    public void UpdateAttributes()
+    public void UpdateAttributes(bool keyLevelReached)
     {
+        if (keyLevelReached)
+            probSpeedBonus += initialProbSpeedBonus;
         restTime -= timeImprovement;
+    }
+
+    public void DoMajorUpdate()
+    {
+        probSpeedBonus *= 2;
     }
 }

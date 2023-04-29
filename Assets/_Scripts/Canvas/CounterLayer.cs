@@ -13,15 +13,29 @@ public class CounterLayer : Layer
         maxActiveSpots = counterZone.maxActiveSpots;
     }
 
-    public void UpdateAttributesAndCheckCosts(int index)
+    public void UpdateAttributesAndCheckCosts(int index, ref int keyLevel, int initialKeyLevel)
     {
         UpdateAndCheck();
-        counterZone.counters[index].UpdateAttributes();
+        if (objectInLines[index].level >= keyLevel)
+        {
+            keyLevel += initialKeyLevel;
+            counterZone.counters[index].UpdateAttributes(true);
+        }
+        else
+        {
+            counterZone.counters[index].UpdateAttributes(false);
+        }
     }
 
     public void UnlockCounter()
     {
-        UnlockSpotLogic();
-        counterZone.AddQueue();
+        if (UnlockSpotLogic())
+            counterZone.AddQueue();
+    }
+
+    public void MajorUpgrade()
+    {
+        if (MajorUpgradeLogic())
+            counterZone.MajorUpgrade();
     }
 }

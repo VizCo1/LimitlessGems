@@ -39,4 +39,9 @@ public class QueueZone : Zone
     {
         priorityQueue.DecreasePriority(queue);
     }
+
+    public virtual void MajorUpgrade()
+    {
+
+    }
 }

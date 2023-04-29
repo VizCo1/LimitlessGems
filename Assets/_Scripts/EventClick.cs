@@ -10,7 +10,7 @@ public class EventClick : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     [SerializeField] int index;
 
     float maxTime = 0.5f;
-    float maxDistance = 1.5f;
+    float maxDistance = 20f;
 
     Vector2 downPos;
     Vector2 upPos;
@@ -27,7 +27,7 @@ public class EventClick : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
         canOpen = true;
 
         downPos = eventData.position;
-        timer = DOVirtual.DelayedCall(maxTime, () => canOpen = false).OnComplete(() => Debug.Log("TIME OUT"));
+        timer = DOVirtual.DelayedCall(maxTime, () => canOpen = false).OnComplete(() => { }/*Debug.Log("TIME OUT")*/);
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -39,6 +39,6 @@ public class EventClick : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
         if (Vector2.Distance(upPos, downPos) > maxDistance)       
             canOpen = false;
         else if (canOpen)
-            canvasManager.OpenLayer(index);
+            canvasManager.OpenLayer(index);      
     }
 }

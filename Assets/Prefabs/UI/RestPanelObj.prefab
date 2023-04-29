@@ -850,11 +850,13 @@ MonoBehaviour:
   upgradeButton: {fileID: 1394662626031000764}
   levelNumber: {fileID: 1394662624708132080}
   costNumber: {fileID: 1394662624696998871}
-  maxLevel: 100
+  realMaxLevel: 100
   levelCost: 250
   spacer: {fileID: 0}
   index: 0
+  IsLevelMax: 0
   restLayer: {fileID: 0}
+  keyLevel: 25
 --- !u!1 &1394662626446768756
 GameObject:
   m_ObjectHideFlags: 0

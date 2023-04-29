@@ -8238,9 +8238,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   money: {fileID: 1387119004}
   moneyPerMinute: {fileID: 1169566188}
-  moneyFormats:
-  - F0
-  - E4
 --- !u!1 &510596000
 GameObject:
   m_ObjectHideFlags: 0
@@ -10445,6 +10442,8 @@ MonoBehaviour:
   majorUpgradeButton: {fileID: 734282797}
   majorUpgradeCost: 5000
   majorUpgradeCostText: {fileID: 1128471436}
+  mUpgradeTarget: 50
+  requiredSpots: 4
   counterZone: {fileID: 2085045770}
 --- !u!1 &640225369
 GameObject:
@@ -12873,7 +12872,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 734282798}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 638979632}
+        m_TargetAssemblyTypeName: Layer, Assembly-CSharp
+        m_MethodName: MajorUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &734282798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18277,7 +18288,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: With each upgrade the resting time decreases a 5%
+  m_text: Improve the resting time and increase the changes of a fast rest.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -18412,6 +18423,8 @@ MonoBehaviour:
   majorUpgradeButton: {fileID: 0}
   majorUpgradeCost: 
   majorUpgradeCostText: {fileID: 0}
+  mUpgradeTarget: 50
+  requiredSpots: 5
 --- !u!1 &1150615218
 GameObject:
   m_ObjectHideFlags: 0
@@ -18946,7 +18959,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 948, y: 0}
+  m_AnchoredPosition: {x: 1194, y: 0}
   m_SizeDelta: {x: 414.1264, y: 103.5316}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1169566188
@@ -20395,7 +20408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebecb2ec81085a944993275617c5308c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseEnabled: 0
+  mouseEnabled: 1
   virtualCamera: {fileID: 622978035}
   minX: -31.4
   maxX: 163.1
@@ -22246,8 +22259,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 436.06323, y: 0}
-  m_SizeDelta: {x: 414.1264, y: 103.5316}
+  m_AnchoredPosition: {x: 399.98157, y: 18.835287}
+  m_SizeDelta: {x: 650.5782, y: 85.861}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1387119004
 MonoBehaviour:
@@ -22269,7 +22282,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 12310923801923
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -22296,10 +22309,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65
+  m_fontSize: 72
   m_fontSizeBase: 65
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -22312,7 +22325,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -27420,7 +27433,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1690364938}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1966221150}
+        m_TargetAssemblyTypeName: RestLayer, Assembly-CSharp
+        m_MethodName: MajorUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1690364938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28154,7 +28179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1748087357
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31691,6 +31716,8 @@ MonoBehaviour:
   majorUpgradeButton: {fileID: 1690364937}
   majorUpgradeCost: 5000
   majorUpgradeCostText: {fileID: 62134865}
+  mUpgradeTarget: 50
+  requiredSpots: 5
   restZone: {fileID: 896418648}
 --- !u!1 &1971067800
 GameObject:

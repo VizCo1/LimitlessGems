@@ -34,14 +34,14 @@ public class CanvasManager : MonoBehaviour
 
         foreach (Layer l in layers)
         {
-            l.CheckButtons();
+            l.Init(true);
             l.End();
         }
     }
 
     public void OpenLayer(int layer)
     {
-        layers[layer].Init();
+        layers[layer].Init(false);
         currentLayer = layers[layer];
     }
 
@@ -79,7 +79,7 @@ public class CanvasManager : MonoBehaviour
 
     static public bool EnoughCost(string cost)
     {
-        if (cost == "FULL")
+        if (cost == "FULL" || cost == "COMPLETED")
             return false;
 
         return BigDouble.Parse(cost) <= GameController.money;

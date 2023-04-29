@@ -8,24 +8,58 @@ using BreakInfinity;
 public class ObjectInLine : MonoBehaviour
 {
     [SerializeField] Button upgradeButton;
-    [SerializeField] TMP_Text levelNumber;
-    [SerializeField] TMP_Text costNumber;
-    [SerializeField] int maxLevel = 10;
-    [SerializeField] string levelCost = "100";
+    [SerializeField] protected TMP_Text levelNumber;
+    [SerializeField] protected TMP_Text costNumber;
+    [SerializeField] protected int realMaxLevel = 10;
+    [SerializeField] protected string levelCost = "100";
     [SerializeField] GameObject spacer;
-    int level = 1;
+    public int level { get; protected set; } = 1;
 
     [HideInInspector] public int index;
-    public bool IsLevelMax { get; private set; } = false;
+    [HideInInspector] public bool IsLevelMax  = false;
 
     // Start is called before the first frame update
     void Start()
     {
         costNumber.text = levelCost;
         levelNumber.text = level.ToString();
+        levelCost = BigDouble.Parse(levelCost).ToString("G1");
+        costNumber.text = levelCost;
     }
 
-    public void UpgradeButtonPressed()
+    public virtual void UpgradeButtonPressed()
+    {
+        if (!IsLevelMax && !CanvasManager.EnoughCost(levelCost))
+        {
+            return;
+        }
+
+        GameController.money -= BigDouble.Parse(levelCost);
+
+        level++;
+
+        if (level == realMaxLevel)
+        {
+            IsLevelMax = true;
+            levelCost = "FULL";
+            costNumber.text = levelCost;
+        }
+        else if (IsTargetLevelReached())
+        {
+            IsLevelMax = true;
+        }
+        else
+        {
+            levelCost = (BigDouble.Parse(costNumber.text) * 1.5f).ToString("G1");
+            costNumber.text = levelCost;
+        }
+
+        levelNumber.text = level.ToString();
+
+        UpdateAttributesAndCheckCosts();
+    }
+
+    /*public virtual void UpgradeButtonPressed()
     {
         if (!CanvasManager.EnoughCost(levelCost))
         {
@@ -34,24 +68,32 @@ public class ObjectInLine : MonoBehaviour
 
         GameController.money -= BigDouble.Parse(levelCost);
 
-        levelCost = (BigDouble.Parse(costNumber.text) * 2).ToString();
-        costNumber.text = levelCost;
-
-        if (++level == maxLevel)
+        if (++level == realMaxLevel)
         {
             IsLevelMax = true;
             levelCost = "FULL";
+            costNumber.text = levelCost;
+        }
+        else
+        {
+            levelCost = (BigDouble.Parse(costNumber.text) * 1.5f).ToString("G1");
             costNumber.text = levelCost;
         }
 
         levelNumber.text = level.ToString();
         
         UpdateAttributesAndCheckCosts();
-    }
+    }*/
 
     protected virtual void UpdateAttributesAndCheckCosts()
     {
 
+    }
+
+    protected virtual bool IsTargetLevelReached()
+    {
+        Debug.Log("NO");
+        return false;
     }
 
     public Button UpgradeButton()

@@ -11,8 +11,12 @@ public class Counter : QueueFlow
     float timeImprovement;
     float percentage = 0.05f;
 
+    float probDoubleMoney = 0.05f;
+    float initalProbDoubleMoney;
+
     private void Start()
     {
+        initalProbDoubleMoney = probDoubleMoney;
         timeImprovement = orderTime * percentage;
     }
 
@@ -52,12 +56,24 @@ public class Counter : QueueFlow
         return DOTween.Sequence()
             .SetDelay(0.25f)
             .Append(circleCanvas.AppearAndFill(1f))
-            .AppendCallback(() => { GameController.SellGem(gem); auxClient.SetDestination(exitSpot.position); })
+            .AppendCallback(() => { GameController.SellGem(gem, IsMoneyDoubled()); auxClient.SetDestination(exitSpot.position); })
             .Append(DOVirtual.DelayedCall(0.5f, () => auxClient.GemDelivered()));
     }
 
-    public void UpdateAttributes()
+    bool IsMoneyDoubled()
     {
+        return probDoubleMoney < Random.Range(0f, 1);
+    }
+
+    public void UpdateAttributes(bool keyLevelReached)
+    {
+        if (keyLevelReached)
+            probDoubleMoney += initalProbDoubleMoney;
         orderTime -= timeImprovement;
+    }
+
+    public void DoMajorUpgrade()
+    {
+        probDoubleMoney *= 2;
     }
 }

@@ -12,15 +12,29 @@ public class RestLayer : Layer
         maxActiveSpots = restZone.maxActiveSpots;
     }
 
-    public void UpdateAttributesAndCheckCosts(int index)
+    public void UpdateAttributesAndCheckCosts(int index, ref int keyLevel, int initialKeyLevel)
     {
         UpdateAndCheck();
-        restZone.cubicles[index].UpdateAttributes();
+        if (objectInLines[index].level >= keyLevel)
+        {
+            keyLevel += initialKeyLevel;
+            restZone.cubicles[index].UpdateAttributes(true);
+        }
+        else
+        {
+            restZone.cubicles[index].UpdateAttributes(false);
+        }
     }
 
     public void UnlockRestCubicle()
     {
-        UnlockSpotLogic();
-        restZone.AddQueue();
+        if (UnlockSpotLogic())
+            restZone.AddQueue();
+    }
+
+    public void MajorUpgrade()
+    {
+        if (MajorUpgradeLogic())       
+            restZone.MajorUpgrade();        
     }
 }

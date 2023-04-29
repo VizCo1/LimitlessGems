@@ -25,36 +25,52 @@ public class Layer : MonoBehaviour
     [SerializeField] Button majorUpgradeButton;
     [SerializeField] protected string majorUpgradeCost;
     [SerializeField] protected TMP_Text majorUpgradeCostText;
-    
+
     public int activeSpots { get; protected set; }
     public int maxActiveSpots { get; protected set; }
+
+    [Space]
+
+    public int mUpgradeTarget = 50;
+    [SerializeField] protected int requiredSpots = 5;
+    protected int initialRequiredSpots;
+    protected bool canMajorUpgrade = false;
 
     protected virtual void Awake()
     {
         canvasManager = GetComponentInParent<CanvasManager>();
+        initialRequiredSpots = requiredSpots;      
     }
 
     protected virtual void Start()
     {
+        
         if (unlockButton != null)
             unlockCostText.text = unlockCost;
 
         if (majorUpgradeButton != null)
             majorUpgradeCostText.text = majorUpgradeCost;
-
-        InitSpotsVariables();
-        InitObjectsInLine();
+       
     }
 
-    public virtual void Init()
+    public virtual void Init(bool b)
     {
-        gameObject.SetActive(true);
-        CheckButtons();
-        CameraSystem.inGame = false;
+        if (b)
+        {
+            InitSpotsVariables();
+            InitObjectsInLine();
+        }
+        else
+        {
+            gameObject.SetActive(true);
+            CameraSystem.inGame = false;
+            CheckButtons();
+        }
     }
 
     public virtual void End()
     {
+        //CheckButtons();
         gameObject.SetActive(false);
         CameraSystem.inGame = true;
     }
@@ -75,7 +91,6 @@ public class Layer : MonoBehaviour
 
     protected virtual void InitSpotsVariables()
     {
-
     }
 
     public void BackButtonPressed()
@@ -90,30 +105,35 @@ public class Layer : MonoBehaviour
 
     public void CheckButtons()
     {
-        foreach (ObjectInLine obj in objectInLines)
+        CheckMajorUpgradeButton();
+        CheckUnlockButton();
+        
+        for (int i = 0; i < activeSpots; i++)
         {
-            if (!CanvasManager.EnoughCost(obj.LevelCost()))
-                obj.UpgradeButton().interactable = false;
-            else if (obj.IsLevelMax)
+            ObjectInLine obj = objectInLines[i];
+            if (obj.IsLevelMax)           
+                obj.UpgradeButton().interactable = false;        
+            else if (!CanvasManager.EnoughCost(obj.LevelCost()))
                 obj.UpgradeButton().interactable = false;
             else
                 obj.UpgradeButton().interactable = true;
         }
-
-        CheckUnlockButton();
-        CheckMajorUpgradeButton();
     }
 
     void CheckUnlockButton()
     {
-        if (!CanvasManager.EnoughCost(unlockCost))
-        {
-            unlockButton.interactable = false;
-        }
-        else if (activeSpots >= maxActiveSpots)
+        if (activeSpots >= maxActiveSpots)
         {
             unlockButton.interactable = false;
             unlockCostText.text = "COMPLETED";
+        }
+        else if (activeSpots == requiredSpots)
+        {
+            unlockButton.interactable = false;
+        }
+        else if (!CanvasManager.EnoughCost(unlockCost))
+        {
+            unlockButton.interactable = false;
         }
         else
         {
@@ -127,26 +147,81 @@ public class Layer : MonoBehaviour
         CheckButtons();
     }
 
-    void CheckMajorUpgradeButton()
+    protected bool MajorUpgradeSpecificConditions()
     {
-        if (/* Some condition I do not know yet  ||*/ !CanvasManager.EnoughCost(majorUpgradeCost))
-            majorUpgradeButton.interactable = false;
-        else
-            majorUpgradeButton.interactable = true;
+        if (activeSpots != requiredSpots)
+            return false;
+
+        for (int i = 0; i < activeSpots; i++)
+        {
+            if (!objectInLines[i].IsLevelMax)
+                return false;
+        }
+
+        return true;
     }
 
-    protected void UnlockSpotLogic()
+    void CheckMajorUpgradeButton() 
+    {
+        if (MajorUpgradeSpecificConditions())
+        {          
+            majorUpgradeButton.gameObject.SetActive(true);
+
+            if (!CanvasManager.EnoughCost(majorUpgradeCost))
+            {
+                majorUpgradeButton.interactable = false;
+            }
+            else
+            {
+                majorUpgradeButton.interactable = true;
+                canMajorUpgrade = true;
+            }
+        }
+        else
+        {
+            majorUpgradeButton.gameObject.SetActive(false);
+        }
+    }
+
+
+    protected bool MajorUpgradeLogic()
+    {
+        if (!canMajorUpgrade && !CanvasManager.EnoughCost(majorUpgradeCost))
+        {
+            return false;
+        }
+        canMajorUpgrade = false;
+        
+        GameController.money -= BigDouble.Parse(majorUpgradeCost);
+        majorUpgradeCost = (BigDouble.Parse(majorUpgradeCost) * 2).ToString();
+        majorUpgradeCostText.text = majorUpgradeCost;
+        
+        requiredSpots += initialRequiredSpots;
+        
+        for (int i = 0; i < activeSpots; i++)        
+            objectInLines[i].IsLevelMax = false;
+    
+        mUpgradeTarget += mUpgradeTarget;
+
+        UpdateAndCheck();
+
+        return true;
+    }
+
+    protected bool UnlockSpotLogic()
     {
         if (!CanvasManager.EnoughCost(unlockCost))
         {
-            return;
+            return false;
         }
 
         objectInLines[activeSpots].transform.parent.gameObject.SetActive(true);
         activeSpots++;
+        GameController.money -= BigDouble.Parse(unlockCost);
         unlockCost = (BigDouble.Parse(unlockCost) * 2).ToString();
         unlockCostText.text = unlockCost;
-        GameController.money -= BigDouble.Parse(unlockCost);
         UpdateAndCheck();
+
+        return true;
     }
 }

@@ -10,27 +10,14 @@ public class TopRow : MonoBehaviour
     [SerializeField] TMP_Text money;
     [SerializeField] TMP_Text moneyPerMinute;
 
-    [SerializeField] string[] moneyFormats;
-
-    private void Awake()
+    private void Start()
     {
-        money.text = GameController.money.ToString();      
+        UpdateMoneyText(GameController.money);   
     }
 
     public void UpdateMoneyText(BigDouble m)
     {
-        int index;
-
-        if (m >= 1000000)
-        {
-            index = 1;
-        }
-        else
-        {
-            index = 0;
-        }
-
-        money.text = m.ToString(moneyFormats[index]);
+        money.text = m.ToString("E4");
     }
 
     public void UpdateMoneyPerMinuteText(BigDouble m)
