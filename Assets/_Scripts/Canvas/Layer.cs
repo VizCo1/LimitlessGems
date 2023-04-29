@@ -137,6 +137,11 @@ public class Layer : MonoBehaviour
 
     protected void UnlockSpotLogic()
     {
+        if (!CanvasManager.EnoughCost(unlockCost))
+        {
+            return;
+        }
+
         objectInLines[activeSpots].transform.parent.gameObject.SetActive(true);
         activeSpots++;
         unlockCost = (BigDouble.Parse(unlockCost) * 2).ToString();

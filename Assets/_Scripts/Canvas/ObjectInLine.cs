@@ -29,7 +29,6 @@ public class ObjectInLine : MonoBehaviour
     {
         if (!CanvasManager.EnoughCost(levelCost))
         {
-            Debug.Log("CUIDADO");
             return;
         }
 
