@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CounterLayer : Layer
+public class CounterLayer : SpecialZoneLayer
 {
     [SerializeField] CounterZone counterZone;
 
@@ -19,11 +19,11 @@ public class CounterLayer : Layer
         if (objectInLines[index].level >= keyLevel)
         {
             keyLevel += initialKeyLevel;
-            counterZone.counters[index].UpdateAttributes(true);
+            counterZone.counters[index].queueFlow.UpdateAttributes(true);
         }
         else
         {
-            counterZone.counters[index].UpdateAttributes(false);
+            counterZone.counters[index].queueFlow.UpdateAttributes(false);
         }
     }
 

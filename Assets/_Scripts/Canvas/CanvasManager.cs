@@ -16,9 +16,9 @@ public class CanvasManager : MonoBehaviour
     [Header("Canvas layers")]
     [SerializeField] int numberOfLayers;
 
-    List<Layer> layers = new();
+    List<ZoneLayer> layers = new();
 
-    public static Layer currentLayer;
+    public static ZoneLayer currentLayer;
 
     private void Awake()
     {       
@@ -28,11 +28,11 @@ public class CanvasManager : MonoBehaviour
     private void Start()
     {
         for (int i = 1; i <= numberOfLayers; i++)
-            layers.Add(transform.GetChild(i).GetComponent<Layer>());
+            layers.Add(transform.GetChild(i).GetComponent<ZoneLayer>());
 
         currentLayer = layers[0];
 
-        foreach (Layer l in layers)
+        foreach (ZoneLayer l in layers)
         {
             l.Init(true);
             l.End();

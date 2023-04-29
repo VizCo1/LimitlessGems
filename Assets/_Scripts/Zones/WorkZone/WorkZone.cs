@@ -18,7 +18,7 @@ public class WorkZone : Zone
     {
         maxActiveSpots = transform.GetChild(SLOTS_INDEX).childCount;
 
-        for (int i = 0; i < activeSpots; i++)
+        for (int i = 0; i < maxActiveSpots; i++)
             tables.Add(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<WorkTable>());
     }
 
@@ -29,10 +29,8 @@ public class WorkZone : Zone
 
     public void AddTable()
     {
-        GameObject newSlot = transform.GetChild(SLOTS_INDEX).GetChild(activeSpots++).gameObject;
+        GameObject newSlot = tables[activeSpots++].gameObject;
         newSlot.SetActive(true);
-        newSlot.gameObject.SetActive(true);
-        tables.Add(newSlot.GetComponent<WorkTable>());
     }
 
     public bool TryProvideGem(int gem, Counter counter)

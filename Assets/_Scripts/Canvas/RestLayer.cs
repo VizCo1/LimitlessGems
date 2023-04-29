@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RestLayer : Layer
+public class RestLayer : SpecialZoneLayer
 {
     [SerializeField] RestZone restZone;
 
@@ -18,11 +18,11 @@ public class RestLayer : Layer
         if (objectInLines[index].level >= keyLevel)
         {
             keyLevel += initialKeyLevel;
-            restZone.cubicles[index].UpdateAttributes(true);
+            restZone.cubicles[index].queueFlow.UpdateAttributes(true);
         }
         else
         {
-            restZone.cubicles[index].UpdateAttributes(false);
+            restZone.cubicles[index].queueFlow.UpdateAttributes(false);
         }
     }
 

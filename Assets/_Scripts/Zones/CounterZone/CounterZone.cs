@@ -8,13 +8,13 @@ public class CounterZone : QueueZone
 {
     [SerializeField] WorkZone workZone;
 
-    public List<Counter> counters { get; private set; } = new();
+    public List<CustomQueue> counters { get; private set; } = new();
 
     protected override void Awake()
     {
         base.Awake();
-        for (int i = 0; i < transform.GetChild(SLOTS_INDEX).childCount; i++)        
-            counters.Add(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<Counter>());
+        for (int i = 0; i < maxActiveSpots; i++)        
+            counters.Add(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<CustomQueue>());
     }
 
     public bool TryToProvideGemWithWorkZone(int gem, Counter counter)
@@ -29,9 +29,9 @@ public class CounterZone : QueueZone
 
     public override void MajorUpgrade()
     {
-        foreach (Counter c in counters)
+        foreach (CustomQueue c in counters)
         {
-            c.DoMajorUpgrade();
+            c.GetComponent<RestCubicle>().DoMajorUpdate();
         }
     }
 }

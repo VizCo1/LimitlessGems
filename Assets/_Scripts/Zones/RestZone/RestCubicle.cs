@@ -49,7 +49,7 @@ public class RestCubicle : QueueFlow
         other.GetComponent<Worker>().ChangeTag("WorkerExit");    
     }
 
-    public void UpdateAttributes(bool keyLevelReached)
+    public override void UpdateAttributes(bool keyLevelReached)
     {
         if (keyLevelReached)
             probSpeedBonus += initialProbSpeedBonus;

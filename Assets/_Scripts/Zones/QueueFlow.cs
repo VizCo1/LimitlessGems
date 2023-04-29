@@ -27,4 +27,9 @@ public class QueueFlow : MonoBehaviour
     {
         placeOccupied = false;
     }
+
+    public virtual void UpdateAttributes(bool keyLevelReached)
+    {
+
+    }
 }

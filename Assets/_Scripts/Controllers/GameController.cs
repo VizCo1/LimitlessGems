@@ -7,23 +7,22 @@ using System;
 
 public class GameController : MonoBehaviour
 {
-    Sequence spawnSequence;
 
-    public static BigDouble money = new BigDouble(2000, 3);
+    public static BigDouble money = new BigDouble(2000, 100);
 
     public static BigDouble gemPrice1 = new BigDouble(100);
     public static BigDouble gemPrice2 = new BigDouble(300);
     public static BigDouble gemPrice3 = new BigDouble(600);
 
-    [Header("Pool configuration")]
-
-    [SerializeField] ObjectPool objectPool;
-    [SerializeField] float spawnDelay;
+    static float spawnDelay = 60; // 60 --> 1 client per min
+    static ObjectPool objectPool;
+    static Sequence spawnSequence;
 
     void Awake()
     {
         //DOVirtual.DelayedCall(1, objectPool.SpawnPooledObject).SetLoops(5);
-        CreateSpawnSequence(spawnDelay, -1);
+        objectPool = transform.parent.GetComponentInChildren<ObjectPool>();
+        CreateSpawnSequence(10, 1f);
     }
 
     public void ClientOut(GameObject client)
@@ -31,10 +30,21 @@ public class GameController : MonoBehaviour
         objectPool.ReturnPooledObject(client);
     }
 
-    void CreateSpawnSequence(float delay, int loops)
+    public void CreateSpawnSequence(int loops, float delay)
     {
+        spawnDelay *= 0.75f;
         spawnSequence.Kill();
         spawnSequence = DOTween.Sequence().SetDelay(delay)
+            .AppendCallback(objectPool.SpawnPooledObject)
+            .SetLoops(loops)
+            .OnKill(() => CreateSpawnSequence(-1));
+    }
+
+    public static void CreateSpawnSequence(int loops)
+    {
+        spawnDelay *= 0.5f;
+        spawnSequence.Kill();
+        spawnSequence = DOTween.Sequence().SetDelay(spawnDelay)
             .AppendCallback(objectPool.SpawnPooledObject)
             .SetLoops(loops);
     }

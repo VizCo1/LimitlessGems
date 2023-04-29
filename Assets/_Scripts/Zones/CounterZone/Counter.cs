@@ -65,7 +65,7 @@ public class Counter : QueueFlow
         return probDoubleMoney < Random.Range(0f, 1);
     }
 
-    public void UpdateAttributes(bool keyLevelReached)
+    public override void UpdateAttributes(bool keyLevelReached)
     {
         if (keyLevelReached)
             probDoubleMoney += initalProbDoubleMoney;

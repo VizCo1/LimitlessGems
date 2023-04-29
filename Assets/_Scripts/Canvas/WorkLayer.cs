@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WorkLayer : Layer
+public class WorkLayer : SpecialZoneLayer
 {
     [SerializeField] WorkZone workZone;
 
@@ -12,7 +12,7 @@ public class WorkLayer : Layer
         maxActiveSpots = workZone.maxActiveSpots;
     }
 
-    public void UpdateAttributesAndCheckCosts(int index, ref int keyLevel, int initialKeyLevel)
+    public void UpdateAttributesAndCheckCosts(int index) //, ref int keyLevel, int initialKeyLevel)
     {
         UpdateAndCheck();
         workZone.tables[index].UpdateAttributes();

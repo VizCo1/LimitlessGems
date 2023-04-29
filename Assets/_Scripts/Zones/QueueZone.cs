@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class QueueZone : Zone
 {
-    readonly QueuePriorityQueue priorityQueue = new();
+    readonly protected QueuePriorityQueue priorityQueue = new();
 
     protected virtual void Awake()
     {
@@ -14,7 +14,7 @@ public class QueueZone : Zone
             priorityQueue.Enqueue(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<CustomQueue>(), 0);
     }
 
-    public void AddQueue()
+    public virtual void AddQueue()
     {
         // To add a new queue use AddQueue()
         GameObject newSlot = transform.GetChild(SLOTS_INDEX).GetChild(activeSpots++).gameObject;
