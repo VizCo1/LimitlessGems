@@ -44,7 +44,9 @@ public class Layer : MonoBehaviour
 
     protected virtual void Start()
     {
-        
+        unlockCost = (BigDouble.Parse(unlockCost)).ToString("G1");
+        majorUpgradeCost = (BigDouble.Parse(majorUpgradeCost)).ToString("G1");
+
         if (unlockButton != null)
             unlockCostText.text = unlockCost;
 
@@ -193,7 +195,7 @@ public class Layer : MonoBehaviour
         canMajorUpgrade = false;
         
         GameController.money -= BigDouble.Parse(majorUpgradeCost);
-        majorUpgradeCost = (BigDouble.Parse(majorUpgradeCost) * 2).ToString();
+        majorUpgradeCost = (BigDouble.Parse(majorUpgradeCost) * 2).ToString("G1");
         majorUpgradeCostText.text = majorUpgradeCost;
         
         requiredSpots += initialRequiredSpots;
@@ -218,7 +220,7 @@ public class Layer : MonoBehaviour
         objectInLines[activeSpots].transform.parent.gameObject.SetActive(true);
         activeSpots++;
         GameController.money -= BigDouble.Parse(unlockCost);
-        unlockCost = (BigDouble.Parse(unlockCost) * 2).ToString();
+        unlockCost = (BigDouble.Parse(unlockCost) * 2).ToString("G1");
         unlockCostText.text = unlockCost;
         UpdateAndCheck();
 

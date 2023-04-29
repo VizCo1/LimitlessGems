@@ -17,7 +17,7 @@ public class TopRow : MonoBehaviour
 
     public void UpdateMoneyText(BigDouble m)
     {
-        money.text = m.ToString("E4");
+        money.text = m.ToString("G1");
     }
 
     public void UpdateMoneyPerMinuteText(BigDouble m)

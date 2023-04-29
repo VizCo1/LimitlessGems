@@ -7,6 +7,8 @@ public class Zone : MonoBehaviour
     protected const int SLOTS_INDEX = 0;
     [SerializeField] protected int activeSpots;
 
+    public int maxActiveSpots { get; protected set; }
+
     public virtual void MoveAgentToSpot(AgentBase agent)
     {
 

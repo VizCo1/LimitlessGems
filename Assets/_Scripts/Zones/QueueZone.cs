@@ -5,7 +5,6 @@ using UnityEngine;
 public class QueueZone : Zone
 {
     readonly QueuePriorityQueue priorityQueue = new();
-    public int maxActiveSpots { get; private set; }
 
     protected virtual void Awake()
     {

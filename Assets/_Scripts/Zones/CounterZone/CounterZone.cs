@@ -26,4 +26,12 @@ public class CounterZone : QueueZone
     {
         return workZone;
     }
+
+    public override void MajorUpgrade()
+    {
+        foreach (Counter c in counters)
+        {
+            c.DoMajorUpgrade();
+        }
+    }
 }

@@ -5,28 +5,34 @@ using UnityEngine;
 public class WorkZone : Zone
 {
     int[] gemsQuantity = new int[3] { 0, 0, 0 };
-    List<WorkTable> tables = new();
 
     [HideInInspector] public Queue<CounterRequest> pendingRequestsGem0 = new();
     [HideInInspector] public Queue<CounterRequest> pendingRequestsGem1 = new();
     [HideInInspector] public Queue<CounterRequest> pendingRequestsGem2 = new();
 
     Queue<CounterRequest>[] queues;
+    
+    public List<WorkTable> tables { get; private set; } = new();
 
-    void Start()
+    private void Awake()
     {
-        queues = new Queue<CounterRequest>[] { pendingRequestsGem0, pendingRequestsGem1, pendingRequestsGem2 };
+        maxActiveSpots = transform.GetChild(SLOTS_INDEX).childCount;
 
         for (int i = 0; i < activeSpots; i++)
             tables.Add(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<WorkTable>());
     }
 
+    void Start()
+    {
+        queues = new Queue<CounterRequest>[] { pendingRequestsGem0, pendingRequestsGem1, pendingRequestsGem2 };    
+    }
+
     public void AddTable()
     {
-        // To add a new queue use AddQueue()
-        WorkTable newSlot = transform.GetChild(++activeSpots).GetComponent<WorkTable>();
+        GameObject newSlot = transform.GetChild(SLOTS_INDEX).GetChild(activeSpots++).gameObject;
+        newSlot.SetActive(true);
         newSlot.gameObject.SetActive(true);
-        //priorityQueue.Enqueue(newSlot, 0);
+        tables.Add(newSlot.GetComponent<WorkTable>());
     }
 
     public bool TryProvideGem(int gem, Counter counter)
@@ -103,5 +109,13 @@ public class WorkZone : Zone
     public bool AnyRequestForThisGem(int gem)
     {
         return queues[gem].Count != 0;
+    }
+
+    public void MajorUpgrade()
+    {
+        foreach (WorkTable wt in tables)
+        {
+            wt.DoMajorUpgrade();
+        }
     }
 }

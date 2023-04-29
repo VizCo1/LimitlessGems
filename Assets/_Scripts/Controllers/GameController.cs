@@ -9,7 +9,11 @@ public class GameController : MonoBehaviour
 {
     Sequence spawnSequence;
 
-    public static BigDouble money = new BigDouble(2, 1000);
+    public static BigDouble money = new BigDouble(2000, 3);
+
+    public static BigDouble gemPrice1 = new BigDouble(100);
+    public static BigDouble gemPrice2 = new BigDouble(300);
+    public static BigDouble gemPrice3 = new BigDouble(600);
 
     [Header("Pool configuration")]
 
@@ -41,13 +45,13 @@ public class GameController : MonoBehaviour
         switch (gem)
         {
             case 0:
-                moneyToEarn = 5000;
+                moneyToEarn = gemPrice1;
                 break;
             case 1:
-                moneyToEarn = 10000;
+                moneyToEarn = gemPrice2;
                 break;
             case 2:
-                moneyToEarn = 30000;
+                moneyToEarn = gemPrice3;
                 break;
         }
 
@@ -58,5 +62,14 @@ public class GameController : MonoBehaviour
 
         CanvasManager.currentLayer.CheckButtons();
         CanvasManager.UpdateDisplayedMoney();
+    }
+
+    public static void IncreaseGemsPrices(float increase)
+    {
+        gemPrice1 *= increase;
+        gemPrice2 *= increase;
+        gemPrice3 *= increase;
+
+        Debug.Log("GemPrice1: " + gemPrice1 + " GemPrice2: " + gemPrice2 + " GemPrice3: " + gemPrice3);
     }
 }

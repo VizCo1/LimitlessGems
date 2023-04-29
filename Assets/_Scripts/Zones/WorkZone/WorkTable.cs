@@ -10,17 +10,19 @@ public class WorkTable : MonoBehaviour
     [SerializeField] CircleCanvas circleCanvas;
     [SerializeField] Worker worker;
 
-    [SerializeField] float makeTime = 5f;
+    float productionTime = 10f;
+    float productionImprovement;
+    float timePercentage = 0.05f;
 
-    /*private void Start()
+    private void Start()
     {
-        CreateGemSequence();
-    }*/
+        productionImprovement = productionTime * timePercentage;
+    }
 
     Sequence CreateGemSequence()
     {
         return DOTween.Sequence()
-            .Append(circleCanvas.AppearAndFill(makeTime))
+            .Append(circleCanvas.AppearAndFill(productionTime))
             .AppendCallback(() => worker.GoToNextPosition())
             .SetDelay(0.2f);
     }
@@ -61,5 +63,17 @@ public class WorkTable : MonoBehaviour
                 CreateGem();
             }
         }
+    }
+
+    public void UpdateAttributes()
+    {
+        productionTime -= productionImprovement;
+        GameController.IncreaseGemsPrices(1.1f);
+    }
+
+    public void DoMajorUpgrade()
+    {
+        GameController.IncreaseGemsPrices(2f);
+        productionTime--;
     }
 }

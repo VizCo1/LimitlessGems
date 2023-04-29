@@ -10,7 +10,7 @@ public class CounterLayer : Layer
     protected override void InitSpotsVariables()
     {
         activeSpots = counterZone.ActiveSpots();
-        maxActiveSpots = counterZone.maxActiveSpots;
+        maxActiveSpots = counterZone.maxActiveSpots;       
     }
 
     public void UpdateAttributesAndCheckCosts(int index, ref int keyLevel, int initialKeyLevel)
