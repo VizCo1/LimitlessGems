@@ -31,7 +31,8 @@ public class CounterZone : QueueZone
     {
         foreach (CustomQueue c in counters)
         {
-            c.GetComponent<RestCubicle>().DoMajorUpdate();
+            Counter counter = c.queueFlow.GetComponent<Counter>();
+            counter.DoMajorUpgrade();
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CustomQueue : MonoBehaviour
 {
-    public QueueFlow queueFlow { get; private set; }
+    public QueueFlow queueFlow;
     [SerializeField] int queueSize; // the number of spots in the queue
     [SerializeField] GameObject queueSpotPrefab; // the prefab for the queue spot object
     [SerializeField] Vector3 queueDirection; // the position of the first queue spot
@@ -13,11 +13,6 @@ public class CustomQueue : MonoBehaviour
 
     private Queue<AgentBase> queueAgents; // the actual queue of game objects
     private List<Vector3> queueSpots; // a list of all the queue spot objects
-
-    void Awake()
-    {
-        queueFlow = GetComponent<QueueFlow>();
-    }
 
     void Start()
     {

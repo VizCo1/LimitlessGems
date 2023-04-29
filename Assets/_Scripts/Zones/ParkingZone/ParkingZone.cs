@@ -64,8 +64,17 @@ public class ParkingZone : Zone
         if (freeSpots.Count != 0)
         {
             ParkingSpot spot = freeSpots.Peek();
+
             if (++spot.Count == spot.Capacity())
+            {
                 freeSpots.Dequeue();
+            }
+            else
+            {
+                freeSpots.Dequeue();
+                freeSpots.Enqueue(spot);
+            }
+
             spot.actualClients.Add(agent.gameObject);
             agent.SetDestination(spot.transform.position);
         }

@@ -25,7 +25,7 @@ public class RestZone : QueueZone
     {
         foreach (CustomQueue cub in cubicles)
         {
-            cub.GetComponent<RestCubicle>().DoMajorUpdate();
+            cub.queueFlow.GetComponent<RestCubicle>().DoMajorUpdate();
         }
     }
 }

@@ -113,10 +113,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bf9231c424ffd647998618e0022198f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  queueFlow: {fileID: 8873770902825008617}
   queueSize: 6
   queueSpotPrefab: {fileID: 1714907439569846578, guid: f3bbe83748c532f4db7e68311ace4cf6, type: 3}
   queueDirection: {x: 0, y: 0, z: -1}
-  offset: 5
+  offset: 1.5
 --- !u!114 &8873770902825008617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,7 +133,6 @@ MonoBehaviour:
   circleCanvas: {fileID: 3967772322504032131}
   zoneManager: {fileID: 0}
   exitSpot: {fileID: 7429604373587011214}
-  orderTime: 5
 --- !u!1 &5440821731794613235
 GameObject:
   m_ObjectHideFlags: 0
