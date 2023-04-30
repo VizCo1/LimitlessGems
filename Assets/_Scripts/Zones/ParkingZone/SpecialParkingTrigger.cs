@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class SpecialParkingTrigger : MonoBehaviour
 {
-    [HideInInspector] public Client client;
+    [HideInInspector] public Queue<GameObject> clients = new();
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == client.gameObject)
+        if (clients.Count == 0)
+            return;
+
+        if (other.gameObject == clients.Peek())
         {
+            Client client = other.GetComponent<Client>();
             client.SetDestination(transform.parent.position);
-            client = null;
+            clients.Dequeue();
         }
     }
 }

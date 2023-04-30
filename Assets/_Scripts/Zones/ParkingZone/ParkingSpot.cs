@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class ParkingSpot : MonoBehaviour
 {
     [SerializeField] ParkingZone zoneManager;
     [SerializeField] int capacity;
+    [SerializeField] GameObject visuals;
     [HideInInspector] public int Count = 0;
     public bool isSpecial = false;
     [HideInInspector] public List<GameObject> actualClients;
@@ -44,5 +46,10 @@ public class ParkingSpot : MonoBehaviour
     public void IncreaseCapacity()
     {
         capacity++;
+    }
+
+    public void ActivateVisuals()
+    {
+        visuals.SetActive(true);
     }
 }

@@ -60,7 +60,7 @@ public class ParkingZone : Zone
                 client.GoToNextPosition();
             }
         }
-
+        parkingSpot.ActivateVisuals();
     }
 
     public override void MoveAgentToSpot(AgentBase agent)
@@ -84,7 +84,7 @@ public class ParkingZone : Zone
             if (spot.isSpecial)
             {
                 agent.SetDestination(specialParkingSpot.pos);
-                specialParkingSpot.SpecialParkingTrigger().client = agent.GetComponent<Client>();
+                specialParkingSpot.SpecialParkingTrigger().clients.Enqueue(agent.gameObject);
             }
             else
             {
