@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class ParkingZone : Zone
 {
     [SerializeField] RoadZone roadZone;
     readonly Queue<ParkingSpot> freeSpots = new();
 
+    SpecialParkingSpot specialParkingSpot;
     public List<ParkingSpot> spots { get; private set; } = new();
 
     private void Awake()
@@ -15,6 +17,14 @@ public class ParkingZone : Zone
 
         for (int i = 0; i < maxActiveSpots; i++)
             spots.Add(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<ParkingSpot>());
+    }
+
+    void Start()
+    {
+        for (int i = 0; i < activeSpots; i++)
+            freeSpots.Enqueue(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<ParkingSpot>());
+
+        specialParkingSpot = spots[spots.Count - 1].GetComponent<SpecialParkingSpot>();
     }
 
     public void AddParkingSpot()
@@ -53,12 +63,6 @@ public class ParkingZone : Zone
 
     }
 
-    void Start()
-    {
-        for (int i = 0; i < activeSpots; i++)
-            freeSpots.Enqueue(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<ParkingSpot>());
-    }
-
     public override void MoveAgentToSpot(AgentBase agent)
     {
         if (freeSpots.Count != 0)
@@ -76,7 +80,16 @@ public class ParkingZone : Zone
             }
 
             spot.actualClients.Add(agent.gameObject);
-            agent.SetDestination(spot.transform.position);
+
+            if (spot.isSpecial)
+            {
+                agent.SetDestination(specialParkingSpot.pos);
+                specialParkingSpot.SpecialParkingTrigger().client = agent.GetComponent<Client>();
+            }
+            else
+            {
+                agent.SetDestination(spot.transform.position);
+            }
         }
     }
 

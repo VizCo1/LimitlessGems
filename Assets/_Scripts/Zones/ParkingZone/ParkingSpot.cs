@@ -8,7 +8,7 @@ public class ParkingSpot : MonoBehaviour
     [SerializeField] ParkingZone zoneManager;
     [SerializeField] int capacity;
     [HideInInspector] public int Count = 0;
-
+    public bool isSpecial = false;
     [HideInInspector] public List<GameObject> actualClients;
 
     private void OnTriggerEnter(Collider other)

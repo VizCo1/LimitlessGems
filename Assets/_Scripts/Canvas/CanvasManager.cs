@@ -31,7 +31,7 @@ public class CanvasManager : MonoBehaviour
         for (int i = 2; i <= numberOfLayers + 1; i++)
         {
             layers.Add(transform.GetChild(i).GetComponent<ZoneLayer>());
-            Debug.Log(layers[i - 2]);
+            //Debug.Log(layers[i - 2]);
         }
 
         currentLayer = layers[0];
