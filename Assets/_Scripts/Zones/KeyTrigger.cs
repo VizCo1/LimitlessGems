@@ -13,7 +13,8 @@ public class KeyTrigger : MonoBehaviour
             if (other.CompareTag("ClientExit"))
             {
                 Client client = other.GetComponent<Client>();
-                client.SetDestination(client.GetCar().transform.position);
+                Vector3 carPos = client.GetCar().transform.position;
+                client.SetDestination(new Vector3(carPos.x, other.transform.position.y, carPos.z));
             }
             else
             {

@@ -10,7 +10,7 @@ public class AgentBase : MonoBehaviour
     [SerializeField] protected Transform[] positions;
     protected int index = 0;
 
-    protected NavMeshAgent agent;
+    public NavMeshAgent agent { get; protected set; }
 
     [SerializeField] protected bool b;
 
