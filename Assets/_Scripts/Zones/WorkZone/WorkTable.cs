@@ -10,14 +10,9 @@ public class WorkTable : MonoBehaviour
     [SerializeField] CircleCanvas circleCanvas;
     [SerializeField] Worker worker;
 
-    float productionTime = 10f;
+    float productionTime = 12f;
+    float percentage = 0.02f;
     float productionImprovement;
-    float timePercentage = 0.05f;
-
-    private void Start()
-    {
-        productionImprovement = productionTime * timePercentage;
-    }
 
     Sequence CreateGemSequence()
     {
@@ -67,13 +62,15 @@ public class WorkTable : MonoBehaviour
 
     public void UpdateAttributes()
     {
-        productionTime -= productionImprovement;
+        productionTime -= productionTime * percentage;
         GameController.IncreaseGemsPrices(1.1f);
+        Debug.Log("ProductionTime: " + productionTime);
     }
 
-    public void DoMajorUpgrade()
+    /*public void DoMajorUpgrade()
     {
-        GameController.IncreaseGemsPrices(2f);
-        productionTime--;
-    }
+        GameController.IncreaseGemsPrices(10f);
+        //productionTime -= 1;
+        Debug.Log("ProductionTime: " + productionTime);
+    }*/
 }

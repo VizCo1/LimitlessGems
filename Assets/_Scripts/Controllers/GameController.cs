@@ -32,7 +32,6 @@ public class GameController : MonoBehaviour
 
     public void CreateSpawnSequence(int loops, float delay)
     {
-        spawnDelay *= 0.75f;
         spawnSequence.Kill();
         spawnSequence = DOTween.Sequence().SetDelay(delay)
             .AppendCallback(objectPool.SpawnPooledObject)
@@ -42,7 +41,8 @@ public class GameController : MonoBehaviour
 
     public static void CreateSpawnSequence(int loops)
     {
-        spawnDelay *= 0.5f;
+        spawnDelay *= 0.75f;
+        Debug.Log("Spawn delay: " + spawnDelay);
         spawnSequence.Kill();
         spawnSequence = DOTween.Sequence().SetDelay(spawnDelay)
             .AppendCallback(objectPool.SpawnPooledObject)

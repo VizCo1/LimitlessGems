@@ -7,16 +7,17 @@ public class RestCubicle : QueueFlow
 {
     [SerializeField] RestZone zoneManager;
     float restTime = 12f;
-    float timeImprovement;
-    float timePercentage = 0.05f;
+    float percentage = 0.02f;
 
-    float probSpeedBonus = 0.05f;
-    float initialProbSpeedBonus;
+    float probFasterRest = 0.05f;
+    float initialProbFasterRest;
+    float basicProbFasterRest;
 
-    private void Start()
+    protected override void Awake()
     {
-        initialProbSpeedBonus = probSpeedBonus;
-        timeImprovement = restTime * timePercentage;
+        base.Awake();
+        initialProbFasterRest = probFasterRest;
+        basicProbFasterRest = initialProbFasterRest;
     }
 
     void OnTriggerEnter(Collider other)
@@ -35,7 +36,7 @@ public class RestCubicle : QueueFlow
     float RealRestTime()
     {
         float realRestTime;
-        if (probSpeedBonus < Random.Range(0f, 1))
+        if (probFasterRest < Random.Range(0f, 1))
             realRestTime = restTime * 0.5f;
         else
             realRestTime = restTime;
@@ -52,12 +53,23 @@ public class RestCubicle : QueueFlow
     public override void UpdateAttributes(bool keyLevelReached)
     {
         if (keyLevelReached)
-            probSpeedBonus += initialProbSpeedBonus;
-        restTime -= timeImprovement;
+            probFasterRest += initialProbFasterRest;
+        restTime -=  restTime * percentage;
+
+        Debug.Log("Probability faster Rest: " + probFasterRest);
+        Debug.Log("Rest Time: " + restTime);
+
     }
 
     public void DoMajorUpdate()
     {
-        probSpeedBonus *= 2;
+        initialProbFasterRest *= 1.75f;
+
+        if (probFasterRest != basicProbFasterRest)
+            probFasterRest *= 1.75f;
+        else
+            probFasterRest = initialProbFasterRest;
+
+        Debug.Log("Probability of faster Rest: " + probFasterRest);
     }
 }

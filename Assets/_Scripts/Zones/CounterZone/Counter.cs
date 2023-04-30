@@ -7,17 +7,21 @@ public class Counter : QueueFlow
 {
     [SerializeField] CounterZone zoneManager;
     [SerializeField] Transform exitSpot;
-    float orderTime = 10f;
-    float timeImprovement;
-    float percentage = 0.05f;
+
+    float orderTime = 12f;
+    float percentage = 0.02f;
 
     float probDoubleMoney = 0.05f;
     float initalProbDoubleMoney;
 
-    private void Start()
+    float basicProbDoubleMoney;
+
+    protected override void Awake()
     {
+        base.Awake();
+
         initalProbDoubleMoney = probDoubleMoney;
-        timeImprovement = orderTime * percentage;
+        basicProbDoubleMoney = initalProbDoubleMoney;
     }
 
     Client actualClient;
@@ -69,11 +73,21 @@ public class Counter : QueueFlow
     {
         if (keyLevelReached)
             probDoubleMoney += initalProbDoubleMoney;
-        orderTime -= timeImprovement;
+        orderTime -= orderTime * percentage;
+
+        Debug.Log("Probability double money: " + probDoubleMoney);
+        Debug.Log("Current orderTime: " + orderTime);
     }
 
     public void DoMajorUpgrade()
     {
-        probDoubleMoney *= 2;
+        initalProbDoubleMoney *= 1.75f;
+
+        if (probDoubleMoney != basicProbDoubleMoney)
+            probDoubleMoney *= 1.75f;
+        else
+            probDoubleMoney = initalProbDoubleMoney;
+
+        //Debug.Log("Probability double money: " + initalProbDoubleMoney);
     }
 }

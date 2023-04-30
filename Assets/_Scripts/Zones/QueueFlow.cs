@@ -9,7 +9,7 @@ public class QueueFlow : MonoBehaviour
 
     protected bool placeOccupied = false;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         customQueue = GetComponent<CustomQueue>();
     }
