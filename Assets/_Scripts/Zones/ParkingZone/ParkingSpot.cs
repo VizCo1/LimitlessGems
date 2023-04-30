@@ -11,14 +11,6 @@ public class ParkingSpot : MonoBehaviour
 
     [HideInInspector] public List<GameObject> actualClients;
 
-    [SerializeField] bool b;
-
-    private void Update()
-    {
-        if (b)
-            Debug.Log(Count);
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Car") && other.gameObject == actualClients.Contains(other.gameObject))

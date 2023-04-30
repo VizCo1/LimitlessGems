@@ -2,19 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZoneLayer : MonoBehaviour
+public class ZoneLayer : Layer
 {
-    CanvasManager canvasManager;
-
     [SerializeField] protected ObjectInLine[] objectInLines;
 
     public int activeSpots { get; protected set; }
     public int maxActiveSpots { get; protected set; }
-
-    void Awake()
-    {
-        canvasManager = GetComponentInParent<CanvasManager>();
-    }
 
     public virtual void Init(bool b)
     {
@@ -31,9 +24,8 @@ public class ZoneLayer : MonoBehaviour
         }
     }
 
-    public virtual void End()
+    public override void End()
     {
-        //CheckButtons();
         gameObject.SetActive(false);
         CameraSystem.inGame = true;
     }
@@ -54,11 +46,6 @@ public class ZoneLayer : MonoBehaviour
         {
             objectInLines[i].transform.parent.gameObject.SetActive(true);
         }
-    }
-
-    public void BackButtonPressed()
-    {
-        End();
     }
 
     public ObjectInLine[] GetObjectInLines()

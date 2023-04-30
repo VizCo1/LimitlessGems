@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
     {
         //DOVirtual.DelayedCall(1, objectPool.SpawnPooledObject).SetLoops(5);
         objectPool = transform.parent.GetComponentInChildren<ObjectPool>();
-        CreateSpawnSequence(10, 1f);
+        CreateSpawnSequence(20, 1);
     }
 
     public void ClientOut(GameObject client)
@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour
         spawnSequence = DOTween.Sequence().SetDelay(delay)
             .AppendCallback(objectPool.SpawnPooledObject)
             .SetLoops(loops)
-            .OnKill(() => CreateSpawnSequence(-1));
+            .OnKill(() => Debug.Log("A"));
     }
 
     public static void CreateSpawnSequence(int loops)

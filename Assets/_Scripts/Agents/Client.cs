@@ -56,6 +56,7 @@ public class Client : AgentBase
 
     public void UnParkCar()
     {
+        transform.rotation = car.transform.rotation;
         car.UnPark();
         ChangeTag("CarExit");
         GoToNextPosition();

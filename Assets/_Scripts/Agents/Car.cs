@@ -11,6 +11,8 @@ public class Car : MonoBehaviour
     [SerializeField] Material[] materials;
     [SerializeField] MeshRenderer meshRenderer;
 
+    [HideInInspector] public bool parkUpwards;
+
 
     private void OnEnable()
     {
@@ -23,13 +25,17 @@ public class Car : MonoBehaviour
         if (imitateClient)
         {
             Vector3 pos = new Vector3(client.transform.localPosition.x, transform.localPosition.y, client.transform.localPosition.z);
-            transform.SetLocalPositionAndRotation(pos, client.transform.localRotation);
+            transform.SetLocalPositionAndRotation(client.transform.localPosition, client.transform.localRotation);
         }
     }
 
     public void Park()
     {
         imitateClient = false;
+        if (parkUpwards)
+            transform.DORotate(new Vector3(0, 90, 0), 0.5f);
+        else
+            transform.DORotate(new Vector3(0, -90, 0), 0.5f);
     }
 
     public void UnPark()

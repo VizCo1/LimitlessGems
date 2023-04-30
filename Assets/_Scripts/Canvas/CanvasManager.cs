@@ -15,6 +15,7 @@ public class CanvasManager : MonoBehaviour
 
     [Header("Canvas layers")]
     [SerializeField] int numberOfLayers;
+    [SerializeField] Layer optionsLayer;
 
     List<ZoneLayer> layers = new();
 
@@ -27,8 +28,11 @@ public class CanvasManager : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 1; i <= numberOfLayers; i++)
+        for (int i = 2; i <= numberOfLayers + 1; i++)
+        {
             layers.Add(transform.GetChild(i).GetComponent<ZoneLayer>());
+            Debug.Log(layers[i - 2]);
+        }
 
         currentLayer = layers[0];
 
@@ -37,6 +41,11 @@ public class CanvasManager : MonoBehaviour
             l.Init(true);
             l.End();
         }
+    }
+
+    public void OpenOptions()
+    {
+        optionsLayer.Init();
     }
 
     public void OpenLayer(int layer)
@@ -50,32 +59,13 @@ public class CanvasManager : MonoBehaviour
         layers[layer].End();
     }
 
+
+
+
     public static void UpdateDisplayedMoney()
     {
         topRow.UpdateMoneyText(GameController.money);
     }
-
-    /*static public void CheckAllButtons()
-    {
-        foreach (Layer l in layers)
-        {
-            ObjectInLine[] objs = l.GetObjectInLines();
-
-            foreach (ObjectInLine obj in objs)
-            {
-                if (!EnoughCost(obj.LevelCost()))
-                    obj.UpgradeButton().interactable = false;
-                else if (obj.IsLevelMax)
-                    obj.UpgradeButton().interactable = false;
-                else
-                    obj.UpgradeButton().interactable = true;
-            }
-
-            l.CheckUnlockButton();
-            l.CheckMajorUpgradeButton();
-        }
-    }*/
-
 
     static public bool EnoughCost(string cost)
     {
