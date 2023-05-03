@@ -60,7 +60,10 @@ public class CanvasManager : MonoBehaviour
     }
 
 
-
+    public static void UpdateDisplayedGems(int gem, int quantity)
+    {
+        topRow.UpdateGemQuantityText(gem, quantity);
+    }
 
     public static void UpdateDisplayedMoney()
     {

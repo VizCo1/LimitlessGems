@@ -12,8 +12,6 @@ public class AgentBase : MonoBehaviour
 
     public NavMeshAgent agent { get; protected set; }
 
-    [SerializeField] protected bool b;
-
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();

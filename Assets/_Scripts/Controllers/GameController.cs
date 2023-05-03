@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour
     public static BigDouble gemPrice2 = new BigDouble(300);
     public static BigDouble gemPrice3 = new BigDouble(600);
 
+    public static int[] gemsQuantity = new int[3] { 0, 0, 0 };
+
     static float spawnDelay = 60; // 60 --> 1 client per min
     static ObjectPool objectPool;
     static Sequence spawnSequence;
@@ -52,16 +54,25 @@ public class GameController : MonoBehaviour
     public static void SellGem(int gem, bool doubleMoney)
     {
         BigDouble moneyToEarn = new();
+        int gemToChange = -1;
+
         switch (gem)
         {
             case 0:
                 moneyToEarn = gemPrice1;
+                gemToChange = 0;
+                gemsQuantity[0]--;
+                
                 break;
             case 1:
                 moneyToEarn = gemPrice2;
+                gemToChange = 1;
+                gemsQuantity[1]--;
                 break;
             case 2:
                 moneyToEarn = gemPrice3;
+                gemToChange = 2;
+                gemsQuantity[2]--;
                 break;
         }
 
@@ -72,6 +83,7 @@ public class GameController : MonoBehaviour
 
         CanvasManager.currentLayer.CheckButtons();
         CanvasManager.UpdateDisplayedMoney();
+        CanvasManager.UpdateDisplayedGems(gemToChange, gemsQuantity[gemToChange]);
     }
 
     public static void IncreaseGemsPrices(float increase)

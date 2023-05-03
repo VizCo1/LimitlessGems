@@ -8,7 +8,9 @@ using System;
 public class TopRow : MonoBehaviour
 {
     [SerializeField] TMP_Text money;
-    [SerializeField] TMP_Text moneyPerMinute;
+    [SerializeField] TMP_Text gem1;
+    [SerializeField] TMP_Text gem2;
+    [SerializeField] TMP_Text gem3;
 
     private void Start()
     {
@@ -20,8 +22,21 @@ public class TopRow : MonoBehaviour
         money.text = m.ToString("G1");
     }
 
-    public void UpdateMoneyPerMinuteText(BigDouble m)
+    public void UpdateGemQuantityText(int gem, int quantity)
     {
-        moneyPerMinute.text = m.ToString();
+        switch (gem)
+        {
+            case 0:
+                gem1.text = quantity.ToString();
+                break;
+
+            case 1:
+                gem2.text = quantity.ToString();
+                break;
+
+            case 2:
+                gem3.text = quantity.ToString();
+                break;
+        }
     }
 }

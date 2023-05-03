@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class WorkZone : Zone
 {
-    int[] gemsQuantity = new int[3] { 0, 0, 0 };
-
     [HideInInspector] public Queue<CounterRequest> pendingRequestsGem0 = new();
     [HideInInspector] public Queue<CounterRequest> pendingRequestsGem1 = new();
     [HideInInspector] public Queue<CounterRequest> pendingRequestsGem2 = new();
@@ -35,10 +33,11 @@ public class WorkZone : Zone
 
     public bool TryProvideGem(int gem, Counter counter)
     {
-        if (gemsQuantity[gem] != 0) // We have that gem
+        if (GameController.gemsQuantity[gem] != 0) // We have that gem
         {
             //Debug.Log("Gem is available, no need to create it");
-            gemsQuantity[gem]--;
+            GameController.gemsQuantity[gem]--;
+            CanvasManager.UpdateDisplayedGems(gem, GameController.gemsQuantity[gem]);
             return true;
         }
         else // We don't have that gem
@@ -69,7 +68,8 @@ public class WorkZone : Zone
     public void AddGemToInventory(int gem)
     {
         //Debug.Log("Gem " + gem + " added to inventory");
-        gemsQuantity[gem]++;
+        GameController.gemsQuantity[gem]++;
+        CanvasManager.UpdateDisplayedGems(gem, GameController.gemsQuantity[gem]);
     }
 
     public bool CheckForPendingRequests()

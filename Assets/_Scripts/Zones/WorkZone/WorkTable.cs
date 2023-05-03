@@ -12,7 +12,6 @@ public class WorkTable : MonoBehaviour
 
     float productionTime = 12f;
     float percentage = 0.02f;
-    float productionImprovement;
 
     Sequence CreateGemSequence()
     {

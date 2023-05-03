@@ -27,20 +27,6 @@ public class Client : AgentBase
         meshRenderer.material = materials[Random.Range(0, materials.Length)];
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            transform.localPosition = Vector3.zero;
-        }
-
-        if (b)
-        {
-            Debug.Log(transform.parent.position);
-            Debug.Log("INDEX: " + index);
-        }
-    }
-
     void ChooseGem()
     {
         // TODO -> Change probabilities, GameManager will do it
