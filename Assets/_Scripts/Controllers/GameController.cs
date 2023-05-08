@@ -74,7 +74,7 @@ public class GameController : MonoBehaviour
 
         if (gemToChange != -1)
         {
-            Debug.Log(gemsQuantity[gemToChange]);
+            //Debug.Log(gemsQuantity[gemToChange]);
 
             CanvasManager.UpdateDisplayedGems(gemToChange, gemsQuantity[gemToChange]);
         }
@@ -112,6 +112,6 @@ public class GameController : MonoBehaviour
         gemPrice2 *= increase;
         gemPrice3 *= increase;
 
-        Debug.Log("GemPrice1: " + gemPrice1 + " GemPrice2: " + gemPrice2 + " GemPrice3: " + gemPrice3);
+        //Debug.Log("GemPrice1: " + gemPrice1 + " GemPrice2: " + gemPrice2 + " GemPrice3: " + gemPrice3);
     }
 }

@@ -75,8 +75,8 @@ public class Counter : QueueFlow
             probDoubleMoney += initalProbDoubleMoney;
         orderTime -= orderTime * percentage;
 
-        Debug.Log("Probability double money: " + probDoubleMoney);
-        Debug.Log("Current orderTime: " + orderTime);
+        //Debug.Log("Probability double money: " + probDoubleMoney);
+        //Debug.Log("Current orderTime: " + orderTime);
     }
 
     public void DoMajorUpgrade()
