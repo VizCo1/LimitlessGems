@@ -38,7 +38,7 @@ public class Counter : QueueFlow
             sequence.Append(circleCanvas.AppearAndFill(orderTime)) // Client orders the gem
                     .AppendCallback(() =>
                     {
-                        if (zoneManager.TryToProvideGemWithWorkZone(((int)actualClient.WantedGem()), this)) // If gem is available, then give gem. Else gem request saved 
+                        if (zoneManager.TryToProvideGemWithWorkZone((int)actualClient.WantedGem(), this)) // If gem is available, then give gem. Else gem request saved 
                         {
                             // Give gem sequence
                             ReceiveGem((int)actualClient.WantedGem());

@@ -36,8 +36,7 @@ public class WorkZone : Zone
         if (GameController.gemsQuantity[gem] != 0) // We have that gem
         {
             //Debug.Log("Gem is available, no need to create it");
-            GameController.gemsQuantity[gem]--;
-            CanvasManager.UpdateDisplayedGems(gem, GameController.gemsQuantity[gem]);
+            GameController.UpdateGemQuantity(gem, -1);
             return true;
         }
         else // We don't have that gem
@@ -68,8 +67,7 @@ public class WorkZone : Zone
     public void AddGemToInventory(int gem)
     {
         //Debug.Log("Gem " + gem + " added to inventory");
-        GameController.gemsQuantity[gem]++;
-        CanvasManager.UpdateDisplayedGems(gem, GameController.gemsQuantity[gem]);
+        GameController.UpdateGemQuantity(gem, 1);
     }
 
     public bool CheckForPendingRequests()

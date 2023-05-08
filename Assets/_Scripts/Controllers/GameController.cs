@@ -51,28 +51,49 @@ public class GameController : MonoBehaviour
             .SetLoops(loops);
     }
 
-    public static void SellGem(int gem, bool doubleMoney)
+    public static void UpdateGemQuantity(int gem, int quantity)
     {
-        BigDouble moneyToEarn = new();
         int gemToChange = -1;
 
         switch (gem)
         {
             case 0:
-                moneyToEarn = gemPrice1;
                 gemToChange = 0;
-                gemsQuantity[0]--;
-                
+                gemsQuantity[0] += quantity;
+
+                break;
+            case 1:
+                gemToChange = 1;
+                gemsQuantity[1] += quantity;
+                break;
+            case 2:
+                gemToChange = 2;
+                gemsQuantity[2] += quantity;
+                break;
+        }
+
+        if (gemToChange != -1)
+        {
+            Debug.Log(gemsQuantity[gemToChange]);
+
+            CanvasManager.UpdateDisplayedGems(gemToChange, gemsQuantity[gemToChange]);
+        }
+    }
+
+    public static void SellGem(int gem, bool doubleMoney)
+    {
+        BigDouble moneyToEarn = new();
+
+        switch (gem)
+        {
+            case 0:
+                moneyToEarn = gemPrice1;                
                 break;
             case 1:
                 moneyToEarn = gemPrice2;
-                gemToChange = 1;
-                gemsQuantity[1]--;
                 break;
             case 2:
                 moneyToEarn = gemPrice3;
-                gemToChange = 2;
-                gemsQuantity[2]--;
                 break;
         }
 
@@ -83,7 +104,6 @@ public class GameController : MonoBehaviour
 
         CanvasManager.currentLayer.CheckButtons();
         CanvasManager.UpdateDisplayedMoney();
-        CanvasManager.UpdateDisplayedGems(gemToChange, gemsQuantity[gemToChange]);
     }
 
     public static void IncreaseGemsPrices(float increase)

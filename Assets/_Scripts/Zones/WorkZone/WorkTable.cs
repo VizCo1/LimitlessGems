@@ -28,8 +28,7 @@ public class WorkTable : MonoBehaviour
             .OnComplete(() =>
             {
                 if (zoneManager.AnyRequestForThisGem(gem))
-                {
-                    
+                {                   
                     zoneManager.GetPendingRequestsOf(gem).Dequeue().counter.ReceiveGem(gem);
                 }
                 else

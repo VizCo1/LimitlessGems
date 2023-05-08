@@ -12883,11 +12883,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1166470000902279468, guid: 9755bebe07a6f3142ab54e330edc3eb8, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1166470000902279468, guid: 9755bebe07a6f3142ab54e330edc3eb8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3979870317974786153, guid: 9755bebe07a6f3142ab54e330edc3eb8, type: 3}
       propertyPath: m_Pivot.x
@@ -24136,7 +24136,7 @@ Transform:
   m_GameObject: {fileID: 971370098}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 39.1172, y: -0.1, z: 30}
-  m_LocalScale: {x: 0.95564157, y: 1, z: 0.13477401}
+  m_LocalScale: {x: 0.95564157, y: 1, z: 0.23526151}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 174164131}
@@ -25379,7 +25379,7 @@ Transform:
   m_GameObject: {fileID: 1042724074}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 39.2909, y: -0.1, z: 47.67}
-  m_LocalScale: {x: 0.99034613, y: 1, z: 0.13477401}
+  m_LocalScale: {x: 0.99034613, y: 1, z: 0.2872708}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 174164131}
@@ -30264,7 +30264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebecb2ec81085a944993275617c5308c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseEnabled: 1
+  mouseEnabled: 0
   virtualCamera: {fileID: 622978035}
   minX: -31.4
   maxX: 140
@@ -30273,8 +30273,8 @@ MonoBehaviour:
   maxMovDragSpeed: 1
   minMovDragSpeed: 0.5
   reduceInputDuration: 1
-  maxOrthoSize: 50
-  minOrthoSize: 40
+  maxOrthoSize: 40
+  minOrthoSize: 35
   zoomSpeed: 3
 --- !u!1001 &1268576716
 PrefabInstance:
@@ -33680,7 +33680,7 @@ Transform:
   m_GameObject: {fileID: 1420501705}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00000037252897}
   m_LocalPosition: {x: 25.7062, y: -0.1, z: 51.11}
-  m_LocalScale: {x: 1.4858042, y: 1, z: 0.12452607}
+  m_LocalScale: {x: 1.4858042, y: 1, z: 0.20651405}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 174164131}
@@ -50001,7 +50001,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2106967853
 Transform:
   m_ObjectHideFlags: 0
@@ -50799,6 +50799,10 @@ PrefabInstance:
     - target: {fileID: 1491347924478804741, guid: 9ab28e1337ac4aa4a8880f0131176392, type: 3}
       propertyPath: m_Name
       value: Money_particlesystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 1491347924478804741, guid: 9ab28e1337ac4aa4a8880f0131176392, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ab28e1337ac4aa4a8880f0131176392, type: 3}
