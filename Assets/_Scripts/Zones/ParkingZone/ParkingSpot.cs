@@ -7,8 +7,8 @@ using UnityEngine;
 public class ParkingSpot : MonoBehaviour
 {
     [SerializeField] ParkingZone zoneManager;
-    [SerializeField] int capacity;
-    [SerializeField] GameObject visuals;
+    [SerializeField] protected int capacity;
+    [SerializeField] protected GameObject visuals;
     [HideInInspector] public int Count = 0;
     public bool isSpecial = false;
     [HideInInspector] public List<GameObject> actualClients;
@@ -48,8 +48,16 @@ public class ParkingSpot : MonoBehaviour
         capacity++;
     }
 
-    public void ActivateVisuals()
+    public virtual void ActivateVisuals()
     {
-        visuals.SetActive(true);
+        if (!visuals.activeSelf)
+        {
+            visuals.SetActive(true);
+        }
+    }
+
+    public virtual void UpdateVisuals(int capacity)
+    {
+
     }
 }

@@ -43,7 +43,10 @@ public class ParkingZone : Zone
             if (client != null)
             {
                 client.GoToNextPosition();
-            }          
+            }
+
+            //parkingSpot.ActivateVisuals();
+            parkingSpot.UpdateVisuals(freeSpots.Count);
         }
         else
         {
@@ -59,8 +62,11 @@ public class ParkingZone : Zone
             {
                 client.GoToNextPosition();
             }
+
+            parkingSpot.ActivateVisuals();
         }
-        parkingSpot.ActivateVisuals();
+
+        parkingSpot.UpdateVisuals(freeSpots.Count);
     }
 
     public override void MoveAgentToSpot(AgentBase agent)
@@ -90,6 +96,8 @@ public class ParkingZone : Zone
             {
                 agent.SetDestination(spot.transform.position);
             }
+
+            specialParkingSpot.UpdateVisuals(freeSpots.Count);
         }
     }
 
@@ -98,6 +106,7 @@ public class ParkingZone : Zone
         if (spot.Count-- == spot.Capacity())
         {
             freeSpots.Enqueue(spot);
+            specialParkingSpot.UpdateVisuals(freeSpots.Count);
         }
 
         // Communicate with RoadZone
