@@ -81,6 +81,8 @@ public class Counter : QueueFlow
 
     public void DoMajorUpgrade()
     {
+        UpdateVisuals();
+
         initalProbDoubleMoney *= 1.75f;
 
         if (probDoubleMoney != basicProbDoubleMoney)

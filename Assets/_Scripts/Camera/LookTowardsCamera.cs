@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LookTowardsCamera : MonoBehaviour
 {
-    private void Start()
+    private void Awake()
     {
         transform.forward = Camera.main.transform.forward;
     }

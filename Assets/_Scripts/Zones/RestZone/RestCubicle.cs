@@ -63,6 +63,8 @@ public class RestCubicle : QueueFlow
 
     public void DoMajorUpdate()
     {
+        UpdateVisuals();
+
         initialProbFasterRest *= 1.75f;
 
         if (probFasterRest != basicProbFasterRest)
