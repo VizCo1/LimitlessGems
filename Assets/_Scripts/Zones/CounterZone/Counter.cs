@@ -64,7 +64,7 @@ public class Counter : QueueFlow
 
     bool IsMoneyDoubled()
     {
-        return probDoubleMoney < Random.Range(0f, 1);
+        return probDoubleMoney > Random.Range(0f, 1);
     }
 
     public override void UpdateAttributes(bool keyLevelReached)

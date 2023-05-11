@@ -6,13 +6,16 @@ using UnityEngine;
 public class RestCubicle : QueueFlow
 {
     [SerializeField] RestZone zoneManager;
-    Animator door;
+    [SerializeField] float nextSpotDelay;
+    public Animator door;
     float restTime = 12f;
     float percentage = 0.02f;
 
     float probFasterRest = 0.05f;
     float initialProbFasterRest;
     float basicProbFasterRest;
+
+    string nextTrigger;
 
     protected override void Awake()
     {
@@ -28,18 +31,26 @@ public class RestCubicle : QueueFlow
             Worker worker = other.GetComponent<Worker>();
             zoneManager.DecreasePriorityOfQueue(customQueue);
 
+            ChangeDoorStatus();
+            
             Sequence sq = DOTween.Sequence().SetDelay(0.2f)
-                .AppendCallback(() => ChangeDoorStatus())
+                //.AppendCallback(() => ChangeDoorStatus())
                 .Append(circleCanvas.AppearAndFill(RealRestTime()))
-                .AppendCallback(() => worker.SetDestination(exitSpot.position))
-                .Append(DOVirtual.DelayedCall(0.2f, () => ChangeDoorStatus()))
-                .Append(DOVirtual.DelayedCall(0.5f, () => worker.GoToNextPosition()));
+                .AppendCallback(() => ChangeDoorStatus())
+                .Append(DOVirtual.DelayedCall( 1f, () => worker.SetDestination(exitSpot.position) ) )
+                .Append(DOVirtual.DelayedCall(nextSpotDelay, () => worker.GoToNextPosition()));
         }
     }
 
     private void ChangeDoorStatus()
     {
-        if (door != null)
+        // WORK TO BE DONE!!!!
+        if (nextTrigger != null) 
+        {
+            door.SetTrigger(nextTrigger);
+            nextTrigger = null;
+        }
+        else if (door != null)
         {
             door.SetTrigger("ChangeDoor");
         }
@@ -48,7 +59,7 @@ public class RestCubicle : QueueFlow
     float RealRestTime()
     {
         float realRestTime;
-        if (probFasterRest < Random.Range(0f, 1))
+        if (probFasterRest > Random.Range(0f, 1))
         {
             realRestTime = restTime * 0.5f;
             Debug.Log("FASTER REST!!!");
@@ -61,7 +72,8 @@ public class RestCubicle : QueueFlow
 
     private void OnTriggerExit(Collider other)
     {
-        placeOccupied = false;
+        DOVirtual.DelayedCall(0.5f, () => placeOccupied = false);
+        //placeOccupied = false;
         other.GetComponent<Worker>().ChangeTag("WorkerExit");    
     }
 
@@ -79,8 +91,7 @@ public class RestCubicle : QueueFlow
     public void DoMajorUpdate()
     {
         UpdateVisuals();
-        HandleDoorStatus();
-        
+        HandleDoorStatus(); 
 
         initialProbFasterRest *= 1.75f;
 
@@ -92,8 +103,29 @@ public class RestCubicle : QueueFlow
         Debug.Log("Probability of faster Rest: " + probFasterRest);
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            UpdateVisuals();
+            HandleDoorStatus();
+        }
+    }
+
+    
     private void HandleDoorStatus()
     {
         door = visuals[visualIndex].GetComponentInChildren<Animator>();
+
+        if (placeOccupied)
+        {
+            nextTrigger = "FirstOpening";
+        }
+        else
+        {
+            nextTrigger = null;
+            door.SetTrigger("FirstOpening");
+        }
     }
 }

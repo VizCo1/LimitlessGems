@@ -51,7 +51,7 @@ public class SpecialParkingSpot : ParkingSpot
     public override void UpdateVisuals(int actualCapacity)
     {
         int extra = (capacity == Count) ? 0 : -1;
-        Debug.Log(capacity == Count);
+        //Debug.Log(capacity == Count);
         int numberToShow = actualCapacity + (capacity - Count) + extra;
         capacityText.text = numberToShow.ToString();
     }

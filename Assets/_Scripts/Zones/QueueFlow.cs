@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class QueueFlow : MonoBehaviour
         customQueue = GetComponent<CustomQueue>();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (customQueue.Count() != 0 && !placeOccupied)
         {
@@ -28,7 +29,7 @@ public class QueueFlow : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        placeOccupied = false;
+        DOVirtual.DelayedCall(0.25f, () => placeOccupied = false);
     }
 
     public virtual void UpdateAttributes(bool keyLevelReached)

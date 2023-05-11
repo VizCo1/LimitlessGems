@@ -10,22 +10,21 @@ public class CustomQueue : MonoBehaviour
     [SerializeField] GameObject queueSpotPrefab; // the prefab for the queue spot object
     [SerializeField] Vector3 queueDirection; // the position of the first queue spot
     [SerializeField] float offset;
+    [SerializeField] float initialOffset;
 
-    private Queue<AgentBase> queueAgents; // the actual queue of game objects
-    private List<Vector3> queueSpots; // a list of all the queue spot objects
+    private Queue<AgentBase> queueAgents = new(); // the actual queue of game objects
+    private List<Vector3> queueSpots = new(); // a list of all the queue spot objects
 
     void Start()
     {
-        // initialize the queue and queue spot list
-        queueAgents = new Queue<AgentBase>();
-        queueSpots = new List<Vector3>();
-
         // create the queue spot objects and add them to the list
+        queueSpots.Add(transform.position + initialOffset * queueDirection);
+
         float offsetIncrement = offset;
-        for (int i = 0; i < queueSize; i++)
+        for (int i = 1; i < queueSize; i++)
         {
             //GameObject queueSpot = Instantiate(queueSpotPrefab, transform.position + offset * queueDirection, Quaternion.identity, transform);
-            queueSpots.Add(transform.position + offset * queueDirection);
+            queueSpots.Add(transform.position + (initialOffset + offset) * queueDirection);
             offset += offsetIncrement;
         }
     }
@@ -41,6 +40,11 @@ public class CustomQueue : MonoBehaviour
         queueAgents.Enqueue(obj);
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position, new Vector3(3, 3, 3));
+    }
+
     // remove a game object from the queue
     public AgentBase Dequeue()
     {
@@ -51,6 +55,7 @@ public class CustomQueue : MonoBehaviour
             AgentBase obj = queueAgents.Dequeue();
 
             obj.SetDestination(transform.position);
+            //Debug.Log(transform.position);
 
             // move all other objects forward in the queue
             for (int i = 0; i < queueAgents.Count; i++)
