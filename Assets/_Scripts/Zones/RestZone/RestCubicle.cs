@@ -6,6 +6,7 @@ using UnityEngine;
 public class RestCubicle : QueueFlow
 {
     [SerializeField] RestZone zoneManager;
+    Animator door;
     float restTime = 12f;
     float percentage = 0.02f;
 
@@ -28,8 +29,19 @@ public class RestCubicle : QueueFlow
             zoneManager.DecreasePriorityOfQueue(customQueue);
 
             Sequence sq = DOTween.Sequence().SetDelay(0.2f)
+                .AppendCallback(() => ChangeDoorStatus())
                 .Append(circleCanvas.AppearAndFill(RealRestTime()))
-                .AppendCallback(() => worker.GoToNextPosition());                
+                .AppendCallback(() => worker.SetDestination(exitSpot.position))
+                .Append(DOVirtual.DelayedCall(0.2f, () => ChangeDoorStatus()))
+                .Append(DOVirtual.DelayedCall(0.5f, () => worker.GoToNextPosition()));
+        }
+    }
+
+    private void ChangeDoorStatus()
+    {
+        if (door != null)
+        {
+            door.SetTrigger("ChangeDoor");
         }
     }
 
@@ -37,7 +49,10 @@ public class RestCubicle : QueueFlow
     {
         float realRestTime;
         if (probFasterRest < Random.Range(0f, 1))
+        {
             realRestTime = restTime * 0.5f;
+            Debug.Log("FASTER REST!!!");
+        }
         else
             realRestTime = restTime;
 
@@ -64,6 +79,8 @@ public class RestCubicle : QueueFlow
     public void DoMajorUpdate()
     {
         UpdateVisuals();
+        HandleDoorStatus();
+        
 
         initialProbFasterRest *= 1.75f;
 
@@ -73,5 +90,10 @@ public class RestCubicle : QueueFlow
             probFasterRest = initialProbFasterRest;
 
         Debug.Log("Probability of faster Rest: " + probFasterRest);
+    }
+
+    private void HandleDoorStatus()
+    {
+        door = visuals[visualIndex].GetComponentInChildren<Animator>();
     }
 }

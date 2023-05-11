@@ -6,8 +6,6 @@ using DG.Tweening;
 public class Counter : QueueFlow
 {
     [SerializeField] CounterZone zoneManager;
-    [SerializeField] Transform exitSpot;
-
     float orderTime = 12f;
     float percentage = 0.02f;
 

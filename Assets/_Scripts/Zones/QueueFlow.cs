@@ -5,8 +5,9 @@ using UnityEngine;
 public class QueueFlow : MonoBehaviour
 {
     [SerializeField] protected CircleCanvas circleCanvas;
-    [SerializeField] GameObject[] visuals;
-    int visualIndex = 0;
+    [SerializeField] protected GameObject[] visuals;
+    [SerializeField] protected Transform exitSpot;
+    protected int visualIndex = 0;
     protected CustomQueue customQueue;
 
     protected bool placeOccupied = false;
@@ -37,7 +38,7 @@ public class QueueFlow : MonoBehaviour
 
     protected void UpdateVisuals()
     {
-        if (visualIndex > visuals.Length)
+        if (visualIndex >= visuals.Length)
         {
             Debug.LogError("ERROR: visual index out of length");
         }

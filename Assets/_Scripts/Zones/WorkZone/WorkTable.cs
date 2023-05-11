@@ -9,6 +9,8 @@ public class WorkTable : MonoBehaviour
     [SerializeField] WorkZone zoneManager;
     [SerializeField] CircleCanvas circleCanvas;
     [SerializeField] Worker worker;
+    [SerializeField] GameObject[] visuals;
+    int visualIndex = 0;
 
     float productionTime = 12f;
     float percentage = 0.02f;
@@ -65,10 +67,14 @@ public class WorkTable : MonoBehaviour
         Debug.Log("ProductionTime: " + productionTime);
     }
 
-    /*public void DoMajorUpgrade()
+    public void DoMajorUpgrade()
     {
-        GameController.IncreaseGemsPrices(10f);
-        //productionTime -= 1;
-        Debug.Log("ProductionTime: " + productionTime);
-    }*/
+        if (visualIndex >= visuals.Length)
+        {
+            Debug.LogError("ERROR: visual index out of length");
+        }
+
+        visuals[visualIndex++].SetActive(false);
+        visuals[visualIndex].SetActive(true);
+    }
 }

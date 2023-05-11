@@ -110,11 +110,9 @@ public class WorkZone : Zone
     public void MajorUpgrade()
     {
         GameController.IncreaseGemsPrices(10f);
-
-        //tables[0].DoMajorUpgrade();
-        /*foreach (WorkTable wt in tables)
+        foreach (WorkTable wt in tables)
         {
             wt.DoMajorUpgrade();
-        }*/
+        }
     }
 }
