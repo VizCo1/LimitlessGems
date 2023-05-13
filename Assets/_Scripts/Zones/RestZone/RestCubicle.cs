@@ -9,7 +9,7 @@ public class RestCubicle : QueueFlow
     [SerializeField] RestZone zoneManager;
     [SerializeField] float nextSpotDelay;
     public Animator door;
-    float restTime = 2f; //12f !!
+    float restTime = 12f;
     float percentage = 0.02f;
 
     float probFasterRest = 0.05f;
