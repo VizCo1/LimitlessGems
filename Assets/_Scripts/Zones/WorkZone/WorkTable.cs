@@ -12,7 +12,7 @@ public class WorkTable : MonoBehaviour
     [SerializeField] GameObject[] visuals;
     int visualIndex = 0;
 
-    float productionTime = 12f;
+    float productionTime = 2f; // 12f
     float percentage = 0.02f;
 
     Sequence CreateGemSequence()

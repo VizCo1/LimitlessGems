@@ -41,7 +41,8 @@ public class QueueFlow : MonoBehaviour
     {
         if (visualIndex >= visuals.Length)
         {
-            Debug.LogError("ERROR: visual index out of length");
+            visualIndex = 0;
+            //Debug.LogError("ERROR: visual index out of length");
         }
 
         visuals[visualIndex++].SetActive(false);

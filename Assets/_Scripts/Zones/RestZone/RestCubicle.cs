@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class RestCubicle : QueueFlow
@@ -8,14 +9,15 @@ public class RestCubicle : QueueFlow
     [SerializeField] RestZone zoneManager;
     [SerializeField] float nextSpotDelay;
     public Animator door;
-    float restTime = 12f;
+    float restTime = 2f; //12f !!
     float percentage = 0.02f;
 
     float probFasterRest = 0.05f;
     float initialProbFasterRest;
     float basicProbFasterRest;
 
-    string nextTrigger;
+    bool isFirstTime = false;
+    bool workerInCubicle = false;
 
     protected override void Awake()
     {
@@ -31,26 +33,30 @@ public class RestCubicle : QueueFlow
             Worker worker = other.GetComponent<Worker>();
             zoneManager.DecreasePriorityOfQueue(customQueue);
 
+            workerInCubicle = true;
+
             ChangeDoorStatus();
             
             Sequence sq = DOTween.Sequence().SetDelay(0.2f)
-                //.AppendCallback(() => ChangeDoorStatus())
                 .Append(circleCanvas.AppearAndFill(RealRestTime()))
+                .AppendCallback(() => workerInCubicle = false)
                 .AppendCallback(() => ChangeDoorStatus())
-                .Append(DOVirtual.DelayedCall( 1f, () => worker.SetDestination(exitSpot.position) ) )
+                .Append(DOVirtual.DelayedCall(1f, () => worker.SetDestination(exitSpot.position)))
                 .Append(DOVirtual.DelayedCall(nextSpotDelay, () => worker.GoToNextPosition()));
         }
     }
 
     private void ChangeDoorStatus()
     {
-        // WORK TO BE DONE!!!!
-        if (nextTrigger != null) 
+        if (door == null)
+            return;
+
+        if (isFirstTime && workerInCubicle)
         {
-            door.SetTrigger(nextTrigger);
-            nextTrigger = null;
+            isFirstTime = false;
+            door.Play("CloseDoorCubicle", 0, 1); // Jump to the end = door closed
         }
-        else if (door != null)
+        else
         {
             door.SetTrigger("ChangeDoor");
         }
@@ -110,22 +116,14 @@ public class RestCubicle : QueueFlow
         {
             UpdateVisuals();
             HandleDoorStatus();
+            ChangeDoorStatus();
         }
     }
 
     
     private void HandleDoorStatus()
     {
+        isFirstTime = true;
         door = visuals[visualIndex].GetComponentInChildren<Animator>();
-
-        if (placeOccupied)
-        {
-            nextTrigger = "FirstOpening";
-        }
-        else
-        {
-            nextTrigger = null;
-            door.SetTrigger("FirstOpening");
-        }
     }
 }
