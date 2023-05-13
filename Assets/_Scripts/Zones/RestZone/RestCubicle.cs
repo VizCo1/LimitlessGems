@@ -41,7 +41,7 @@ public class RestCubicle : QueueFlow
                 .Append(circleCanvas.AppearAndFill(RealRestTime()))
                 .AppendCallback(() => workerInCubicle = false)
                 .AppendCallback(() => ChangeDoorStatus())
-                .Append(DOVirtual.DelayedCall(1f, () => worker.SetDestination(exitSpot.position)))
+                .Append(DOVirtual.DelayedCall(0.35f, () => worker.SetDestination(exitSpot.position)))
                 .Append(DOVirtual.DelayedCall(nextSpotDelay, () => worker.GoToNextPosition()));
         }
     }
