@@ -8,6 +8,7 @@ public class QueueFlow : MonoBehaviour
     [SerializeField] protected CircleCanvas circleCanvas;
     [SerializeField] protected GameObject[] visuals;
     [SerializeField] protected Transform exitSpot;
+    public AudioSource audioSource;
     protected int visualIndex = 0;
     protected CustomQueue customQueue;
 

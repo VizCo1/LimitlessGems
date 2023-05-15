@@ -10,6 +10,7 @@ public class WorkTable : MonoBehaviour
     [SerializeField] CircleCanvas circleCanvas;
     [SerializeField] Worker worker;
     [SerializeField] GameObject[] visuals;
+    public AudioSource audioSource;
     int visualIndex = 0;
 
     float productionTime = 12f;
