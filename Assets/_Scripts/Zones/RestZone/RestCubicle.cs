@@ -51,12 +51,20 @@ public class RestCubicle : QueueFlow
         if (door == null)
             return;
 
+        door.SetTrigger("ChangeDoor");
+    }
+
+    private void MajorUpgradeChangeDoorStatus()
+    {
+        if (door == null)
+            return;
+
         if (isFirstTime && workerInCubicle)
         {
             isFirstTime = false;
             door.Play("CloseDoorCubicle", 0, 1); // Jump to the end = door closed
         }
-        else
+        else if (workerInCubicle)
         {
             door.SetTrigger("ChangeDoor");
         }
@@ -116,14 +124,15 @@ public class RestCubicle : QueueFlow
         {
             UpdateVisuals();
             HandleDoorStatus();
-            ChangeDoorStatus();
+            MajorUpgradeChangeDoorStatus();
         }
     }
 
     
     private void HandleDoorStatus()
     {
-        isFirstTime = true;
+        if (workerInCubicle)
+            isFirstTime = true;
         door = visuals[visualIndex].GetComponentInChildren<Animator>();
     }
 }
