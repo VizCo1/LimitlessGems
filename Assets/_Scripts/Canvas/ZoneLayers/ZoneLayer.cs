@@ -5,6 +5,9 @@ using UnityEngine;
 public class ZoneLayer : Layer
 {
     [SerializeField] protected ObjectInLine[] objectInLines;
+    [SerializeField] AudioSource upgradeButtonAudioSource;
+    [SerializeField] AudioSource majorUpgradeButtonAudioSource;
+    [SerializeField] AudioSource unlockButtonAudioSource;
 
     public int activeSpots { get; protected set; }
     public int maxActiveSpots { get; protected set; }
@@ -24,9 +27,17 @@ public class ZoneLayer : Layer
         }
     }
 
+    public virtual void AudioInit(AudioClip upgradeButtonAudio, AudioSource backButtonAudioSource)
+    {
+        this.backButtonAudioSource = backButtonAudioSource;
+        upgradeButtonAudioSource.clip = upgradeButtonAudio;
+        majorUpgradeButtonAudioSource.clip = upgradeButtonAudio;
+        unlockButtonAudioSource.clip = upgradeButtonAudio;
+    }
+
     public override void End()
     {
-        gameObject.SetActive(false);
+        base.End();
         CameraSystem.inGame = true;
     }
 

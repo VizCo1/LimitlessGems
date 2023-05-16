@@ -19,6 +19,19 @@ public class CanvasManager : MonoBehaviour
 
     List<ZoneLayer> layers = new();
 
+    [Space]
+
+
+    [Header("Audio source")]
+    [SerializeField] AudioSource openLayerAudioSource;
+    [SerializeField] AudioSource backButtonAudioSource;
+
+    [Space]
+
+    [Header("Audio clips")]
+    //[SerializeField] AudioClip backButtonClip;
+    [SerializeField] AudioClip uggradeButtonClip;
+
     public static ZoneLayer currentLayer;
 
     private void Awake()
@@ -39,17 +52,22 @@ public class CanvasManager : MonoBehaviour
         foreach (ZoneLayer l in layers)
         {
             l.Init(true);
+            l.AudioInit(uggradeButtonClip, backButtonAudioSource);
             l.End();
         }
+
+        optionsLayer.AudioInit(backButtonAudioSource);
     }
 
     public void OpenOptions()
     {
         optionsLayer.Init();
+        //openLayerAudioSource.Play();
     }
 
     public void OpenLayer(int layer)
     {
+        openLayerAudioSource.Play();
         layers[layer].Init(false);
         currentLayer = layers[layer];
     }

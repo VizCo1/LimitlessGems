@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class OptionsLayer : Layer
@@ -14,35 +15,29 @@ public class OptionsLayer : Layer
 
     private void Awake()
     {
-        isMusicOn = music.isOn;
-        isSoundOn = sound.isOn;
-
-        SetAudio();
-    }
-
-    void SetAudio()
-    {
-        SetMusic();
-        SetSound();
+        MusicToggle();
+        SoundToggle();
     }
 
     private void SetSound()
     {
-        //throw new NotImplementedException();
+        AudioController.SetSoundsAudio(isSoundOn);
     }
 
     private void SetMusic()
     {
-        //throw new NotImplementedException();
+        AudioController.SetMusicAudio(isMusicOn);
     }
 
     public void MusicToggle()
     {
         isMusicOn = music.isOn;
+        SetMusic();
     }
 
     public void SoundToggle()
     {
         isSoundOn = sound.isOn;
+        SetSound();
     }
 }

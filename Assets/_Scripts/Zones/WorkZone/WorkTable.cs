@@ -19,8 +19,10 @@ public class WorkTable : MonoBehaviour
     Sequence CreateGemSequence()
     {
         return DOTween.Sequence()
+            .AppendCallback(() => audioSource.Play())
             .Append(circleCanvas.AppearAndFill(productionTime))
             .AppendCallback(() => worker.GoToNextPosition())
+            .OnKill(() => audioSource.Stop())
             .SetDelay(0.2f);
     }
 
@@ -30,6 +32,7 @@ public class WorkTable : MonoBehaviour
         CreateGemSequence()
             .OnComplete(() =>
             {
+                audioSource.Stop();
                 if (zoneManager.AnyRequestForThisGem(gem))
                 {                   
                     zoneManager.GetPendingRequestsOf(gem).Dequeue().counter.ReceiveGem(gem);
@@ -46,7 +49,7 @@ public class WorkTable : MonoBehaviour
     {
         if (other.gameObject == worker.gameObject)
         {
-            other.transform.DOLookAt(transform.position, 1f, AxisConstraint.Y);
+            other.transform.DOLookAt(transform.position, 0.3f, AxisConstraint.Y);
             worker.ChangeTag("Worker");
 
             if (zoneManager.CheckForPendingRequests()) // There are pending requests

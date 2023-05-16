@@ -103,7 +103,8 @@ public class GameController : MonoBehaviour
 
         money += moneyToEarn;
 
-        CanvasManager.currentLayer.CheckButtons();
+        if (CanvasManager.currentLayer != null)
+            CanvasManager.currentLayer.CheckButtons();
         CanvasManager.UpdateDisplayedMoney();
     }
 

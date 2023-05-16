@@ -157,18 +157,18 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -1755003850644343611, guid: 8a8c891f9a7e18242be04ea37ae0b62d, type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: 00b39c6626b4efb4daf36c2faea821b9, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.25
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -179,22 +179,22 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      value: 1.0439987
+      inSlope: -2.0008
+      outSlope: -2.0008
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      value: 0.5
+      inSlope: -0.5002
+      outSlope: -0.5002
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -531,15 +531,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2663981300703942994, guid: f3829155dbb8d7f41beb259462b368d0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.2475
       objectReference: {fileID: 0}
     - target: {fileID: 2663981300703942994, guid: f3829155dbb8d7f41beb259462b368d0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.2475
       objectReference: {fileID: 0}
     - target: {fileID: 2663981300703942994, guid: f3829155dbb8d7f41beb259462b368d0, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 1.2475
       objectReference: {fileID: 0}
     - target: {fileID: 2663981300703942994, guid: f3829155dbb8d7f41beb259462b368d0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -547,7 +547,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2663981300703942994, guid: f3829155dbb8d7f41beb259462b368d0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.56
+      value: 0.55558
       objectReference: {fileID: 0}
     - target: {fileID: 2663981300703942994, guid: f3829155dbb8d7f41beb259462b368d0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -583,7 +583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2663981300703942994, guid: f3829155dbb8d7f41beb259462b368d0, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2663981300703942999, guid: f3829155dbb8d7f41beb259462b368d0, type: 3}
       propertyPath: m_Name

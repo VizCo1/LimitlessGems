@@ -158,6 +158,7 @@ public class CameraSystem : MonoBehaviour
                 dragPanMoveActive = false;
 
                 //Debug.Log(inputDir);
+
                 reduceInputTween = DOVirtual.Vector3(inputDir, Vector3.zero, reduceInputDuration, (Vector3 v) => inputDir = v);
             }
 

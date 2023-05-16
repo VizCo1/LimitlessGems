@@ -40,6 +40,7 @@ public class RestCubicle : QueueFlow
             Sequence sq = DOTween.Sequence().SetDelay(0.2f)
                 .Append(circleCanvas.AppearAndFill(RealRestTime()))
                 .AppendCallback(() => workerInCubicle = false)
+                .AppendCallback(() => audioSource.Play())
                 .AppendCallback(() => ChangeDoorStatus())
                 .Append(DOVirtual.DelayedCall(0.35f, () => worker.SetDestination(exitSpot.position)))
                 .Append(DOVirtual.DelayedCall(nextSpotDelay, () => worker.GoToNextPosition()));
