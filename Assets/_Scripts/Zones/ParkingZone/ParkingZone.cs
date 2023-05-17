@@ -27,6 +27,14 @@ public class ParkingZone : Zone
         specialParkingSpot = spots[spots.Count - 1].GetComponent<SpecialParkingSpot>();
     }
 
+    /*private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AddParkingSpot();
+        }
+    }*/
+
     public void AddParkingSpot()
     {
         ParkingSpot parkingSpot;

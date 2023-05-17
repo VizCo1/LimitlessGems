@@ -19,10 +19,10 @@ public class WorkTable : MonoBehaviour
     Sequence CreateGemSequence()
     {
         return DOTween.Sequence()
-            .AppendCallback(() => audioSource.Play())
+            //.AppendCallback(() => audioSource.Play())
             .Append(circleCanvas.AppearAndFill(productionTime))
             .AppendCallback(() => worker.GoToNextPosition())
-            .OnKill(() => audioSource.Stop())
+            //.OnKill(() => audioSource.Stop())
             .SetDelay(0.2f);
     }
 
@@ -32,7 +32,7 @@ public class WorkTable : MonoBehaviour
         CreateGemSequence()
             .OnComplete(() =>
             {
-                audioSource.Stop();
+                //audioSource.Stop();
                 if (zoneManager.AnyRequestForThisGem(gem))
                 {                   
                     zoneManager.GetPendingRequestsOf(gem).Dequeue().counter.ReceiveGem(gem);

@@ -8,7 +8,7 @@ using System;
 public class GameController : MonoBehaviour
 {
 
-    public static BigDouble money = new BigDouble(2000, 100);
+    public static BigDouble money = new BigDouble(5000, 0);
 
     public static BigDouble gemPrice1 = new BigDouble(100);
     public static BigDouble gemPrice2 = new BigDouble(300);

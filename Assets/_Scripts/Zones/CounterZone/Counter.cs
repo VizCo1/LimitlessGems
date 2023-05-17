@@ -23,6 +23,17 @@ public class Counter : QueueFlow
         basicProbDoubleMoney = initalProbDoubleMoney;
     }
 
+    /*protected override void Update()
+    {
+        base.Update();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            UpdateVisuals();
+            DoMajorUpgrade();
+        }
+    }*/
+
+
     Client actualClient;
 
     void OnTriggerEnter(Collider other)

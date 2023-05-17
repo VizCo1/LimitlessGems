@@ -118,7 +118,7 @@ public class RestCubicle : QueueFlow
         Debug.Log("Probability of faster Rest: " + probFasterRest);
     }
 
-    protected override void Update()
+    /*protected override void Update()
     {
         base.Update();
         if (Input.GetKeyDown(KeyCode.Space))
@@ -127,7 +127,7 @@ public class RestCubicle : QueueFlow
             HandleDoorStatus();
             MajorUpgradeChangeDoorStatus();
         }
-    }
+    }*/
 
     
     private void HandleDoorStatus()

@@ -67,7 +67,7 @@ public class CanvasManager : MonoBehaviour
 
     public void OpenLayer(int layer)
     {
-        openLayerAudioSource.Play();
+        //openLayerAudioSource.Play();
         layers[layer].Init(false);
         currentLayer = layers[layer];
     }
