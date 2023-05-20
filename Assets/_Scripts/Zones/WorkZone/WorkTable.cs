@@ -52,9 +52,10 @@ public class WorkTable : MonoBehaviour
             worker.ChangeTag("Worker");
             
             DOTween.Sequence()
-                .Append(other.transform.DOLookAt(transform.position, 0.3f, AxisConstraint.Y))
+                .Append(other.transform.DOLookAt(transform.position, 1f, AxisConstraint.Y))
                 .AppendCallback(() => worker.PlayAnimation());
-;            
+
+            //worker.PlayAnimation();
 
             if (zoneManager.CheckForPendingRequests()) // There are pending requests
             {

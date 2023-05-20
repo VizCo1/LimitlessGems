@@ -114,7 +114,7 @@ public class SpecialZoneLayer : ZoneLayer
         canMajorUpgrade = false;
         
         GameController.money -= BigDouble.Parse(majorUpgradeCost);
-        majorUpgradeCost = (BigDouble.Parse(majorUpgradeCost) * 2).ToString("G1");
+        majorUpgradeCost = (BigDouble.Parse(majorUpgradeCost) * 5).ToString("G1");
         majorUpgradeCostText.text = majorUpgradeCost;
         
         requiredSpots += initialRequiredSpots;
@@ -139,7 +139,7 @@ public class SpecialZoneLayer : ZoneLayer
         objectInLines[activeSpots].transform.parent.gameObject.SetActive(true);
         activeSpots++;
         GameController.money -= BigDouble.Parse(unlockCost);
-        unlockCost = (BigDouble.Parse(unlockCost) * 2).ToString("G1");
+        unlockCost = (BigDouble.Parse(unlockCost) * 4).ToString("G1");
         unlockCostText.text = unlockCost;
         UpdateAndCheck();
 

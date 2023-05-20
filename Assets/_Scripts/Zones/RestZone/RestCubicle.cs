@@ -8,13 +8,16 @@ public class RestCubicle : QueueFlow
 {
     [SerializeField] RestZone zoneManager;
     [SerializeField] float nextSpotDelay;
-    public Animator door;
+    Animator door;
     float restTime = 12f;
     float percentage = 0.02f;
 
     float probFasterRest = 0.05f;
     float initialProbFasterRest;
     float basicProbFasterRest;
+
+    bool isFirstTime = false;
+    bool workerInCubicle = false;
 
     protected override void Awake()
     {
@@ -30,14 +33,33 @@ public class RestCubicle : QueueFlow
             Worker worker = other.GetComponent<Worker>();
             zoneManager.DecreasePriorityOfQueue(customQueue);
 
+            workerInCubicle = true;
+
             ChangeDoorStatus();
             
             Sequence sq = DOTween.Sequence().SetDelay(0.2f)
                 .Append(circleCanvas.AppearAndFill(RealRestTime()))
+                .AppendCallback(() => workerInCubicle = false)
                 .AppendCallback(() => audioSource.Play())
                 .AppendCallback(() => ChangeDoorStatus())
                 .Append(DOVirtual.DelayedCall(0.35f, () => worker.SetDestination(exitSpot.position)))
                 .Append(DOVirtual.DelayedCall(nextSpotDelay, () => worker.GoToNextPosition()));
+        }
+    }
+
+    private void MajorUpgradeChangeDoorStatus()
+    {
+        if (door == null)
+            return;
+
+        if (isFirstTime && workerInCubicle)
+        {
+            isFirstTime = false;
+            door.Play("CloseDoorCubicle", 0, 1); // Jump to the end = door closed
+        }
+        else if (workerInCubicle)
+        {
+            door.SetTrigger("ChangeDoor");
         }
     }
 
@@ -83,7 +105,7 @@ public class RestCubicle : QueueFlow
 
     public void DoMajorUpdate()
     {
-        UpdateVisuals();
+        MajorUpgradeChangeDoorStatus();
         HandleDoorStatus(); 
 
         initialProbFasterRest *= 1.75f;
@@ -110,6 +132,8 @@ public class RestCubicle : QueueFlow
     
     private void HandleDoorStatus()
     {
+        if (workerInCubicle)
+            isFirstTime = true;
         door = visuals[visualIndex].GetComponentInChildren<Animator>();
     }
 }

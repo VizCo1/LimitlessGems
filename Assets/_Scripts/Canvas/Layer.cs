@@ -24,10 +24,10 @@ public class Layer : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public virtual void AudioInit(AudioSource backButtonAudioSource)
+    /*public virtual void AudioInit(AudioSource backButtonAudioSource)
     {
         this.backButtonAudioSource = backButtonAudioSource;
-    }
+    }*/
 
     public void BackButtonPressed()
     {

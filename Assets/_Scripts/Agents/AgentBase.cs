@@ -15,7 +15,7 @@ public class AgentBase : MonoBehaviour
 
     protected Sequence animationSeq;
 
-    protected Transform model;
+    public Transform model { get; protected set; }
 
     protected virtual void Awake()
     {

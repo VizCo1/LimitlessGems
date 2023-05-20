@@ -22,15 +22,15 @@ public class CanvasManager : MonoBehaviour
     [Space]
 
 
-    [Header("Audio source")]
-    [SerializeField] AudioSource openLayerAudioSource;
-    [SerializeField] AudioSource backButtonAudioSource;
+    //[Header("Audio source")]
+    //[SerializeField] AudioSource openLayerAudioSource;
+    //[SerializeField] AudioSource backButtonAudioSource;
 
     [Space]
 
-    [Header("Audio clips")]
+    //[Header("Audio clips")]
     //[SerializeField] AudioClip backButtonClip;
-    [SerializeField] AudioClip uggradeButtonClip;
+    //[SerializeField] AudioClip uggradeButtonClip;
 
     public static ZoneLayer currentLayer;
 
@@ -56,7 +56,8 @@ public class CanvasManager : MonoBehaviour
             l.End();
         }
 
-        optionsLayer.AudioInit(backButtonAudioSource);
+        optionsLayer.End();
+        //optionsLayer.AudioInit(backButtonAudioSource);
     }
 
     public void OpenOptions()
