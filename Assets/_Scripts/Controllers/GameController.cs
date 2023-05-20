@@ -24,6 +24,8 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
+        DOTween.SetTweensCapacity(500, 125);
+
         //DOVirtual.DelayedCall(1, objectPool.SpawnPooledObject).SetLoops(5);
         objectPool = transform.parent.GetComponentInChildren<ObjectPool>();
         //CreateSpawnSequence(20, 1);

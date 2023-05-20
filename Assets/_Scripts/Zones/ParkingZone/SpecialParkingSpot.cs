@@ -9,6 +9,7 @@ public class SpecialParkingSpot : ParkingSpot
     [SerializeField] Transform posT;
     [SerializeField] SpecialParkingTrigger sParkingTrigger;
     [SerializeField] Transform exitSpot;
+    [SerializeField] Transform desiredSpot;
     [SerializeField] TMP_Text capacityText;
 
     public Vector3 pos { get; private set; }
@@ -18,13 +19,18 @@ public class SpecialParkingSpot : ParkingSpot
         pos = posT.position;
     }
 
+    public Vector3 ExitSpotPosition()
+    {
+        return exitSpot.position;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Car") && other.gameObject == actualClients.Contains(other.gameObject))
         {
             Client client = other.GetComponent<Client>();
             client.agent.Warp(exitSpot.position);
-            client.ParkCar();
+            client.ParkCar(desiredSpot.position);
         }
         else if (other.CompareTag("ClientExit") && actualClients.Contains(other.gameObject))
         {

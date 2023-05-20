@@ -18,7 +18,7 @@ public class ParkingSpot : MonoBehaviour
         if (other.CompareTag("Car") && other.gameObject == actualClients.Contains(other.gameObject))
         {           
             Client client = other.GetComponent<Client>();
-            client.ParkCar();
+            client.ParkCar(Vector3.zero);
         }
         else if (other.CompareTag("ClientExit") && actualClients.Contains(other.gameObject))
         {

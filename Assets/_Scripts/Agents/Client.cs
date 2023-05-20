@@ -37,9 +37,9 @@ public class Client : AgentBase
         chosenGem = (GemType)Random.Range(0, 3);
     }
 
-    public void ParkCar()
+    public void ParkCar(Vector3 desiredPos)
     {
-        car.Park();
+        car.Park(desiredPos);
         ChangeTag("Client");
         GoToNextPosition();
     }
@@ -60,6 +60,11 @@ public class Client : AgentBase
     public Car GetCar()
     {
         return car;
+    }
+
+    public Vector3 GetCarPosition()
+    {
+        return car.targetPosition;
     }
 
     public void GemDelivered()

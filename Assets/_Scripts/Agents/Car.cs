@@ -13,6 +13,8 @@ public class Car : MonoBehaviour
 
     [HideInInspector] public bool parkUpwards;
 
+    public Vector3 targetPosition { get; private set; }
+
 
     private void OnEnable()
     {
@@ -29,13 +31,22 @@ public class Car : MonoBehaviour
         }
     }
 
-    public void Park()
+    public void Park(Vector3 desiredPos)
     {
         imitateClient = false;
         if (parkUpwards)
             transform.DORotate(new Vector3(0, 90, 0), 0.5f);
         else
             transform.DORotate(new Vector3(0, -90, 0), 0.5f);
+
+        if (desiredPos == Vector3.zero)
+        {
+            targetPosition = transform.position;
+        }
+        else
+        {
+            targetPosition = desiredPos;
+        }
     }
 
     public void UnPark()
