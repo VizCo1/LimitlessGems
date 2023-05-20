@@ -8,7 +8,9 @@ using System;
 public class GameController : MonoBehaviour
 {
 
-    public static BigDouble money = new BigDouble(5000, 0);
+    //public static BigDouble money = new BigDouble(5000, 0);
+
+    public static BigDouble money = new BigDouble(5000, 100);
 
     public static BigDouble gemPrice1 = new BigDouble(100);
     public static BigDouble gemPrice2 = new BigDouble(300);
@@ -16,7 +18,7 @@ public class GameController : MonoBehaviour
 
     public static int[] gemsQuantity = new int[3] { 0, 0, 0 };
 
-    static float spawnDelay = 60; // 60 --> 1 client per min
+    static float spawnDelay = 5; // 60 --> 1 client per min
     static ObjectPool objectPool;
     static Sequence spawnSequence;
 
@@ -24,8 +26,8 @@ public class GameController : MonoBehaviour
     {
         //DOVirtual.DelayedCall(1, objectPool.SpawnPooledObject).SetLoops(5);
         objectPool = transform.parent.GetComponentInChildren<ObjectPool>();
-        CreateSpawnSequence(20, 1);
-        //CreateSpawnSequence(-1);
+        //CreateSpawnSequence(20, 1);
+        CreateSpawnSequence(-1);
     }
 
     public void ClientOut(GameObject client)
@@ -44,7 +46,7 @@ public class GameController : MonoBehaviour
 
     public static void CreateSpawnSequence(int loops)
     {
-        spawnDelay *= 0.75f;
+        spawnDelay -= 0.35f;
         Debug.Log("Spawn delay: " + spawnDelay);
         spawnSequence.Kill();
         spawnSequence = DOTween.Sequence().SetDelay(spawnDelay)

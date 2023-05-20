@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +18,10 @@ public class Client : AgentBase
 
     GemType chosenGem;
 
+
     private void OnEnable()
     {
+        transform.GetChild(0).rotation = Quaternion.Euler(-90f, 0f, -90f);
         agent.Warp(transform.parent.position);
         index = 0;
         ChangeTag("Car");
@@ -26,6 +29,7 @@ public class Client : AgentBase
         ChooseGem();
         meshRenderer.material = materials[Random.Range(0, materials.Length)];
     }
+
 
     void ChooseGem()
     {

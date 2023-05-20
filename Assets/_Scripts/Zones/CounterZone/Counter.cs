@@ -7,6 +7,7 @@ public class Counter : QueueFlow
 {
     [SerializeField] CounterZone zoneManager;
     [SerializeField] ParticleSystem moneyParticles;
+    [SerializeField] ParticleSystem doubledMoneyParticles;
     float orderTime = 12f;
     float percentage = 0.02f;
 
@@ -70,8 +71,20 @@ public class Counter : QueueFlow
         return DOTween.Sequence()
             .SetDelay(0.25f)
             .Append(circleCanvas.AppearAndFill(1f))
-            .AppendCallback(() => moneyParticles.Play())
-            .AppendCallback(() => { GameController.SellGem(gem, IsMoneyDoubled()); auxClient.SetDestination(exitSpot.position); })
+            .AppendCallback(() => 
+            {
+                bool doubleTheIncome = IsMoneyDoubled();
+                if (doubleTheIncome)
+                {
+                    doubledMoneyParticles.Play();
+                }
+                else
+                {
+                    moneyParticles.Play();
+                }
+                GameController.SellGem(gem, doubleTheIncome); 
+                auxClient.SetDestination(exitSpot.position); 
+            })
             .Append(DOVirtual.DelayedCall(0.5f, () => auxClient.GemDelivered()));
     }
 

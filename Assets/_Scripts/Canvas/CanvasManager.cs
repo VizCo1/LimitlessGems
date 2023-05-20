@@ -52,7 +52,7 @@ public class CanvasManager : MonoBehaviour
         foreach (ZoneLayer l in layers)
         {
             l.Init(true);
-            l.AudioInit(uggradeButtonClip, backButtonAudioSource);
+            //l.AudioInit(uggradeButtonClip, backButtonAudioSource);
             l.End();
         }
 

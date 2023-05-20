@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class Car : MonoBehaviour
 {
-    [SerializeField] Client client;
+    [SerializeField] Transform client;
 
     bool imitateClient = true;
     [SerializeField] Material[] materials;
@@ -24,8 +24,8 @@ public class Car : MonoBehaviour
     {
         if (imitateClient)
         {
-            Vector3 pos = new Vector3(client.transform.localPosition.x, transform.localPosition.y, client.transform.localPosition.z);
-            transform.SetLocalPositionAndRotation(client.transform.localPosition, client.transform.localRotation);
+            //Vector3 pos = new Vector3(client.localPosition.x, transform.localPosition.y, client.localPosition.z);
+            transform.SetLocalPositionAndRotation(client.localPosition, client.localRotation);
         }
     }
 

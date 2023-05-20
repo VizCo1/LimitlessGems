@@ -7,7 +7,7 @@ using DG.Tweening;
 
 public class CameraSystem : MonoBehaviour
 {
-    [Header("Mouse controls")]
+    [Header("Mouse for debugging")]
     [SerializeField] bool mouseEnabled;
     
     [Space]

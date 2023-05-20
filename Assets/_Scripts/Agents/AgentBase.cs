@@ -8,13 +8,28 @@ using UnityEngine.AI;
 public class AgentBase : MonoBehaviour
 {
     [SerializeField] protected Transform[] positions;
+    //[SerializeField] protected Animator animator;
     protected int index = 0;
 
     public NavMeshAgent agent { get; protected set; }
 
+    protected Sequence animationSeq;
+
+    protected Transform model;
+
+
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+
+        model = transform.GetChild(0);
+
+        animationSeq = DOTween.Sequence()
+            .Append(model.DORotate(new Vector3(-10, 0, 0), 0.5f, RotateMode.LocalAxisAdd))
+            .Append(model.DORotate(new Vector3(10, 0, 0), 0.5f, RotateMode.LocalAxisAdd))
+            .Append(model.DORotate(new Vector3(10, 0, 0), 0.5f, RotateMode.LocalAxisAdd))
+            .Append(model.DORotate(new Vector3(-10, 0, 0), 0.5f, RotateMode.LocalAxisAdd))
+            .SetLoops(-1);
     }
 
    public void SetDestination(Vector3 pos)

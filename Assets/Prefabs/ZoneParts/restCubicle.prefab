@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   queueFlow: {fileID: 8085313332613982132}
-  queueSize: 25
+  queueSize: 10
   queueSpotPrefab: {fileID: 1714907439569846578, guid: f3bbe83748c532f4db7e68311ace4cf6, type: 3}
   queueDirection: {x: -1, y: 0, z: 0}
   offset: 2

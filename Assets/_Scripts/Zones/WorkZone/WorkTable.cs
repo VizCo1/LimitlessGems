@@ -49,8 +49,12 @@ public class WorkTable : MonoBehaviour
     {
         if (other.gameObject == worker.gameObject)
         {
-            other.transform.DOLookAt(transform.position, 0.3f, AxisConstraint.Y);
             worker.ChangeTag("Worker");
+            
+            DOTween.Sequence()
+                .Append(other.transform.DOLookAt(transform.position, 0.3f, AxisConstraint.Y))
+                .AppendCallback(() => worker.PlayAnimation());
+;            
 
             if (zoneManager.CheckForPendingRequests()) // There are pending requests
             {
@@ -61,6 +65,14 @@ public class WorkTable : MonoBehaviour
             {
                 CreateGem();
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == worker.gameObject)
+        {
+            worker.StopAnimation();
         }
     }
 
