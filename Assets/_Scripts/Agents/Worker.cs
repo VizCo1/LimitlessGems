@@ -19,7 +19,8 @@ public class Worker : AgentBase
     public void StopAnimation()
     {
         animationSeq.Pause();
-        model.DORotate(new Vector3(-90, 0, 90), 0.5f);
+        //model.DORotate(new Vector3(-90, 0, -90), 0.5f, RotateMode.Fast);
+
         //model.rotation = Quaternion.Euler(-90, 0, 90);
     }
 

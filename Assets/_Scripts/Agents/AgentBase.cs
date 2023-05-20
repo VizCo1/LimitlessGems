@@ -17,18 +17,21 @@ public class AgentBase : MonoBehaviour
 
     protected Transform model;
 
-
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
 
         model = transform.GetChild(0);
 
+        Quaternion modelInitialRotation = model.rotation;
+        Quaternion initialRotation = transform.rotation;
+
         animationSeq = DOTween.Sequence()
             .Append(model.DORotate(new Vector3(-10, 0, 0), 0.5f, RotateMode.LocalAxisAdd))
             .Append(model.DORotate(new Vector3(10, 0, 0), 0.5f, RotateMode.LocalAxisAdd))
             .Append(model.DORotate(new Vector3(10, 0, 0), 0.5f, RotateMode.LocalAxisAdd))
             .Append(model.DORotate(new Vector3(-10, 0, 0), 0.5f, RotateMode.LocalAxisAdd))
+            .OnPause(() => { transform.rotation = initialRotation; model.rotation = modelInitialRotation; })
             .SetLoops(-1);
     }
 
