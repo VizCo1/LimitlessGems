@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using BreakInfinity;
 using System;
+using UnityEngine.AI;
 
 public class GameController : MonoBehaviour
 {
@@ -24,7 +25,9 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        DOTween.SetTweensCapacity(500, 125);
+        Application.targetFrameRate = 60;
+
+        DOTween.SetTweensCapacity(500, 500);
 
         //DOVirtual.DelayedCall(1, objectPool.SpawnPooledObject).SetLoops(5);
         objectPool = transform.parent.GetComponentInChildren<ObjectPool>();

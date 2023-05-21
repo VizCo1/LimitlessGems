@@ -105,8 +105,9 @@ public class RestCubicle : QueueFlow
 
     public void DoMajorUpdate()
     {
-        MajorUpgradeChangeDoorStatus();
+        UpdateVisuals();
         HandleDoorStatus(); 
+        MajorUpgradeChangeDoorStatus();
 
         initialProbFasterRest *= 1.75f;
 
