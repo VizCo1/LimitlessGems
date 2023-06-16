@@ -29,34 +29,41 @@ public class ObjectInLine : MonoBehaviour
 
     public virtual void UpgradeButtonPressed()
     {
-        if (!IsLevelMax && !CanvasManager.EnoughCost(levelCost))
+        for (int i = 0; i < 20; i++)
         {
-            return;
+            // I KNOW IT'S BAD
+            if (IsTargetLevelReached())
+                return;
+
+            if (!IsLevelMax && !CanvasManager.EnoughCost(levelCost))
+            {
+                return;
+            }           
+
+            GameController.money -= BigDouble.Parse(levelCost);
+
+            level++;
+
+            if (level == realMaxLevel)
+            {
+                IsLevelMax = true;
+                levelCost = "FULL";
+                costNumber.text = levelCost;
+            }
+            else if (IsTargetLevelReached())
+            {
+                IsLevelMax = true;
+            }
+            else
+            {
+                levelCost = (BigDouble.Parse(costNumber.text) * 1.5f).ToString("G1");
+                costNumber.text = levelCost;
+            }
+
+            levelNumber.text = level.ToString();
+
+            UpdateAttributesAndCheckCosts();
         }
-
-        GameController.money -= BigDouble.Parse(levelCost);
-
-        level++;
-
-        if (level == realMaxLevel)
-        {
-            IsLevelMax = true;
-            levelCost = "FULL";
-            costNumber.text = levelCost;
-        }
-        else if (IsTargetLevelReached())
-        {
-            IsLevelMax = true;
-        }
-        else
-        {
-            levelCost = (BigDouble.Parse(costNumber.text) * 1.5f).ToString("G1");
-            costNumber.text = levelCost;
-        }
-
-        levelNumber.text = level.ToString();
-
-        UpdateAttributesAndCheckCosts();
     }
 
     /*public virtual void UpgradeButtonPressed()
