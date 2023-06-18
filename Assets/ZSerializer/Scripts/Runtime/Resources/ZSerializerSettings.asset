@@ -28,29 +28,11 @@ MonoBehaviour:
   unityComponentTypes:
   - UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
     PublicKeyToken=null
-  - UnityEngine.MeshRenderer, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.MeshFilter, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.TrailRenderer, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.BoxCollider, UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Rigidbody, UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
   - UnityEngine.SpriteRenderer, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
     PublicKeyToken=null
   - UnityEngine.BoxCollider2D, UnityEngine.Physics2DModule, Version=0.0.0.0, Culture=neutral,
     PublicKeyToken=null
   - UnityEngine.Light, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.CharacterController, UnityEngine.PhysicsModule, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  - UnityEngine.MeshCollider, UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.SphereCollider, UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Rigidbody2D, UnityEngine.Physics2DModule, Version=0.0.0.0, Culture=neutral,
     PublicKeyToken=null
   unityComponentDataList:
   - typeFullName: UnityEngine.AI.NavMeshAgent, UnityEngine.AIModule, Version=0.0.0.0,
@@ -201,6 +183,15 @@ MonoBehaviour:
       - OptionsLayer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       - RestCubicle, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       - WorkTable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      - CounterLayer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      - CounterObjectInLine, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      - ParkingLayer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      - PSpotObjectInLine, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      - RestCubicleObjectInLine, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      - RestLayer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      - TableObjectInLine, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      - WorkLayer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       values:
       - isOn: 1
         groupID: 0
@@ -248,6 +239,22 @@ MonoBehaviour:
         groupID: 0
       - isOn: 1
         groupID: 1
+      - isOn: 1
+        groupID: 0
+      - isOn: 1
+        groupID: 0
+      - isOn: 1
+        groupID: 0
+      - isOn: 1
+        groupID: 0
+      - isOn: 1
+        groupID: 0
+      - isOn: 1
+        groupID: 0
+      - isOn: 1
+        groupID: 0
+      - isOn: 1
+        groupID: 0
       - isOn: 1
         groupID: 0
       - isOn: 1
