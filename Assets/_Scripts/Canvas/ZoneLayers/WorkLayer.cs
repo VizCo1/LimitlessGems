@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ZSerializer;
 
 public class WorkLayer : SpecialZoneLayer
 {
-    [SerializeField] WorkZone workZone;
+    [NonZSerialized][SerializeField] WorkZone workZone;
 
     protected override void InitSpotsVariables()
     {
-        activeSpots = workZone.ActiveSpots();
-        maxActiveSpots = workZone.maxActiveSpots;
+        activeSpots = workZone.ActiveSpots;
+        maxActiveSpots = workZone.MaxActiveSpots;
     }
 
     public void UpdateAttributesAndCheckCosts(int index) //, ref int keyLevel, int initialKeyLevel)

@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ZSerializer;
 
-public class Layer : MonoBehaviour
+public class Layer : PersistentMonoBehaviour
 {
     protected CanvasManager canvasManager;
 
-    [HideInInspector] public AudioSource backButtonAudioSource;
+    [HideInInspector] [NonZSerialized] public AudioSource backButtonAudioSource;
 
     void Awake()
     {

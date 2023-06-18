@@ -19,6 +19,12 @@ public class SpecialParkingSpot : ParkingSpot
         pos = posT.position;
     }
 
+    public override void IncreaseCapacity()
+    {
+        capacity++;
+        zoneManager.specialCapacity++;
+    }
+
     public Vector3 ExitSpotPosition()
     {
         return exitSpot.position;

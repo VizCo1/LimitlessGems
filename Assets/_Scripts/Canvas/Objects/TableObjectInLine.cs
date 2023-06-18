@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using ZSerializer;
 public class TableObjectInLine : ObjectInLine
 {
-    [SerializeField] WorkLayer workLayer;
+    [NonZSerialized][SerializeField] WorkLayer workLayer;
     //[SerializeField] int keyLevel = 25;
     //int initialKeyLevel;
 

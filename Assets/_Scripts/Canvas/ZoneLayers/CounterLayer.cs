@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using ZSerializer;
 
 public class CounterLayer : SpecialZoneLayer
 {
-    [SerializeField] CounterZone counterZone;
+    [NonZSerialized][SerializeField] CounterZone counterZone;
 
     protected override void InitSpotsVariables()
     {
-        activeSpots = counterZone.ActiveSpots();
-        maxActiveSpots = counterZone.maxActiveSpots;       
+        activeSpots = counterZone.ActiveSpots;
+        maxActiveSpots = counterZone.MaxActiveSpots;       
     }
 
     public void UpdateAttributesAndCheckCosts(int index, ref int keyLevel, int initialKeyLevel)

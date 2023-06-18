@@ -312,6 +312,7 @@ MonoBehaviour:
   index: 0
   IsLevelMax: 0
   counterLayer: {fileID: 0}
+  keyLevel: 25
 --- !u!1 &9145918105223411881
 GameObject:
   m_ObjectHideFlags: 0

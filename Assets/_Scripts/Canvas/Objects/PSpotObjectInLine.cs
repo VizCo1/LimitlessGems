@@ -2,14 +2,15 @@ using BreakInfinity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ZSerializer;
 
 public class PSpotObjectInLine : ObjectInLine
 {
-    [SerializeField] ParkingLayer parkingLayer;
+    [NonZSerialized][SerializeField] ParkingLayer parkingLayer;
 
     [Header("True for Capacity, false for Publicity")]
 
-    [SerializeField] bool type;
+    [NonZSerialized][SerializeField] bool type;
 
     protected override void UpdateAttributesAndCheckCosts()
     {

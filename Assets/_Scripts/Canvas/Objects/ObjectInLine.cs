@@ -4,32 +4,34 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using BreakInfinity;
+using ZSerializer;
 
-public class ObjectInLine : MonoBehaviour
+public class ObjectInLine : PersistentMonoBehaviour
 {
-    [SerializeField] Button upgradeButton;
-    [SerializeField] protected TMP_Text levelNumber;
-    [SerializeField] protected TMP_Text costNumber;
-    [SerializeField] protected int realMaxLevel = 10;
-    [SerializeField] protected string levelCost = "100";
-    [SerializeField] GameObject spacer;
-    public int level { get; protected set; } = 1;
+    [NonZSerialized][SerializeField] Button upgradeButton; // no
+    [NonZSerialized][SerializeField] protected TMP_Text costNumber; // no
+    [NonZSerialized][SerializeField] protected int realMaxLevel = 10; // no
+    [NonZSerialized][SerializeField] GameObject spacer; // no
 
-    [HideInInspector] public int index;
-    [HideInInspector] public bool IsLevelMax  = false;
+    [SerializeField] protected TMP_Text levelNumber; // no
+    [HideInInspector][SerializeField] public string levelCost = "100"; // save
+    [HideInInspector] public int level  = 1; // save
+
+    [NonZSerialized][HideInInspector] public int index;
+    [HideInInspector] public bool IsLevelMax  = false; // save
 
     // Start is called before the first frame update
     void Start()
     {
-        costNumber.text = levelCost;
         levelNumber.text = level.ToString();
-        levelCost = BigDouble.Parse(levelCost).ToString("G1");
+        if (levelCost != "FULL")
+            levelCost = BigDouble.Parse(levelCost).ToString("G1");
         costNumber.text = levelCost;
     }
 
     public virtual void UpgradeButtonPressed()
     {
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 20; i++)    // I KNOW IT'S BAD
         {
             // I KNOW IT'S BAD
             if (IsTargetLevelReached())

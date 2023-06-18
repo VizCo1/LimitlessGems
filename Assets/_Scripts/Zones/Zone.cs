@@ -1,21 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ZSerializer;
 
-public class Zone : MonoBehaviour
+public class Zone : PersistentMonoBehaviour
 {
     protected const int SLOTS_INDEX = 0;
-    [SerializeField] protected int activeSpots;
+    public int ActiveSpots;
 
-    public int maxActiveSpots { get; protected set; }
+    public int MaxActiveSpots { get; protected set; }
 
     public virtual void MoveAgentToSpot(AgentBase agent)
     {
 
-    }
-
-    public int ActiveSpots()
-    {
-        return activeSpots;
     }
 }

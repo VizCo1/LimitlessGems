@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ZSerializer;
 
 public class WorkZone : Zone
 {
-    [HideInInspector] public Queue<CounterRequest> pendingRequestsGem0 = new();
-    [HideInInspector] public Queue<CounterRequest> pendingRequestsGem1 = new();
-    [HideInInspector] public Queue<CounterRequest> pendingRequestsGem2 = new();
+    [NonZSerialized][HideInInspector] public Queue<CounterRequest> pendingRequestsGem0 = new();
+    [NonZSerialized][HideInInspector] public Queue<CounterRequest> pendingRequestsGem1 = new();
+    [NonZSerialized][HideInInspector] public Queue<CounterRequest> pendingRequestsGem2 = new();
 
     Queue<CounterRequest>[] queues;
     
@@ -14,20 +15,29 @@ public class WorkZone : Zone
 
     private void Awake()
     {
-        maxActiveSpots = transform.GetChild(SLOTS_INDEX).childCount;
+        MaxActiveSpots = transform.GetChild(SLOTS_INDEX).childCount;
 
-        for (int i = 0; i < maxActiveSpots; i++)
-            tables.Add(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<WorkTable>());
+        for (int i = 0; i < MaxActiveSpots; i++)
+        {
+            GameObject workTable = transform.GetChild(SLOTS_INDEX).GetChild(i).gameObject;
+            tables.Add(workTable.GetComponent<WorkTable>());
+        }
     }
 
     void Start()
     {
-        queues = new Queue<CounterRequest>[] { pendingRequestsGem0, pendingRequestsGem1, pendingRequestsGem2 };    
+        queues = new Queue<CounterRequest>[] { pendingRequestsGem0, pendingRequestsGem1, pendingRequestsGem2 };
+
+        for (int i = 0; i < ActiveSpots; i++)
+        {
+            GameObject workTable = transform.GetChild(SLOTS_INDEX).GetChild(i).gameObject;
+            workTable.SetActive(true);
+        }
     }
 
     public void AddTable()
     {
-        GameObject newSlot = tables[activeSpots++].gameObject;
+        GameObject newSlot = tables[ActiveSpots++].gameObject;
         newSlot.SetActive(true);
     }
 

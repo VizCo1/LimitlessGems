@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ZSerializer;
 
 public class RestLayer : SpecialZoneLayer
 {
-    [SerializeField] RestZone restZone;
+    [NonZSerialized][SerializeField] RestZone restZone;
 
     protected override void InitSpotsVariables()
     {
-        activeSpots = restZone.ActiveSpots();
-        maxActiveSpots = restZone.maxActiveSpots;
+        activeSpots = restZone.ActiveSpots;
+        maxActiveSpots = restZone.MaxActiveSpots;
     }
 
     public void UpdateAttributesAndCheckCosts(int index, ref int keyLevel, int initialKeyLevel)

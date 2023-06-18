@@ -3,25 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using ZSerializer;
 
 public class RestCubicle : QueueFlow
 {
-    [SerializeField] RestZone zoneManager;
-    [SerializeField] float nextSpotDelay;
+    [NonZSerialized][SerializeField] RestZone zoneManager;
+    [NonZSerialized][SerializeField] float nextSpotDelay;
     Animator door;
-    float restTime = 12f;
+
+    [HideInInspector][SerializeField] float restTime = 12f;
     float percentage = 0.02f;
 
-    float probFasterRest = 0.05f;
-    float initialProbFasterRest;
+    [HideInInspector][SerializeField] float probFasterRest = 0.05f;
+    [HideInInspector][SerializeField] float initialProbFasterRest;
     float basicProbFasterRest;
 
     bool isFirstTime = false;
     bool workerInCubicle = false;
 
-    protected override void Awake()
+    protected /*override*/ void Start()
     {
-        base.Awake();
+        //base.Start();
         initialProbFasterRest = probFasterRest;
         basicProbFasterRest = initialProbFasterRest;
     }
@@ -135,6 +137,6 @@ public class RestCubicle : QueueFlow
     {
         if (workerInCubicle)
             isFirstTime = true;
-        door = visuals[visualIndex].GetComponentInChildren<Animator>();
+        door = visuals[VisualIndex()].GetComponentInChildren<Animator>();
     }
 }

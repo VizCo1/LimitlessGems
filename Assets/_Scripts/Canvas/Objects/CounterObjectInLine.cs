@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ZSerializer;
 
 public class CounterObjectInLine : ObjectInLine
 {
-    [SerializeField] CounterLayer counterLayer;
+    [NonZSerialized][SerializeField] CounterLayer counterLayer;
     [SerializeField] int keyLevel = 25;
     int initialKeyLevel;
 

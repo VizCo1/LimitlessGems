@@ -25,10 +25,6 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        Application.targetFrameRate = 60;
-
-        DOTween.SetTweensCapacity(500, 500);
-
         //DOVirtual.DelayedCall(1, objectPool.SpawnPooledObject).SetLoops(5);
         objectPool = transform.parent.GetComponentInChildren<ObjectPool>();
         //CreateSpawnSequence(20, 1);

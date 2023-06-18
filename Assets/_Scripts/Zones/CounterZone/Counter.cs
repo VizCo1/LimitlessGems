@@ -2,24 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using ZSerializer;
 
 public class Counter : QueueFlow
 {
-    [SerializeField] CounterZone zoneManager;
-    [SerializeField] ParticleSystem moneyParticles;
-    [SerializeField] ParticleSystem doubledMoneyParticles;
-    float orderTime = 12f;
+    [NonZSerialized][SerializeField] CounterZone zoneManager;
+    [NonZSerialized][SerializeField] ParticleSystem moneyParticles;
+    [NonZSerialized][SerializeField] ParticleSystem doubledMoneyParticles;
     float percentage = 0.02f;
 
-    float probDoubleMoney = 0.05f;
-    float initalProbDoubleMoney;
+    [HideInInspector][SerializeField] float orderTime = 12f;
+    [HideInInspector][SerializeField] float probDoubleMoney = 0.05f;
+    [HideInInspector][SerializeField] float initalProbDoubleMoney;
 
     float basicProbDoubleMoney;
 
-    protected override void Awake()
+    protected /*override*/ void Start()
     {
-        base.Awake();
-
+        //base.Start();
         initalProbDoubleMoney = probDoubleMoney;
         basicProbDoubleMoney = initalProbDoubleMoney;
     }

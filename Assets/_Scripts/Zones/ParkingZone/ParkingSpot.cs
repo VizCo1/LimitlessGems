@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ParkingSpot : MonoBehaviour
 {
-    [SerializeField] ParkingZone zoneManager;
+    [SerializeField] protected ParkingZone zoneManager;
     [SerializeField] protected int capacity;
     [SerializeField] protected GameObject visuals;
     [HideInInspector] public int Count = 0;
@@ -38,15 +38,12 @@ public class ParkingSpot : MonoBehaviour
         }
     }
 
-    public int Capacity()
-    {
-        return capacity;
-    }
+    public int Capacity() =>  capacity;
 
-    public void IncreaseCapacity()
-    {
-        capacity++;
-    }
+    public void SetCapacity(int capacity) => this.capacity = capacity;
+
+    public virtual void IncreaseCapacity() => capacity++;
+    
 
     public virtual void ActivateVisuals()
     {

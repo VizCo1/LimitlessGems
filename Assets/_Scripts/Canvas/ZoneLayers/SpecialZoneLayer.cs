@@ -5,25 +5,26 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using BreakInfinity;
+using ZSerializer;
 
 public class SpecialZoneLayer : ZoneLayer
 {
-    [SerializeField] Button unlockButton;
-    [SerializeField] protected string unlockCost;
-    [SerializeField] protected TMP_Text unlockCostText;
+    [NonZSerialized][SerializeField] Button unlockButton; // no
+    [SerializeField] string unlockCost; // save
+    [NonZSerialized][SerializeField] protected TMP_Text unlockCostText; // no
 
     [Space]
 
-    [SerializeField] Button majorUpgradeButton;
-    [SerializeField] protected string majorUpgradeCost;
-    [SerializeField] protected TMP_Text majorUpgradeCostText;
+    [NonZSerialized][SerializeField] Button majorUpgradeButton; // no
+    [SerializeField] string majorUpgradeCost; // save
+    [NonZSerialized][SerializeField] protected TMP_Text majorUpgradeCostText; // no
 
     [Space]
 
-    public int mUpgradeTarget = 50;
-    [SerializeField] protected int requiredSpots = 5;
-    protected int initialRequiredSpots;
-    protected bool canMajorUpgrade = false;
+    public int mUpgradeTarget = 50; // save
+    [SerializeField] int requiredSpots = 5; // save
+    protected int initialRequiredSpots; // no
+    [HideInInspector][SerializeField] bool canMajorUpgrade = false; // save
 
     protected virtual void Awake()
     {
@@ -36,8 +37,17 @@ public class SpecialZoneLayer : ZoneLayer
         majorUpgradeCost = (BigDouble.Parse(majorUpgradeCost)).ToString("G1");
 
         unlockCostText.text = unlockCost;
-        majorUpgradeCostText.text = majorUpgradeCost;    
+        majorUpgradeCostText.text = majorUpgradeCost;
     }
+
+    /*public override void OnPostLoad()
+    {
+        unlockCost = (BigDouble.Parse(unlockCost)).ToString("G1");
+        majorUpgradeCost = (BigDouble.Parse(majorUpgradeCost)).ToString("G1");
+
+        unlockCostText.text = unlockCost;
+        majorUpgradeCostText.text = majorUpgradeCost;
+    }*/
 
     public override void CheckButtons()
     {

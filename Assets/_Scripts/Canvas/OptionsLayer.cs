@@ -4,29 +4,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using ZSerializer;
 
 public class OptionsLayer : Layer
 {
-    [SerializeField] Toggle music;
-    [SerializeField] Toggle sound;
+    [NonZSerialized][SerializeField] Toggle music;
+    [NonZSerialized][SerializeField] Toggle sound;
 
-    bool isMusicOn;
-    bool isSoundOn;
+    [HideInInspector][SerializeField] bool isMusicOn = true;
+    [HideInInspector][SerializeField] bool isSoundOn = true;
 
-    private void Awake()
+    public override void OnPostLoad()
     {
+        music.isOn = isMusicOn;
+        sound.isOn = isSoundOn;
         MusicToggle();
         SoundToggle();
     }
 
     private void SetSound()
     {
-        AudioController.SetSoundsAudio(isSoundOn);
+        AudioController.SetSoundsAudio(sound.isOn);
     }
 
     private void SetMusic()
     {
-        AudioController.SetMusicAudio(isMusicOn);
+        AudioController.SetMusicAudio(music.isOn);
     }
 
     public void MusicToggle()
@@ -40,4 +43,8 @@ public class OptionsLayer : Layer
         isSoundOn = sound.isOn;
         SetSound();
     }
+
+    //public void LoadGame() => ZSerialize.LoadScene();
+
+    public void SaveGame() => ZSerialize.SaveScene();
 }

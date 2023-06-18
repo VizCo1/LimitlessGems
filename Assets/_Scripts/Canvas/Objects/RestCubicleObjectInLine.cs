@@ -2,10 +2,11 @@ using BreakInfinity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ZSerializer;
 
 public class RestCubicleObjectInLine : ObjectInLine
 {
-    [SerializeField] RestLayer restLayer;
+    [NonZSerialized][SerializeField] RestLayer restLayer;
     [SerializeField] int keyLevel = 25;
     int initialKeyLevel;
 

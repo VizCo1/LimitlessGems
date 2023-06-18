@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ZSerializer;
 
 public class ParkingLayer : ZoneLayer
 {
-    [SerializeField] ParkingZone parkingZone;
+    [NonZSerialized][SerializeField] ParkingZone parkingZone;
 
     protected override void InitSpotsVariables()
     {

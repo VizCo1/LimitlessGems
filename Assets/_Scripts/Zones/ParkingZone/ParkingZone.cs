@@ -2,29 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using ZSerializer;
 
 public class ParkingZone : Zone
 {
-    [SerializeField] RoadZone roadZone;
+    [NonZSerialized][SerializeField] RoadZone roadZone;
     readonly Queue<ParkingSpot> freeSpots = new();
 
     SpecialParkingSpot specialParkingSpot;
-    public List<ParkingSpot> spots { get; private set; } = new();
+    [HideInInspector] public int specialCapacity;
+
+    public List<ParkingSpot> Spots { get; private set; } = new();
 
     private void Awake()
     {
-        maxActiveSpots = transform.GetChild(SLOTS_INDEX).childCount;
+        MaxActiveSpots = transform.GetChild(SLOTS_INDEX).childCount;
 
-        for (int i = 0; i < maxActiveSpots; i++)
-            spots.Add(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<ParkingSpot>());
+        for (int i = 0; i < MaxActiveSpots; i++)
+            Spots.Add(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<ParkingSpot>());
     }
 
     void Start()
     {
-        for (int i = 0; i < activeSpots; i++)
-            freeSpots.Enqueue(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<ParkingSpot>());
+        specialParkingSpot = Spots[Spots.Count - 1].GetComponent<SpecialParkingSpot>();
 
-        specialParkingSpot = spots[spots.Count - 1].GetComponent<SpecialParkingSpot>();
+        for (int i = 0; i < ActiveSpots; i++)
+        {
+            ParkingSpot parkingSpot = transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<ParkingSpot>();
+
+            parkingSpot.ActivateVisuals();
+            freeSpots.Enqueue(parkingSpot);
+        }
+
+        if (specialParkingSpot.gameObject.activeSelf)
+        {
+            specialParkingSpot.SetCapacity(specialCapacity);
+            specialParkingSpot.UpdateVisuals(freeSpots.Count);
+        }
     }
 
     /*private void Update()
@@ -39,9 +53,9 @@ public class ParkingZone : Zone
     {
         ParkingSpot parkingSpot;
         // valor maximo -> activeSpots = maxActiveSpots - 1
-        if (activeSpots == maxActiveSpots)
+        if (ActiveSpots == MaxActiveSpots)
         {
-            parkingSpot = spots[activeSpots - 1];
+            parkingSpot = Spots[ActiveSpots - 1];
             parkingSpot.IncreaseCapacity();
 
             if (!freeSpots.Contains(parkingSpot))
@@ -58,7 +72,7 @@ public class ParkingZone : Zone
         }
         else
         {
-            ParkingSpot newSlot = spots[activeSpots++];
+            ParkingSpot newSlot = Spots[ActiveSpots++];
             newSlot.gameObject.SetActive(true);
 
             parkingSpot = newSlot.GetComponent<ParkingSpot>();

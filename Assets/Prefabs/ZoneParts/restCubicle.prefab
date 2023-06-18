@@ -353,7 +353,6 @@ MonoBehaviour:
   audioSource: {fileID: 4281808053487802432}
   zoneManager: {fileID: 0}
   nextSpotDelay: 0
-  door: {fileID: 0}
 --- !u!82 &4281808053487802432
 AudioSource:
   m_ObjectHideFlags: 0

@@ -2,14 +2,15 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ZSerializer;
 
-public class QueueFlow : MonoBehaviour
+public class QueueFlow : PersistentMonoBehaviour
 {
     [SerializeField] protected CircleCanvas circleCanvas;
     [SerializeField] protected GameObject[] visuals;
     [SerializeField] protected Transform exitSpot;
-    public AudioSource audioSource;
-    protected int visualIndex = 0;
+    [NonZSerialized] public AudioSource audioSource;
+    [SerializeField] [HideInInspector] int visualIndex = 0;
     protected CustomQueue customQueue;
 
     protected bool placeOccupied = false;
@@ -18,6 +19,20 @@ public class QueueFlow : MonoBehaviour
     {
         customQueue = GetComponent<CustomQueue>();
     }
+
+   /* protected virtual void Start()
+    {
+        visuals[0].SetActive(false);
+        visuals[visualIndex].SetActive(true);
+    }*/
+
+    public override void OnPostLoad()
+    {
+        visuals[0].SetActive(false);
+        visuals[visualIndex].SetActive(true);
+    }
+
+    protected int VisualIndex() => visualIndex;
 
     protected virtual void Update()
     {

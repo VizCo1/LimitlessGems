@@ -9,14 +9,23 @@ public class RestZone : QueueZone
     protected override void Awake()
     {
         base.Awake();
-        for (int i = 0; i < maxActiveSpots; i++)
+        for (int i = 0; i < MaxActiveSpots; i++)
             cubicles.Add(transform.GetChild(SLOTS_INDEX).GetChild(i).GetComponent<CustomQueue>());
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < ActiveSpots; i++)
+        {
+            GameObject restCubicle = transform.GetChild(SLOTS_INDEX).GetChild(i).gameObject;
+            restCubicle.SetActive(true);
+        }
     }
 
     public override void AddQueue()
     {
         // To add a new queue use AddQueue()
-        CustomQueue newSlot = cubicles[activeSpots++];
+        CustomQueue newSlot = cubicles[ActiveSpots++];
         newSlot.gameObject.SetActive(true);
         priorityQueue.Enqueue(newSlot, 0);
     }

@@ -1,20 +1,30 @@
 using DG.Tweening;
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using ZSerializer;
 
-public class WorkTable : MonoBehaviour
+public class WorkTable : PersistentMonoBehaviour
 {
-    [SerializeField] WorkZone zoneManager;
-    [SerializeField] CircleCanvas circleCanvas;
-    [SerializeField] Worker worker;
-    [SerializeField] GameObject[] visuals;
-    public AudioSource audioSource;
-    int visualIndex = 0;
+    [NonZSerialized][SerializeField] WorkZone zoneManager;
+    [NonZSerialized][SerializeField] CircleCanvas circleCanvas;
+    [NonZSerialized][SerializeField] Worker worker;
+    [NonZSerialized][SerializeField] GameObject[] visuals;
+    [NonZSerialized] public AudioSource audioSource;
 
-    float productionTime = 12f;
+    [HideInInspector][SerializeField] int visualIndex = 0;
+    [HideInInspector][SerializeField] float productionTime = 12f;
+    
     float percentage = 0.02f;
+
+    /*private void Start()
+    {
+        visuals[0].SetActive(false);
+        visuals[visualIndex].SetActive(true);
+    }*/
+    public override void OnPostLoad()
+    {
+        visuals[0].SetActive(false);
+        visuals[visualIndex].SetActive(true);
+    }
 
     Sequence CreateGemSequence()
     {
