@@ -6,10 +6,6 @@ The game serves as a prototype of an idle game, therefore the main focus is to a
 
 TRAILER: https://www.youtube.com/watch?v=wDcoHXXg3VE
 
-```diff
-- Furthermore, it will be updated with a saving system and an improved UI/UX.
-```
-
 <img src="https://github.com/VizCo1/LimitlessGems/blob/main/image_002%20(1).jpg" width="281" height="500" /> <img src="https://github.com/VizCo1/LimitlessGems/blob/main/image_010.jpg" width="281" height="500" />
 
 
